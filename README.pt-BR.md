@@ -1,3 +1,5 @@
+> **Cine60** é um fork do [Refrata](https://github.com/LucsLabsStudios/refrata), de LucsLabs Studios, distribuído sob a mesma licença GPL-3.0. Acrescenta o painel Picture no player (movimento suave a 60 fps, realce de detalhes e de luz, predefinições), correções de imagem escura em telas com HDR do Windows e dos controles que não sumiam. O texto abaixo é o README original do Refrata.
+
 <div align="center">
 
 <img src="src/refrata/resources/brand/icon-256.png" alt="Refrata" width="112" height="112">
