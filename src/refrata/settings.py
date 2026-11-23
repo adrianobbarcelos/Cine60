@@ -1,4 +1,4 @@
-"""Persistent JSON settings + watch history (stored in %LOCALAPPDATA%\\Refrata)."""
+"""Persistent JSON settings + watch history (stored in %LOCALAPPDATA%\\Cine60)."""
 import json
 import os
 import time
@@ -7,17 +7,17 @@ from pathlib import Path
 from PySide6.QtCore import Property, QAbstractListModel, QModelIndex, QObject, Qt, QTimer, QUrl, Signal, Slot
 
 _LOCAL = Path(os.environ.get("LOCALAPPDATA", Path.home()))
-DATA_DIR = Path(os.environ.get("REFRATA_DATA") or _LOCAL / "Refrata")
-LEGACY_DIR = _LOCAL / "BestVLC"  # the app was called Best VLC before 1.0.0 shipped
+DATA_DIR = Path(os.environ.get("REFRATA_DATA") or _LOCAL / "Cine60")
+LEGACY_DIR = _LOCAL / "Refrata"  # Cine60 is a fork of Refrata: its first start takes the Refrata settings
 
 
 def _migrate_legacy():
-    """Carry settings, history and the library cache over from the Best VLC data folder, once."""
+    """Carry settings, history and the library cache over from the Refrata data folder, once."""
     if os.environ.get("REFRATA_DATA") or DATA_DIR.exists() or not LEGACY_DIR.is_dir():
         return
     import shutil
     try:
-        shutil.copytree(LEGACY_DIR, DATA_DIR, ignore=shutil.ignore_patterns("*.log"))
+        shutil.copytree(LEGACY_DIR, DATA_DIR, ignore=shutil.ignore_patterns("*.log", "*.lock", "updates"))
     except OSError:
         shutil.rmtree(DATA_DIR, ignore_errors=True)  # start clean rather than half-copied
 
@@ -33,7 +33,7 @@ DEFAULTS = {
     "hwdec": True,
     "volume": 80,
     "folders": [str(Path.home() / "Videos"), str(Path.home() / "Music")],
-    "snapshotDir": str(Path.home() / "Pictures" / "Refrata"),
+    "snapshotDir": str(Path.home() / "Pictures" / "Cine60"),
     "quickLook": True,        # Space preview in Explorer
     "background": False,      # close to the tray
     "language": "auto",       # auto (Windows language) or a code from refrata/i18n.py
@@ -41,7 +41,15 @@ DEFAULTS = {
     "smoothMotion": "off",    # in-between frames (ui/VideoPipeline.qml): off | 60 | 120 | max (display rate)
     "lightBoost": 0,          # 0..100: local brightening of dark areas, an "HDR look" on SDR video
     "detailBoost": 0,         # 0..100: adaptive sharpening
-    "hdrOutput": "auto",      # auto: real HDR on a screen with Windows HDR on (refrata/hdroutput.py) | off
+    # the player's Picture panel (ui/PlayerView.qml): the user's own presets, and the strength
+    # each switch goes back to when turned on again
+    "picturePresets": [],     # [{name, motion, light, detail}]
+    "smoothMotionLast": "60",
+    "lightBoostLast": 30,
+    "detailBoostLast": 40,
+    # off by default: with Windows HDR on, Qt picks its *_linear video shaders for the scRGB swapchain
+    # and ui/shaders/hdrlayer.frag decodes sRGB again: SDR video came out dark, crushed blacks
+    "hdrOutput": "off",       # auto: real HDR on a screen with Windows HDR on (refrata/hdroutput.py) | off
     "hdrDynamic": True,       # HDR10: tone map each scene by its measured brightness (shaders/peak.frag)
     "bookmarks": {},          # path -> [ms, ...]: marked points (refrata/tools.py)
     "skipMarks": {},          # folder -> {"intro": ms, "outro": ms}: openings/endings to skip (tools.py)
@@ -77,7 +85,11 @@ def _valid(key, v) -> bool:
         return isinstance(v, dict) and all(isinstance(k, str) and isinstance(x, list) for k, x in v.items())
     if key == "skipMarks":
         return isinstance(v, dict) and all(isinstance(k, str) and isinstance(x, dict) for k, x in v.items())
-    if key in ("lightBoost", "detailBoost"):
+    if key == "smoothMotionLast":
+        return v in ("60", "120", "max")
+    if key == "picturePresets":
+        return isinstance(v, list) and all(isinstance(x, dict) and isinstance(x.get("name"), str) for x in v)
+    if key in ("lightBoost", "detailBoost", "lightBoostLast", "detailBoostLast"):
         return isinstance(v, int) and not isinstance(v, bool) and 0 <= v <= 100
     if key == "folders":
         return isinstance(v, list) and all(isinstance(x, str) for x in v)

@@ -1,7 +1,7 @@
 import QtQuick
 import QtMultimedia
 
-// The video picture, with the GPU work Refrata adds on top of libVLC (shaders in ui/shaders):
+// The video picture, with the GPU work Cine60 adds on top of libVLC (shaders in ui/shaders):
 //
 //  - smooth motion: in-between pictures at the display's own refresh rate (60, 120, 144, 240 Hz...),
 //    from a motion field searched on the GPU, coarse to fine: blocks of 64, 32, 16 and 8 pixels,
@@ -150,7 +150,10 @@ Item {
         if (phaseOverride >= 0) { phase = phaseOverride; return }
         if (!interpolating) { phase = 1; return }
         var p = (now() - _arrival) / interval
-        if (maxFps > 0) {
+        // a cap at or above the screen's own rate caps nothing (the screen shows one picture per
+        // refresh anyway): quantizing then only made two refreshes land on the same step, the same
+        // picture twice (measured: 60 on a 60 Hz screen gave ~34 new pictures a second, "max" ~45)
+        if (maxFps > 0 && maxFps < displayHz * 0.95) {
             // cap: whole steps of the chosen rate within each source frame
             var steps = Math.max(1, Math.round(interval * maxFps / 1000))
             p = Math.floor(p * steps) / steps
