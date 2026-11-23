@@ -124,9 +124,12 @@ public:
             (s ? pairB : pairA)->setVideoFrame(f);
             slot = s ^ 1;
             recent[recentCount++ % 32] = s;
-            if (pipeline)
-                QMetaObject::invokeMethod(pipeline.data(), "frameArrived", Q_ARG(QVariant, QVariant(s)),
-                                          Q_ARG(QVariant, QVariant(ms)));
+            if (pipeline) {
+                // the stamp as a property, the call with one argument: a second QVariant argument
+                // never reached the QML function (frameArrived was not called at all)
+                pipeline->setProperty("frameStamp", ms);
+                QMetaObject::invokeMethod(pipeline.data(), "frameArrived", Q_ARG(QVariant, QVariant(s)));
+            }
         }
         for (auto &k : sinks)
             if (k && k != pairA && k != pairB)
@@ -224,9 +227,10 @@ void rv_set_pair(void *r, void *a, void *b, void *pipeline) {
         rt->pairA->setVideoFrame(rt->last);
         rt->pairB->setVideoFrame(rt->last);
         rt->slot = 1;
-        if (rt->pipeline)
-            QMetaObject::invokeMethod(rt->pipeline.data(), "frameArrived", Q_ARG(QVariant, QVariant(0)),
-                                      Q_ARG(QVariant, QVariant(double(QDateTime::currentMSecsSinceEpoch()))));
+        if (rt->pipeline) {
+            rt->pipeline->setProperty("frameStamp", double(QDateTime::currentMSecsSinceEpoch()));
+            QMetaObject::invokeMethod(rt->pipeline.data(), "frameArrived", Q_ARG(QVariant, QVariant(0)));
+        }
     }
 }
 

@@ -121,11 +121,15 @@ Item {
 
     function now() { return Date.now() }
 
-    // the engine put a new frame in voB (slot 1) or voA (slot 0). `stamp`: when libVLC displayed it
-    // (ms, Date.now()'s clock), from the native path; the UI thread only gets to it when it is free
-    // (once per refresh, often later), and timing in-betweens by that moment made them jitter and
-    // run out (the same picture twice) while the next frame was already decoded
-    function frameArrived(slot, stamp) {
+    // when libVLC displayed the frame being handed over (ms, Date.now()'s clock): set by the native
+    // path just before frameArrived. The UI thread only gets to a frame when it is free (once per
+    // refresh, often later); timing in-betweens by that moment made them jitter and run out (the
+    // same picture twice) while the next frame was already decoded. 0: the Python path, no stamp.
+    property real frameStamp: 0
+    // the engine put a new frame in voB (slot 1) or voA (slot 0)
+    function frameArrived(slot) {
+        var stamp = frameStamp
+        frameStamp = 0
         var t = stamp > 0 ? Math.min(stamp, now()) : now()
         var gap = t - _lastRaw
         _lastRaw = t
