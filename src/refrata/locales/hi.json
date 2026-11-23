@@ -180,14 +180,10 @@
   "Avançar um quadro": "एक फ़्रेम आगे",
   "Repetir um trecho (A-B)": "एक हिस्सा दोहराएँ (A-B)",
   "Abrir stream de rede": "नेटवर्क स्ट्रीम खोलें",
-  "apresenta": "प्रस्तुत करता है",
-  "Todo o motor do VLC, <font color='#FF9A5C'>refratado</font> numa experiência nova.": "VLC का पूरा इंजन, एक नए अनुभव में <font color='#FF9A5C'>अपवर्तित</font>।",
   "embutido": "बिल्ट-इन",
   "do sistema": "सिस्टम का",
-  "Falar com a LucsLabs": "LucsLabs से संपर्क करें",
   "Código-fonte": "सोर्स कोड",
   "Definir como player padrão": "डिफ़ॉल्ट प्लेयर बनाएँ",
-  "Software livre (GPL 3.0) construído sobre o libVLC da VideoLAN (LGPL 2.1+). VLC é marca da VideoLAN; este é um projeto independente.": "VideoLAN के libVLC (LGPL 2.1+) पर बना फ़्री सॉफ़्टवेयर (GPL 3.0)। VLC, VideoLAN का ट्रेडमार्क है; यह एक स्वतंत्र प्रोजेक्ट है।",
   "Início": "होम",
   "Vídeos": "वीडियो",
   "Streams de rede": "नेटवर्क स्ट्रीम",
@@ -532,5 +528,8 @@
   "%1 → %2 quadros por segundo.": "%1 → %2 फ़्रेम प्रति सेकंड।",
   "Começa quando o vídeo tocar.": "वीडियो चलने पर शुरू होगा।",
   "Sem efeito neste vídeo: ele já é rápido o bastante para a tela.": "इस वीडियो पर कोई असर नहीं: यह स्क्रीन के लिए पहले से काफ़ी तेज़ है।",
-  "G abre este painel · V liga/desliga o movimento suave · Shift+V troca a predefinição.": "G यह पैनल खोलता है · V स्मूद मोशन चालू/बंद करता है · Shift+V प्रीसेट बदलता है।"
+  "G abre este painel · V liga/desliga o movimento suave · Shift+V troca a predefinição.": "G यह पैनल खोलता है · V स्मूद मोशन चालू/बंद करता है · Shift+V प्रीसेट बदलता है।",
+  "Todo o motor do VLC, agora a <font color='#38BDF8'>60 quadros por segundo</font>.": "पूरा VLC इंजन, अब <font color='#38BDF8'>60 फ़्रेम प्रति सेकंड</font> पर।",
+  "Relatar um problema": "समस्या की रिपोर्ट करें",
+  "Software livre (GPL 3.0), um fork do Refrata (LucsLabs Studios), construído sobre o libVLC da VideoLAN (LGPL 2.1+). VLC é marca da VideoLAN; este é um projeto independente.": "मुक्त सॉफ़्टवेयर (GPL 3.0), Refrata (LucsLabs Studios) का फ़ोर्क, VideoLAN के libVLC (LGPL 2.1+) पर बना। VLC, VideoLAN का ट्रेडमार्क है; यह एक स्वतंत्र प्रोजेक्ट है।"
 }

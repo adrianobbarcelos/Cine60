@@ -180,14 +180,10 @@
   "Avançar um quadro": "Maju satu bingkai",
   "Repetir um trecho (A-B)": "Ulangi bagian (A-B)",
   "Abrir stream de rede": "Buka stream jaringan",
-  "apresenta": "mempersembahkan",
-  "Todo o motor do VLC, <font color='#FF9A5C'>refratado</font> numa experiência nova.": "Seluruh mesin VLC, <font color='#FF9A5C'>dibiaskan</font> menjadi pengalaman baru.",
   "embutido": "bawaan",
   "do sistema": "dari sistem",
-  "Falar com a LucsLabs": "Hubungi LucsLabs",
   "Código-fonte": "Kode sumber",
   "Definir como player padrão": "Jadikan pemutar default",
-  "Software livre (GPL 3.0) construído sobre o libVLC da VideoLAN (LGPL 2.1+). VLC é marca da VideoLAN; este é um projeto independente.": "Perangkat lunak bebas (GPL 3.0) yang dibangun di atas libVLC dari VideoLAN (LGPL 2.1+). VLC adalah merek dagang VideoLAN; ini proyek independen.",
   "Início": "Beranda",
   "Vídeos": "Video",
   "Streams de rede": "Stream jaringan",
@@ -532,5 +528,8 @@
   "%1 → %2 quadros por segundo.": "%1 → %2 bingkai per detik.",
   "Começa quando o vídeo tocar.": "Mulai saat video diputar.",
   "Sem efeito neste vídeo: ele já é rápido o bastante para a tela.": "Tidak berpengaruh pada video ini: sudah cukup cepat untuk layar.",
-  "G abre este painel · V liga/desliga o movimento suave · Shift+V troca a predefinição.": "G membuka panel ini · V menyalakan/mematikan gerakan halus · Shift+V mengganti preset."
+  "G abre este painel · V liga/desliga o movimento suave · Shift+V troca a predefinição.": "G membuka panel ini · V menyalakan/mematikan gerakan halus · Shift+V mengganti preset.",
+  "Todo o motor do VLC, agora a <font color='#38BDF8'>60 quadros por segundo</font>.": "Seluruh mesin VLC, kini pada <font color='#38BDF8'>60 bingkai per detik</font>.",
+  "Relatar um problema": "Laporkan masalah",
+  "Software livre (GPL 3.0), um fork do Refrata (LucsLabs Studios), construído sobre o libVLC da VideoLAN (LGPL 2.1+). VLC é marca da VideoLAN; este é um projeto independente.": "Perangkat lunak bebas (GPL 3.0), fork dari Refrata (LucsLabs Studios), dibangun di atas libVLC dari VideoLAN (LGPL 2.1+). VLC adalah merek dagang VideoLAN; ini proyek independen."
 }

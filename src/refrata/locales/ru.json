@@ -180,14 +180,10 @@
   "Avançar um quadro": "Следующий кадр",
   "Repetir um trecho (A-B)": "Повтор фрагмента (A-B)",
   "Abrir stream de rede": "Открыть сетевой поток",
-  "apresenta": "представляет",
-  "Todo o motor do VLC, <font color='#FF9A5C'>refratado</font> numa experiência nova.": "Вся мощь движка VLC, <font color='#FF9A5C'>преломлённая</font> в новом опыте.",
   "embutido": "встроенный",
   "do sistema": "системный",
-  "Falar com a LucsLabs": "Написать в LucsLabs",
   "Código-fonte": "Исходный код",
   "Definir como player padrão": "Сделать плеером по умолчанию",
-  "Software livre (GPL 3.0) construído sobre o libVLC da VideoLAN (LGPL 2.1+). VLC é marca da VideoLAN; este é um projeto independente.": "Свободное ПО (GPL 3.0) на основе libVLC от VideoLAN (LGPL 2.1+). VLC — товарный знак VideoLAN; это независимый проект.",
   "Início": "Главная",
   "Vídeos": "Видео",
   "Streams de rede": "Сетевые потоки",
@@ -532,5 +528,8 @@
   "%1 → %2 quadros por segundo.": "%1 → %2 кадров в секунду.",
   "Começa quando o vídeo tocar.": "Начнётся, когда видео заиграет.",
   "Sem efeito neste vídeo: ele já é rápido o bastante para a tela.": "Не действует на это видео: оно и так достаточно быстрое для экрана.",
-  "G abre este painel · V liga/desliga o movimento suave · Shift+V troca a predefinição.": "G открывает эту панель · V включает/выключает плавное движение · Shift+V меняет набор."
+  "G abre este painel · V liga/desliga o movimento suave · Shift+V troca a predefinição.": "G открывает эту панель · V включает/выключает плавное движение · Shift+V меняет набор.",
+  "Todo o motor do VLC, agora a <font color='#38BDF8'>60 quadros por segundo</font>.": "Весь движок VLC, теперь с частотой <font color='#38BDF8'>60 кадров в секунду</font>.",
+  "Relatar um problema": "Сообщить о проблеме",
+  "Software livre (GPL 3.0), um fork do Refrata (LucsLabs Studios), construído sobre o libVLC da VideoLAN (LGPL 2.1+). VLC é marca da VideoLAN; este é um projeto independente.": "Свободное ПО (GPL 3.0), форк Refrata (LucsLabs Studios), построенный на libVLC от VideoLAN (LGPL 2.1+). VLC — товарный знак VideoLAN; это независимый проект."
 }

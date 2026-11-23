@@ -1,4 +1,4 @@
-﻿; Cine60 installer — LucsLabs Studios
+﻿; Cine60 installer (fork of Refrata, LucsLabs Studios)
 ; Built by tools/build.py:  ISCC /DAppVersion=x.y.z /DRoot=<repo> packaging\windows\installer\Cine60.iss
 #ifndef AppVersion
   #define AppVersion "0.0.0"
@@ -152,7 +152,7 @@ Root: HKA; Subkey: "Software\Classes\{#ProgId}\shell\open\command"; ValueType: s
 Root: HKA; Subkey: "Software\Classes\Applications\{#AppExe}"; ValueType: string; ValueName: "FriendlyAppName"; ValueData: "{#AppName}"; Flags: uninsdeletekey; Tasks: assoc
 Root: HKA; Subkey: "Software\Classes\Applications\{#AppExe}\shell\open\command"; ValueType: string; ValueData: """{app}\{#AppExe}"" ""%1"""; Tasks: assoc
 ; Default Apps (Settings › Apps › Apps padrão)
-Root: HKA; Subkey: "Software\LucsLabs Studios"; Flags: uninsdeletekeyifempty; Tasks: assoc
+Root: HKA; Subkey: "Software\Cine60"; Flags: uninsdeletekeyifempty; Tasks: assoc
 Root: HKA; Subkey: "Software\Cine60"; Flags: uninsdeletekeyifempty; Tasks: assoc
 Root: HKA; Subkey: "{#CapKey}"; ValueType: string; ValueName: "ApplicationName"; ValueData: "{#AppName}"; Flags: uninsdeletekey; Tasks: assoc
 Root: HKA; Subkey: "{#CapKey}"; ValueType: string; ValueName: "ApplicationDescription"; ValueData: "Player moderno sobre o motor do VLC, da {#Studio}"; Tasks: assoc

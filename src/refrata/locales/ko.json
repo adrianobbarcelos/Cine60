@@ -180,14 +180,10 @@
   "Avançar um quadro": "한 프레임 앞으로",
   "Repetir um trecho (A-B)": "구간 반복 (A-B)",
   "Abrir stream de rede": "네트워크 스트림 열기",
-  "apresenta": "presents",
-  "Todo o motor do VLC, <font color='#FF9A5C'>refratado</font> numa experiência nova.": "VLC 엔진의 모든 것을 새로운 경험으로 <font color='#FF9A5C'>굴절</font>시키다.",
   "embutido": "내장",
   "do sistema": "시스템",
-  "Falar com a LucsLabs": "LucsLabs에 문의",
   "Código-fonte": "소스 코드",
   "Definir como player padrão": "기본 플레이어로 설정",
-  "Software livre (GPL 3.0) construído sobre o libVLC da VideoLAN (LGPL 2.1+). VLC é marca da VideoLAN; este é um projeto independente.": "VideoLAN의 libVLC(LGPL 2.1+)를 기반으로 만든 자유 소프트웨어(GPL 3.0)예요. VLC는 VideoLAN의 상표이며, 이 프로젝트는 독립 프로젝트예요.",
   "Início": "홈",
   "Vídeos": "동영상",
   "Streams de rede": "네트워크 스트림",
@@ -532,5 +528,8 @@
   "%1 → %2 quadros por segundo.": "%1 → 초당 %2프레임.",
   "Começa quando o vídeo tocar.": "동영상이 재생되면 시작됩니다.",
   "Sem efeito neste vídeo: ele já é rápido o bastante para a tela.": "이 동영상에는 효과 없음: 이미 화면에 충분히 빠릅니다.",
-  "G abre este painel · V liga/desliga o movimento suave · Shift+V troca a predefinição.": "G: 이 패널 열기 · V: 부드러운 움직임 켜기/끄기 · Shift+V: 프리셋 바꾸기"
+  "G abre este painel · V liga/desliga o movimento suave · Shift+V troca a predefinição.": "G: 이 패널 열기 · V: 부드러운 움직임 켜기/끄기 · Shift+V: 프리셋 바꾸기",
+  "Todo o motor do VLC, agora a <font color='#38BDF8'>60 quadros por segundo</font>.": "VLC 엔진 전체를 이제 <font color='#38BDF8'>초당 60프레임</font>으로.",
+  "Relatar um problema": "문제 신고",
+  "Software livre (GPL 3.0), um fork do Refrata (LucsLabs Studios), construído sobre o libVLC da VideoLAN (LGPL 2.1+). VLC é marca da VideoLAN; este é um projeto independente.": "자유 소프트웨어(GPL 3.0)로, Refrata(LucsLabs Studios)의 포크이며 VideoLAN의 libVLC(LGPL 2.1+) 기반입니다. VLC는 VideoLAN의 상표이며, 이 프로젝트는 독립 프로젝트입니다."
 }

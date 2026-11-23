@@ -1,10 +1,13 @@
-﻿Refrata — © LucsLabs Studios
+﻿Cine60
 
-O Refrata é software livre: você pode redistribuí-lo e modificá-lo sob os termos da GNU General
+O Cine60 é software livre: você pode redistribuí-lo e modificá-lo sob os termos da GNU General
 Public License, versão 3 (GPL-3.0). O texto completo está em LICENSE.txt, na pasta de instalação.
-Código-fonte: https://github.com/LucsLabsStudios/refrata
+Código-fonte: https://github.com/adrianobbarcelos/Cine60
 
-O Refrata é uma interface independente construída sobre o libVLC, o motor de reprodução
+O Cine60 é um fork do Refrata, © LucsLabs Studios, também GPL-3.0:
+https://github.com/LucsLabsStudios/refrata
+
+O Cine60 é uma interface independente construída sobre o libVLC, o motor de reprodução
 do VLC media player, desenvolvido pela VideoLAN.
 
 Componentes de terceiros incluídos neste instalador, redistribuídos sem modificação:

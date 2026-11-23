@@ -30,7 +30,7 @@ Item {
         scale: lma.pressed ? 0.92 : (lma.containsMouse ? 1.06 : 1)
         Behavior on scale { NumberAnimation { duration: 160; easing.type: Easing.OutCubic } }
         MouseArea { id: lma; anchors.fill: parent; hoverEnabled: true; cursorShape: Qt.PointingHandCursor; onClicked: root.aboutRequested() }
-        Tip { text: "Cine60 · LucsLabs Studios"; shown: lma.containsMouse; anchors.horizontalCenter: undefined; x: parent.width + 14; y: (parent.height - height) / 2 }
+        Tip { text: "Cine60 · baseado no Refrata"; shown: lma.containsMouse; anchors.horizontalCenter: undefined; x: parent.width + 14; y: (parent.height - height) / 2 }
     }
 
     Rectangle {

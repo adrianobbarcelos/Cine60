@@ -180,14 +180,10 @@
   "Avançar um quadro": "Fotogramma successivo",
   "Repetir um trecho (A-B)": "Ripeti un tratto (A-B)",
   "Abrir stream de rede": "Apri stream di rete",
-  "apresenta": "presenta",
-  "Todo o motor do VLC, <font color='#FF9A5C'>refratado</font> numa experiência nova.": "Tutto il motore di VLC, <font color='#FF9A5C'>rifratto</font> in un’esperienza nuova.",
   "embutido": "integrato",
   "do sistema": "di sistema",
-  "Falar com a LucsLabs": "Contatta LucsLabs",
   "Código-fonte": "Codice sorgente",
   "Definir como player padrão": "Imposta come player predefinito",
-  "Software livre (GPL 3.0) construído sobre o libVLC da VideoLAN (LGPL 2.1+). VLC é marca da VideoLAN; este é um projeto independente.": "Software libero (GPL 3.0) basato su libVLC di VideoLAN (LGPL 2.1+). VLC è un marchio di VideoLAN; questo è un progetto indipendente.",
   "Início": "Home",
   "Vídeos": "Video",
   "Streams de rede": "Stream di rete",
@@ -532,5 +528,8 @@
   "%1 → %2 quadros por segundo.": "%1 → %2 fotogrammi al secondo.",
   "Começa quando o vídeo tocar.": "Parte quando il video è in riproduzione.",
   "Sem efeito neste vídeo: ele já é rápido o bastante para a tela.": "Nessun effetto su questo video: è già abbastanza veloce per lo schermo.",
-  "G abre este painel · V liga/desliga o movimento suave · Shift+V troca a predefinição.": "G apre questo pannello · V attiva/disattiva il movimento fluido · Maiusc+V cambia preimpostazione."
+  "G abre este painel · V liga/desliga o movimento suave · Shift+V troca a predefinição.": "G apre questo pannello · V attiva/disattiva il movimento fluido · Maiusc+V cambia preimpostazione.",
+  "Todo o motor do VLC, agora a <font color='#38BDF8'>60 quadros por segundo</font>.": "Tutto il motore di VLC, ora a <font color='#38BDF8'>60 fotogrammi al secondo</font>.",
+  "Relatar um problema": "Segnala un problema",
+  "Software livre (GPL 3.0), um fork do Refrata (LucsLabs Studios), construído sobre o libVLC da VideoLAN (LGPL 2.1+). VLC é marca da VideoLAN; este é um projeto independente.": "Software libero (GPL 3.0), un fork di Refrata (LucsLabs Studios), basato su libVLC di VideoLAN (LGPL 2.1+). VLC è un marchio di VideoLAN; questo è un progetto indipendente."
 }

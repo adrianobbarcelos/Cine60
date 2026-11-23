@@ -573,8 +573,8 @@ Flickable {
                     Column {
                         anchors.verticalCenter: parent.verticalCenter
                         spacing: 2
-                        Text { text: "LUCSLABS STUDIOS"; color: "#FFB36B"; font.pixelSize: 12; font.weight: Font.Bold; font.letterSpacing: 2.4 }
-                        Text { text: qsTr("apresenta"); color: Qt.rgba(1, 1, 1, 0.55); font.pixelSize: 12 }
+                        Text { text: "FORK DO REFRATA"; color: "#7DD3FC"; font.pixelSize: 12; font.weight: Font.Bold; font.letterSpacing: 2.4 }
+                        Text { text: "LucsLabs Studios · GPL-3.0"; color: Qt.rgba(1, 1, 1, 0.55); font.pixelSize: 12 }
                     }
                 }
                 Text {
@@ -586,7 +586,7 @@ Flickable {
                 Text {
                     width: parent.width
                     textFormat: Text.StyledText
-                    text: qsTr("Todo o motor do VLC, <font color='#FF9A5C'>refratado</font> numa experiência nova.")
+                    text: qsTr("Todo o motor do VLC, agora a <font color='#38BDF8'>60 quadros por segundo</font>.")
                     color: Qt.rgba(1, 1, 1, 0.86)
                     font.family: theme.displayFont; font.pixelSize: 22; font.weight: Font.Normal
                     wrapMode: Text.WordWrap
@@ -617,13 +617,13 @@ Flickable {
                     topPadding: 10
                     PillButton {
                         objectName: "aboutContact"
-                        text: qsTr("Falar com a LucsLabs"); icon: "mail"; variant: "glass"
-                        onClicked: appctl.openExternal("mailto:" + (appctl.about.contact || ""))
+                        text: qsTr("Relatar um problema"); icon: "mail"; variant: "glass"
+                        onClicked: appctl.openExternal("https://github.com/adrianobbarcelos/Cine60/issues")
                     }
                     PillButton {
                         objectName: "aboutSource"
                         text: qsTr("Código-fonte"); icon: "link"; variant: "glass"
-                        onClicked: appctl.openExternal("https://github.com/LucsLabsStudios/refrata")
+                        onClicked: appctl.openExternal("https://github.com/adrianobbarcelos/Cine60")
                     }
                     PillButton {
                         objectName: "aboutDefaults"
@@ -639,7 +639,7 @@ Flickable {
                 anchors.bottom: parent.bottom; anchors.bottomMargin: 26
                 wrapMode: Text.WordWrap
                 color: Qt.rgba(1, 1, 1, 0.5); font.pixelSize: 12
-                text: qsTr("Software livre (GPL 3.0) construído sobre o libVLC da VideoLAN (LGPL 2.1+). VLC é marca da VideoLAN; este é um projeto independente.")
+                text: qsTr("Software livre (GPL 3.0), um fork do Refrata (LucsLabs Studios), construído sobre o libVLC da VideoLAN (LGPL 2.1+). VLC é marca da VideoLAN; este é um projeto independente.")
             }
         }
     }

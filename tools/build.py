@@ -101,11 +101,11 @@ VERSION_INFO = """VSVersionInfo(
   ffi=FixedFileInfo(filevers=({v}, 0), prodvers=({v}, 0), mask=0x3f, flags=0x0, OS=0x40004,
                     fileType=0x1, subtype=0x0, date=(0, 0)),
   kids=[StringFileInfo([StringTable('041604B0', [
-      StringStruct('CompanyName', 'LucsLabs Studios'),
+      StringStruct('CompanyName', 'Cine60'),
       StringStruct('FileDescription', 'Cine60'),
       StringStruct('FileVersion', '{dotted}'),
       StringStruct('InternalName', 'Cine60'),
-      StringStruct('LegalCopyright', '© LucsLabs Studios. libVLC © VideoLAN (LGPL 2.1+)'),
+      StringStruct('LegalCopyright', 'Cine60, fork do Refrata (© LucsLabs Studios), GPL-3.0. libVLC © VideoLAN (LGPL 2.1+)'),
       StringStruct('OriginalFilename', 'Cine60.exe'),
       StringStruct('ProductName', 'Cine60'),
       StringStruct('ProductVersion', '{dotted}')])]),
@@ -133,7 +133,7 @@ QML_QUICK_KEEP = {"Controls", "Dialogs", "Effects", "Shapes", "Window", "Layouts
 # also Qt 6's own default, so Qt finds it already set), long paths, Windows 10/11, comctl32 v6.
 EXE_MANIFEST = """<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <assembly xmlns="urn:schemas-microsoft-com:asm.v1" manifestVersion="1.0">
-  <assemblyIdentity type="win32" name="LucsLabsStudios.Cine60" version="1.0.0.0" processorArchitecture="amd64"/>
+  <assemblyIdentity type="win32" name="Cine60.App" version="1.0.0.0" processorArchitecture="amd64"/>
   <trustInfo xmlns="urn:schemas-microsoft-com:asm.v3">
     <security><requestedPrivileges><requestedExecutionLevel level="asInvoker" uiAccess="false"/></requestedPrivileges></security>
   </trustInfo>
@@ -318,8 +318,8 @@ def pyinstaller():
     shutil.copy2(VENDOR / "COPYING.txt", lic / "VLC-COPYING.txt")
     shutil.copy2(ROOT / "LICENSE", app / "LICENSE.txt")
     (lic / "README.txt").write_text(
-        "Cine60 © LucsLabs Studios, software livre sob a GNU GPL 3.0 (ver ..\\LICENSE.txt).\n"
-        "Código-fonte: https://github.com/LucsLabsStudios/refrata\n"
+        "Cine60, fork do Refrata (© LucsLabs Studios), software livre sob a GNU GPL 3.0 (ver ..\\LICENSE.txt).\n"
+        "Código-fonte: https://github.com/adrianobbarcelos/Cine60\n"
         "Inclui o libVLC e os módulos do VLC 3 (VideoLAN), distribuídos sob LGPL 2.1+ / GPL 2+ (ver VLC-COPYING.txt),\n"
         "e o Qt for Python (PySide6), sob LGPL 3. Os binários são redistribuídos sem modificação.\n", encoding="utf8")
     size = sum(p.stat().st_size for p in app.rglob("*") if p.is_file()) / 1e6

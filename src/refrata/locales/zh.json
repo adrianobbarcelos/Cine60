@@ -180,14 +180,10 @@
   "Avançar um quadro": "逐帧前进",
   "Repetir um trecho (A-B)": "片段循环 (A-B)",
   "Abrir stream de rede": "打开网络串流",
-  "apresenta": "出品",
-  "Todo o motor do VLC, <font color='#FF9A5C'>refratado</font> numa experiência nova.": "完整的 VLC 引擎，<font color='#FF9A5C'>折射</font>出全新体验。",
   "embutido": "内置",
   "do sistema": "系统",
-  "Falar com a LucsLabs": "联系 LucsLabs",
   "Código-fonte": "源代码",
   "Definir como player padrão": "设为默认播放器",
-  "Software livre (GPL 3.0) construído sobre o libVLC da VideoLAN (LGPL 2.1+). VLC é marca da VideoLAN; este é um projeto independente.": "基于 VideoLAN 的 libVLC（LGPL 2.1+）构建的自由软件（GPL 3.0）。VLC 是 VideoLAN 的商标；本项目为独立项目。",
   "Início": "首页",
   "Vídeos": "视频",
   "Streams de rede": "网络串流",
@@ -532,5 +528,8 @@
   "%1 → %2 quadros por segundo.": "%1 → 每秒 %2 帧。",
   "Começa quando o vídeo tocar.": "视频播放时开始。",
   "Sem efeito neste vídeo: ele já é rápido o bastante para a tela.": "对此视频无效：它对屏幕来说已经足够流畅。",
-  "G abre este painel · V liga/desliga o movimento suave · Shift+V troca a predefinição.": "G 打开此面板 · V 开关平滑运动 · Shift+V 切换预设。"
+  "G abre este painel · V liga/desliga o movimento suave · Shift+V troca a predefinição.": "G 打开此面板 · V 开关平滑运动 · Shift+V 切换预设。",
+  "Todo o motor do VLC, agora a <font color='#38BDF8'>60 quadros por segundo</font>.": "完整的 VLC 引擎，现在以<font color='#38BDF8'>每秒 60 帧</font>播放。",
+  "Relatar um problema": "报告问题",
+  "Software livre (GPL 3.0), um fork do Refrata (LucsLabs Studios), construído sobre o libVLC da VideoLAN (LGPL 2.1+). VLC é marca da VideoLAN; este é um projeto independente.": "自由软件（GPL 3.0），Refrata（LucsLabs Studios）的分支，基于 VideoLAN 的 libVLC（LGPL 2.1+）构建。VLC 是 VideoLAN 的商标；这是一个独立项目。"
 }

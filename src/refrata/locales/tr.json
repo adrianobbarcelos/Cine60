@@ -180,14 +180,10 @@
   "Avançar um quadro": "Bir kare ileri",
   "Repetir um trecho (A-B)": "Bölüm tekrarı (A-B)",
   "Abrir stream de rede": "Ağ yayını aç",
-  "apresenta": "sunar",
-  "Todo o motor do VLC, <font color='#FF9A5C'>refratado</font> numa experiência nova.": "VLC motorunun tamamı, yepyeni bir deneyimde <font color='#FF9A5C'>kırılıyor</font>.",
   "embutido": "yerleşik",
   "do sistema": "sistemdeki",
-  "Falar com a LucsLabs": "LucsLabs ile iletişime geç",
   "Código-fonte": "Kaynak kodu",
   "Definir como player padrão": "Varsayılan oynatıcı yap",
-  "Software livre (GPL 3.0) construído sobre o libVLC da VideoLAN (LGPL 2.1+). VLC é marca da VideoLAN; este é um projeto independente.": "VideoLAN’ın libVLC’si (LGPL 2.1+) üzerine kurulu özgür yazılım (GPL 3.0). VLC, VideoLAN’ın ticari markasıdır; bu bağımsız bir projedir.",
   "Início": "Ana sayfa",
   "Vídeos": "Videolar",
   "Streams de rede": "Ağ yayınları",
@@ -532,5 +528,8 @@
   "%1 → %2 quadros por segundo.": "%1 → saniyede %2 kare.",
   "Começa quando o vídeo tocar.": "Video oynatılınca başlar.",
   "Sem efeito neste vídeo: ele já é rápido o bastante para a tela.": "Bu videoda etkisi yok: ekran için zaten yeterince hızlı.",
-  "G abre este painel · V liga/desliga o movimento suave · Shift+V troca a predefinição.": "G bu paneli açar · V akıcı hareketi açar/kapatır · Shift+V ön ayarı değiştirir."
+  "G abre este painel · V liga/desliga o movimento suave · Shift+V troca a predefinição.": "G bu paneli açar · V akıcı hareketi açar/kapatır · Shift+V ön ayarı değiştirir.",
+  "Todo o motor do VLC, agora a <font color='#38BDF8'>60 quadros por segundo</font>.": "VLC motorunun tamamı, artık <font color='#38BDF8'>saniyede 60 karede</font>.",
+  "Relatar um problema": "Sorun bildir",
+  "Software livre (GPL 3.0), um fork do Refrata (LucsLabs Studios), construído sobre o libVLC da VideoLAN (LGPL 2.1+). VLC é marca da VideoLAN; este é um projeto independente.": "Özgür yazılım (GPL 3.0), Refrata'nın (LucsLabs Studios) bir çatalı, VideoLAN'ın libVLC'si (LGPL 2.1+) üzerine kurulu. VLC, VideoLAN'ın ticari markasıdır; bu bağımsız bir projedir."
 }

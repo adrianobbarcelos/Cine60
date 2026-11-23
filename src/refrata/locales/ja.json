@@ -180,14 +180,10 @@
   "Avançar um quadro": "1 コマ送り",
   "Repetir um trecho (A-B)": "区間リピート (A-B)",
   "Abrir stream de rede": "ネットワークストリームを開く",
-  "apresenta": "presents",
-  "Todo o motor do VLC, <font color='#FF9A5C'>refratado</font> numa experiência nova.": "VLC エンジンのすべてを、新しい体験へと<font color='#FF9A5C'>屈折</font>させて。",
   "embutido": "内蔵",
   "do sistema": "システム",
-  "Falar com a LucsLabs": "LucsLabs に問い合わせる",
   "Código-fonte": "ソースコード",
   "Definir como player padrão": "既定のプレーヤーに設定",
-  "Software livre (GPL 3.0) construído sobre o libVLC da VideoLAN (LGPL 2.1+). VLC é marca da VideoLAN; este é um projeto independente.": "VideoLAN の libVLC（LGPL 2.1+）をベースにしたフリーソフトウェア（GPL 3.0）です。VLC は VideoLAN の商標であり、本プロジェクトは独立したプロジェクトです。",
   "Início": "ホーム",
   "Vídeos": "動画",
   "Streams de rede": "ネットワークストリーム",
@@ -532,5 +528,8 @@
   "%1 → %2 quadros por segundo.": "%1 → 毎秒 %2 フレーム。",
   "Começa quando o vídeo tocar.": "動画が再生されると始まります。",
   "Sem efeito neste vídeo: ele já é rápido o bastante para a tela.": "この動画では効果なし: 画面に対して十分に滑らかです。",
-  "G abre este painel · V liga/desliga o movimento suave · Shift+V troca a predefinição.": "G でこのパネルを開く · V でスムーズモーションのオン/オフ · Shift+V でプリセットを切り替え。"
+  "G abre este painel · V liga/desliga o movimento suave · Shift+V troca a predefinição.": "G でこのパネルを開く · V でスムーズモーションのオン/オフ · Shift+V でプリセットを切り替え。",
+  "Todo o motor do VLC, agora a <font color='#38BDF8'>60 quadros por segundo</font>.": "VLC エンジンのすべてを、<font color='#38BDF8'>毎秒 60 フレーム</font>で。",
+  "Relatar um problema": "問題を報告",
+  "Software livre (GPL 3.0), um fork do Refrata (LucsLabs Studios), construído sobre o libVLC da VideoLAN (LGPL 2.1+). VLC é marca da VideoLAN; este é um projeto independente.": "フリーソフトウェア (GPL 3.0)。Refrata (LucsLabs Studios) のフォークで、VideoLAN の libVLC (LGPL 2.1+) 上に構築。VLC は VideoLAN の商標です。これは独立したプロジェクトです。"
 }

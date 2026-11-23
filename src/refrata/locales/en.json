@@ -180,14 +180,10 @@
   "Avançar um quadro": "Next frame",
   "Repetir um trecho (A-B)": "Loop a section (A-B)",
   "Abrir stream de rede": "Open network stream",
-  "apresenta": "presents",
-  "Todo o motor do VLC, <font color='#FF9A5C'>refratado</font> numa experiência nova.": "The whole VLC engine, <font color='#FF9A5C'>refracted</font> into something new.",
   "embutido": "bundled",
   "do sistema": "system",
-  "Falar com a LucsLabs": "Contact LucsLabs",
   "Código-fonte": "Source code",
   "Definir como player padrão": "Set as default player",
-  "Software livre (GPL 3.0) construído sobre o libVLC da VideoLAN (LGPL 2.1+). VLC é marca da VideoLAN; este é um projeto independente.": "Free software (GPL 3.0) built on VideoLAN’s libVLC (LGPL 2.1+). VLC is a trademark of VideoLAN; this is an independent project.",
   "Início": "Home",
   "Vídeos": "Videos",
   "Streams de rede": "Network streams",
@@ -532,5 +528,8 @@
   "%1 → %2 quadros por segundo.": "%1 → %2 frames per second.",
   "Começa quando o vídeo tocar.": "Starts when the video plays.",
   "Sem efeito neste vídeo: ele já é rápido o bastante para a tela.": "No effect on this video: it is already fast enough for the screen.",
-  "G abre este painel · V liga/desliga o movimento suave · Shift+V troca a predefinição.": "G opens this panel · V turns smooth motion on/off · Shift+V switches the preset."
+  "G abre este painel · V liga/desliga o movimento suave · Shift+V troca a predefinição.": "G opens this panel · V turns smooth motion on/off · Shift+V switches the preset.",
+  "Todo o motor do VLC, agora a <font color='#38BDF8'>60 quadros por segundo</font>.": "The whole VLC engine, now at <font color='#38BDF8'>60 frames per second</font>.",
+  "Relatar um problema": "Report a problem",
+  "Software livre (GPL 3.0), um fork do Refrata (LucsLabs Studios), construído sobre o libVLC da VideoLAN (LGPL 2.1+). VLC é marca da VideoLAN; este é um projeto independente.": "Free software (GPL 3.0), a fork of Refrata (LucsLabs Studios), built on VideoLAN’s libVLC (LGPL 2.1+). VLC is a trademark of VideoLAN; this is an independent project."
 }
