@@ -1415,10 +1415,11 @@ def t35_pages_by_mouse():
         check(40 <= s.value(key) <= 60, f"{name} sets about half", str(s.value(key)))
         s.setValue(key, 0)
     # HDR: real HDR output on HDR screens (auto/off), per-scene brightness for HDR10
-    ui_click(sp, "hdrOutputToggle")
-    check(s.hdrOutput == "off", "HDR output switch → off", s.hdrOutput)
+    # (off by default in Cine60: see settings.py)
     ui_click(sp, "hdrOutputToggle")
     check(s.hdrOutput == "auto", "HDR output switch → auto", s.hdrOutput)
+    ui_click(sp, "hdrOutputToggle")
+    check(s.hdrOutput == "off", "HDR output switch → off", s.hdrOutput)
     ui_click(sp, "hdrDynamicToggle")
     check(s.hdrDynamic is False, "per-scene brightness switch → off")
     ui_click(sp, "hdrDynamicToggle")

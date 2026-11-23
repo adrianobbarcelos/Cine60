@@ -40,7 +40,8 @@ Item {
     readonly property bool idleHide: player.playing && !player.isAudio && panel === "" && !queueOpen && !pinned
     // mouse over the controls (time bar, button rows): they stay. Not the title block or the empty
     // width of the bottom block: a cursor resting beside the title still lets them go
-    readonly property bool pinned: seekPin.engaged || leftPin.engaged || rightPin.engaged
+    readonly property bool pinned: seekPin.engaged || leftPin.engaged || rightPin.engaged || musicPinned
+    property bool musicPinned: false   // the mouse over the music dock (MusicStage.qml)
     // the timer only looks once: hiding allowed again (a panel closed, the mouse left the bar) counts anew
     onIdleHideChanged: if (idleHide) hideTimer.restart()
     function poke() { controlsVisible = true; hideTimer.restart() }
