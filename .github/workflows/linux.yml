@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-24.04
     timeout-minutes: 45
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       - name: System packages (libVLC, Qt's X11 libraries, virtual display, D-Bus)
         run: |
@@ -32,7 +32,7 @@ jobs:
           pactl load-module module-null-sink >/dev/null
           pactl info | grep -E "Server Name|Default Sink"
 
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@v6
         with:
           python-version: "3.12"
 
@@ -48,7 +48,7 @@ jobs:
 
       - name: Report
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: e2e-linux
           path: e2e-linux.json
