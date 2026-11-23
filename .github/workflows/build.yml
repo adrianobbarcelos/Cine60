@@ -45,6 +45,6 @@ jobs:
         with:
           name: refrata-windows
           path: |
-            dist/Refrata-Setup-*.exe
-            dist/Refrata-*-portable.zip
+            dist/Cine60-Setup-*.exe
+            dist/Cine60-*-portable.zip
           if-no-files-found: error

@@ -1,6 +1,6 @@
-"""Reopen Refrata in place: a new process takes over exactly where this one is.
+"""Reopen Cine60 in place: a new process takes over exactly where this one is.
 
-Used when Windows HDR is switched on after Refrata started (hdroutput.py: Qt 6.8 can only make the
+Used when Windows HDR is switched on after Cine60 started (hdroutput.py: Qt 6.8 can only make the
 HDR window in a new process). What is kept: the queue, the item and the point in it, playing or
 paused, the player open or not, the page, the window's place, size and state (maximised, full
 screen). The new process waits for this one to end before it claims the single instance, so the
@@ -48,7 +48,7 @@ def capture(engine, win) -> dict:
 
 
 def command(pid: int) -> list[str]:
-    """How to start this same Refrata again (installed exe or the source tree)."""
+    """How to start this same Cine60 again (installed exe or the source tree)."""
     if getattr(sys, "frozen", False):
         return [sys.executable, "--reopen", str(pid)]
     main = Path(__file__).resolve().parent / "__main__.py"

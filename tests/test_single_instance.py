@@ -1,10 +1,10 @@
-"""One Refrata per user, however fast files are opened (Windows).
+"""One Cine60 per user, however fast files are opened (Windows).
 
-    python tests/test_single_instance.py [path\\to\\Refrata.exe]
+    python tests/test_single_instance.py [path\\to\\Cine60.exe]
 
-1. A video is opened, and while that Refrata is still starting a second video is opened: the second
-   launch must hand its file over and exit; one Refrata stays, and it ends up playing the second video.
-2. Three launches at once: still one Refrata.
+1. A video is opened, and while that Cine60 is still starting a second video is opened: the second
+   launch must hand its file over and exit; one Cine60 stays, and it ends up playing the second video.
+2. Three launches at once: still one Cine60.
 Each run uses its own temporary data folder (never the copy in use).
 """
 import ctypes
@@ -68,7 +68,7 @@ def run_case(name, launches, gaps, expect_title):
         ok = ok and expect_title.lower() in seen.lower()
     for p in alive:
         p.kill()
-    print(f"{'ok  ' if ok else 'FAIL'} {name}: {len(alive)} Refrata running, others exited "
+    print(f"{'ok  ' if ok else 'FAIL'} {name}: {len(alive)} Cine60 running, others exited "
           f"{[p.returncode for p in procs if p not in alive]}, window: {seen!r}", flush=True)
     return ok
 
@@ -79,9 +79,9 @@ def main():
     v1 = FX["video"]
     v2 = str(Path(FX["video"]).with_name("Segundo Video.mkv"))
     results = [
-        run_case("second video while the first Refrata is starting", [[v1], [v2]], [0.6, 0], "Segundo Video"),
+        run_case("second video while the first Cine60 is starting", [[v1], [v2]], [0.6, 0], "Segundo Video"),
         run_case("second video after the first one is up", [[v1], [v2]], [8.0, 0], "Segundo Video"),
-        run_case("three launches at once", [[v1], [v2], [v1]], [0.05, 0.05, 0], "Refrata"),
+        run_case("three launches at once", [[v1], [v2], [v1]], [0.05, 0.05, 0], "Cine60"),
     ]
     print("all ok" if all(results) else "FAILED")
     sys.exit(0 if all(results) else 1)

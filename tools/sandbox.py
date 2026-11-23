@@ -1,8 +1,8 @@
 """Run the Windows test batteries inside Windows Sandbox, so the PC stays free to use.
 
-    python tools/sandbox.py                      # e2e + robustness + launch, against dist\\Refrata
+    python tools/sandbox.py                      # e2e + robustness + launch, against dist\\Cine60
     python tools/sandbox.py --only e2e,robust    # a part of it
-    python tools/sandbox.py --source             # against the source tree instead of dist\\Refrata
+    python tools/sandbox.py --source             # against the source tree instead of dist\\Cine60
 
 Several of the tests need the keyboard focus and the foreground window (Qt gives shortcuts only to
 the active window; the Explorer and focus scenarios check what has the focus): with a person at the
@@ -57,8 +57,8 @@ def main():
     args = ap.parse_args()
     if not SANDBOX_EXE.exists():
         sys.exit("Windows Sandbox is not available here (turn on the optional feature, then restart).")
-    if not args.source and not (ROOT / "dist" / "Refrata" / "Refrata.exe").exists():
-        sys.exit("no dist\\Refrata\\Refrata.exe: build it first (python tools/build.py --no-msix), or use --source")
+    if not args.source and not (ROOT / "dist" / "Cine60" / "Cine60.exe").exists():
+        sys.exit("no dist\\Cine60\\Cine60.exe: build it first (python tools/build.py --no-msix), or use --source")
     if subprocess.run(["tasklist", "/FI", "IMAGENAME eq WindowsSandboxClient.exe"], capture_output=True, text=True).stdout.count(".exe"):
         sys.exit("a Windows Sandbox is already open (only one at a time): close it first")
     py = Path(sys.base_prefix)
@@ -68,7 +68,7 @@ def main():
     (out / "job.json").write_text(json.dumps({"only": args.only.split(","), "source": args.source}), "utf8")
     cfg = out / "refrata-tests.wsb"
     cfg.write_text(wsb(out, py), "utf8")
-    print(f"sandbox run {run}: {args.only} against {'the source tree' if args.source else 'dist\\Refrata'}; results in {out}", flush=True)
+    print(f"sandbox run {run}: {args.only} against {'the source tree' if args.source else 'dist\\Cine60'}; results in {out}", flush=True)
     t0 = time.time()
     subprocess.Popen(["cmd", "/c", "start", "", str(cfg)])
     done = out / "done.txt"

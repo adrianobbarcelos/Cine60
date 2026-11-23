@@ -318,7 +318,7 @@ def download_model(name: str, progress=None, stop=None) -> bool:
     h = hashlib.sha256()
     from urllib.request import Request, urlopen   # only when a model is downloaded (~75 ms off every start)
     try:
-        req = Request(URL + fname, headers={"User-Agent": "Refrata"})
+        req = Request(URL + fname, headers={"User-Agent": "Cine60"})
         with urlopen(req, timeout=30) as r, open(tmp, "wb") as f:
             if not r.geturl().startswith("https://"):
                 return False

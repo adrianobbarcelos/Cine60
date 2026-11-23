@@ -1,6 +1,6 @@
-r"""Measure the frozen Refrata (Windows): idle CPU, playback CPU + dropped frames, memory.
+r"""Measure the frozen Cine60 (Windows): idle CPU, playback CPU + dropped frames, memory.
 
-    python tools/perf.py [path\to\Refrata.exe]
+    python tools/perf.py [path\to\Cine60.exe]
 
 Each run gets a temporary data folder with an empty library (never the copy in use: --new-window and
 --screenshot skip the single-instance hand-over). Test clips (1080p30, 4K60 H.264) are made with ffmpeg
@@ -16,7 +16,7 @@ import tempfile
 import time
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-EXE = sys.argv[1] if len(sys.argv) > 1 else os.path.join(ROOT, "dist", "Refrata", "Refrata.exe")
+EXE = sys.argv[1] if len(sys.argv) > 1 else os.path.join(ROOT, "dist", "Cine60", "Cine60.exe")
 HERE = os.path.join(ROOT, "build", "perf")
 CLIPS = {"1080p30.mp4": ("1920x1080", 30, "8M"), "4k60.mp4": ("3840x2160", 60, "25M")}
 

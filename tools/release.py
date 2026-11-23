@@ -1,4 +1,4 @@
-"""Publish a Refrata release on GitHub (feeds the website and the in-app updater).
+"""Publish a Cine60 release on GitHub (feeds the website and the in-app updater).
 
     python tools/release.py --notes-file NOTES.md   # the usual: refresh components, build, test, publish
     python tools/release.py --bump                  # engine-only release: next patch version (1.4.1 → 1.4.2)
@@ -10,12 +10,12 @@ What it does, in order:
 1. Components: the newest VLC 3.x (VideoLAN), yt-dlp and python-vlc 3.x (PyPI) go into
    tools/vlc-version.txt and requirements.txt, and pip installs them.
 2. Builds dist/ (tools/build.py --no-msix).
-3. Runs both test suites against the built app: the e2e battery (Refrata.exe --selftest) and the
+3. Runs both test suites against the built app: the e2e battery (Cine60.exe --selftest) and the
    robustness suite (tests/robust.py --exe). If anything fails, nothing is published, and new
    component versions are rolled back (files and pip), so the next run starts from known-good ones.
 4. Commits the component versions (if they changed), tags v<version>, pushes, and uploads
-   Refrata-Setup-<v>.exe, its .sha256 (the updater refuses downloads that do not match) and
-   Refrata-<v>-portable.zip; the release notes get a line for each updated component.
+   Cine60-Setup-<v>.exe, its .sha256 (the updater refuses downloads that do not match) and
+   Cine60-<v>-portable.zip; the release notes get a line for each updated component.
 """
 import argparse
 import hashlib
@@ -159,7 +159,7 @@ def run_tests(sandbox: bool = False, source_checks: list | None = None) -> bool:
     alone) goes to Windows Sandbox (tools/sandbox.py), which has a screen and a focus of its own;
     the rest runs here meanwhile. The PC stays usable while the gate runs, but for the last minute
     or so (the one scenario that drives this PC's own Explorer, and the launch timings)."""
-    exe = DIST / "Refrata" / "Refrata.exe"
+    exe = DIST / "Cine60" / "Cine60.exe"
     env = dict(os.environ, REFRATA_NO_MEDIAKEYS="1")
     print("\n== testes de unidade e cobertura dos controles da interface", flush=True)
     if source_checks:
@@ -189,7 +189,7 @@ def run_tests(sandbox: bool = False, source_checks: list | None = None) -> bool:
         # to be gone first (a cold start read 6.3 s while it shut down), and the PC left alone
         print("\n== AGORA DEIXE O PC PARADO (~2 minutos): o Explorer deste PC e a abertura real, medida",
               flush=True)
-        notify("Refrata: deixe o PC parado por ~2 minutos",
+        notify("Cine60: deixe o PC parado por ~2 minutos",
                "Os últimos testes do lançamento usam o Explorer e medem a abertura. Outra notificação avisa quando terminar.")
         time.sleep(20)
         host = subprocess.run([sys.executable, "tests/robust.py", "--exe", str(exe), "--part", "host",
@@ -197,7 +197,7 @@ def run_tests(sandbox: bool = False, source_checks: list | None = None) -> bool:
         launch = subprocess.run([sys.executable, "tests/launch.py", "--exe", str(exe),
                                  "--report", str(ROOT / "build" / "launch-release.json")], cwd=str(ROOT)).returncode
         print("\n== pronto: o PC está livre de novo", flush=True)
-        notify("Refrata: PC livre de novo", "Os testes que precisavam do PC parado terminaram.")
+        notify("Cine60: PC livre de novo", "Os testes que precisavam do PC parado terminaram.")
         return inside == 0 and robust == 0 and host == 0 and launch == 0
     print("\n== testes e2e (app empacotado; vários processos ao mesmo tempo, os de teclado no fim)", flush=True)
     e2e = subprocess.run([sys.executable, "tests/e2e_parallel.py", "--exe", str(exe),
@@ -240,7 +240,7 @@ def linux_package(v: str) -> list[Path] | None:
           f"Ubuntu 24.04 e Debian 13 ({time.time() - t0:.0f}s; log: {log})\n" + "\n".join(keep[-40:]), flush=True)
     if code != 0:
         return None
-    out = [DIST / "linux" / f"refrata_{v}_amd64.deb", DIST / "linux" / f"Refrata-{v}-linux-x86_64.tar.gz"]
+    out = [DIST / "linux" / f"refrata_{v}_amd64.deb", DIST / "linux" / f"Cine60-{v}-linux-x86_64.tar.gz"]
     return out if all(f.exists() for f in out) else None
 
 
@@ -308,8 +308,8 @@ def main():
             run("git", "checkout", "--", INIT)
         sys.exit("\nO pacote Linux falhou nos testes: NADA foi publicado. Use --no-linux para sair só no Windows.")
 
-    setup = DIST / f"Refrata-Setup-{v}.exe"
-    portable = DIST / f"Refrata-{v}-portable.zip"
+    setup = DIST / f"Cine60-Setup-{v}.exe"
+    portable = DIST / f"Cine60-{v}-portable.zip"
     for f in (setup, portable):
         if not f.exists():
             sys.exit(f"faltando: {f}")
@@ -335,7 +335,7 @@ def main():
             run("git", "commit", "-q", "-m", msg + (" (componentes atualizados)" if changed else ""))
     run("git", "push", "origin", "HEAD")
     tag = f"v{v}"
-    run("git", "tag", "-a", tag, "-m", f"Refrata {v}")
+    run("git", "tag", "-a", tag, "-m", f"Cine60 {v}")
     run("git", "push", "origin", tag)
 
     notes = Path(args.notes_file).read_text(encoding="utf8") if args.notes_file else (args.notes or "")
@@ -343,11 +343,11 @@ def main():
         notes = notes.rstrip() + ("\n\n" if notes.strip() else "") + "**Componentes atualizados**\n" + "\n".join(
             f"- {DESCR.get(n, n)} {new} (antes {old})." for n, old, new in changed)
     if not notes.strip():
-        notes = f"Refrata {v}"
+        notes = f"Cine60 {v}"
     with tempfile.NamedTemporaryFile("w", suffix=".md", delete=False, encoding="utf8") as f:
         f.write(notes)
     run("gh", "release", "create", tag, setup, side, portable, *linux, *sigs, "--repo", REPO,
-        "--title", f"Refrata {v}", "--notes-file", f.name, *(["--draft"] if args.draft else []))
+        "--title", f"Cine60 {v}", "--notes-file", f.name, *(["--draft"] if args.draft else []))
     os.unlink(f.name)
     print(f"\npublicado: https://github.com/{REPO}/releases/tag/{tag}")
 

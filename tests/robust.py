@@ -1,10 +1,10 @@
-"""Robustness suite: every scenario runs in its own Refrata process and leaves through the real
+"""Robustness suite: every scenario runs in its own Cine60 process and leaves through the real
 quit path (aboutToQuit → cleanup → hard_exit), so crashes at exit, corrupted data, stress and
 odd media all show up the way a user would hit them.
 
     python tests/robust.py                     # everything (source tree)
     python tests/robust.py -k quit,corrupt     # scenarios whose name contains any of these
-    python tests/robust.py --exe dist/Refrata/Refrata.exe   # against the frozen build
+    python tests/robust.py --exe dist/Cine60/Cine60.exe   # against the frozen build
     python tests/robust.py --monkey-seconds 300 --seed 7
 
 Each scenario passes when: the process exits with code 0 in time, cleanup raised nothing,
@@ -1453,7 +1453,7 @@ def feature_hdr_follows_the_screen():
 def feature_hdr_real_windows_switch():
     """Optional (REFRATA_REAL_HDR=1, an HDR-capable monitor; the screen blinks): Windows HDR really
     switched (tests/winhdr.py, as Settings › Display does) while a video plays, windowed and full
-    screen. What Qt 6.8 allows (hdroutput.py notes): with Windows HDR on when Refrata started, the
+    screen. What Qt 6.8 allows (hdroutput.py notes): with Windows HDR on when Cine60 started, the
     window follows both ways live; started with it off, switching it off and on stays SDR and asks
     to reopen (needsReopen), never rebuilding in a loop, never hanging. The setting, and RTX Video
     on an SDR video, across the switches. HDR is left as it was found. Run it once with Windows HDR
@@ -1477,7 +1477,7 @@ def feature_hdr_real_windows_switch():
     # (dxgihook.cpp); otherwise HDR coming on asks for a reopen
     hooked = hdrout._dxgi is not None
     live = was_on or hooked
-    H.notes.append(f"Refrata started with Windows HDR {'on' if was_on else 'off'}, DXGI answer corrected: {hooked}"
+    H.notes.append(f"Cine60 started with Windows HDR {'on' if was_on else 'off'}, DXGI answer corrected: {hooked}"
                    + (" -> both ways live" if live else " -> HDR asks to reopen"))
     w = win()
     e = eng()
@@ -1978,7 +1978,7 @@ def feature_video_never_opens_in_the_audio_look():
     bad += _watch_mode(4.0, "resumed video")
     check(e._frames_seen > 0 and abs(e.time - 15000) < 4000, "it resumed and plays", f"time {e.time}")
     # the start-up warm-up of the player (Main.qml, 1.2 s after launch) while a video is already
-    # open, as when Refrata is started by a double-click on a video: it showed the music stage
+    # open, as when Cine60 is started by a double-click on a video: it showed the music stage
     win().setProperty("pvWarm", True)
     bad += _watch_mode(0.6, "start-up warm-up over an open video")
     win().setProperty("pvWarm", False)
@@ -2883,7 +2883,7 @@ def _mediakeys_ready():
 
 @scenario(timeout=60)
 def feature_mediakeys_overlay():
-    """The Windows media session mirrors Refrata (only this scenario turns it on, briefly; no
+    """The Windows media session mirrors Cine60 (only this scenario turns it on, briefly; no
     real key is pressed: the person's own media keys are left alone)."""
     mk = _mediakeys_ready()
     if mk is None or not mk.available:
@@ -3183,7 +3183,7 @@ def feature_web_links_flow():
         if "privado" in url:
             raise RuntimeError("Private video")
         return {"title": "Vídeo do site", "video": f"{base}/media/Filmes/Segundo%20Video.mkv",
-                "audio": f"{base}/extras/tone_alt.wav", "headers": {"User-Agent": "Refrata-test"},
+                "audio": f"{base}/extras/tone_alt.wav", "headers": {"User-Agent": "Cine60-test"},
                 "duration": 30000, "thumbnail": "", "live": False, "at": time.time()}
     websites.resolve = fake
     e = eng()
@@ -3533,7 +3533,7 @@ def feature_online_subtitles():
     wait(lambda: not ss.property("busy") and ss.property("results"), 10, "results arrive")
     res = ss.property("results")
     check(res[0]["exact"] and res[0]["fileId"] == 7, "the exact match for this file comes first", str(res))
-    check(seen.get("key") == "test-key" and "Refrata" in (seen.get("ua") or ""), "API key and user agent sent", str(seen))
+    check(seen.get("key") == "test-key" and "Cine60" in (seen.get("ua") or ""), "API key and user agent sent", str(seen))
     check(any("moviehash=" in q for q in seen["queries"]), "searched by the file's hash", str(seen["queries"]))
     pv.setProperty("panel", "subs")
     pump(0.4)
@@ -3694,9 +3694,9 @@ def feature_review_settings_and_open_with():
     exe = os.environ.get("REFRATA_ASSOC_EXE") or sys.executable
     root = assoc.TEST_ROOT + "\\"
     rd = lambda sub, name="": assoc._read(winreg.HKEY_CURRENT_USER, root + sub, name)  # noqa: E731
-    check(rd(r"Software\RegisteredApplications", "Refrata") == assoc.CAP_KEY, "listed in Apps padrão")
+    check(rd(r"Software\RegisteredApplications", "Cine60") == assoc.CAP_KEY, "listed in Apps padrão")
     check(rd(rf"Software\Classes\{assoc.PROGID}\shell\open\command") == f'"{exe}" "%1"', "open command runs this exe")
-    check(rd(r"Software\Classes\.mkv\OpenWithProgids", assoc.PROGID) == "", ".mkv lists Refrata in Abrir com")
+    check(rd(r"Software\Classes\.mkv\OpenWithProgids", assoc.PROGID) == "", ".mkv lists Cine60 in Abrir com")
     check(rd(r"Software\Classes\.srt\OpenWithProgids", assoc.PROGID) is None, "subtitles are not claimed")
     check(rd(assoc.CAP_KEY + r"\FileAssociations", ".mp3") == assoc.PROGID, "capabilities cover music too")
     n = len(assoc.exts())
@@ -3711,14 +3711,14 @@ def feature_review_settings_and_open_with():
         sub = root + assoc._FILEEXTS + "\\" + ext + (r"\UserChoiceLatest\ProgId" if latest else r"\UserChoice")
         with winreg.CreateKey(winreg.HKEY_CURRENT_USER, sub) as k:
             winreg.SetValueEx(k, "ProgId", 0, winreg.REG_SZ, progid)
-    # the user picks Refrata for .mp4 in Windows' settings, then comes back to the app
+    # the user picks Cine60 for .mp4 in Windows' settings, then comes back to the app
     choose(".mp4", assoc.PROGID)
     wa.refresh()
     pump(0.2)
     check(wa.defaultCount == 1 and ".mp4" not in wa.missingMain and not wa.isDefault,
           "one type picked: counted, and the switch waits for the other common ones", f"{wa.defaultCount} {list(wa.missingMain)}")
     check(f"1 de {n}" in row.property("desc") and ".mp4" not in row.property("desc").split(":")[-1], "the count follows", row.property("desc"))
-    # the old key says Refrata, the newer one (the one Windows uses) says another app: not ours
+    # the old key says Cine60, the newer one (the one Windows uses) says another app: not ours
     choose(".mkv", assoc.PROGID)
     choose(".mkv", "AppXqj98qxeaynz6dv4459ayz6bnqxbyaqcs", latest=True)
     wa.refresh()
@@ -3730,18 +3730,18 @@ def feature_review_settings_and_open_with():
     check(wa.isDefault and not wa.missingMain and wa.defaultCount == len(assoc.MAIN_EXTS), "every common type picked: the default player",
           f"{wa.defaultCount} {list(wa.missingMain)}")
     desc = row.property("desc")
-    check("já abre o Refrata" in desc and f"{len(assoc.MAIN_EXTS)} de {n}" in desc, "and still says how many of all the types", desc)
+    check("já abre o Cine60" in desc and f"{len(assoc.MAIN_EXTS)} de {n}" in desc, "and still says how many of all the types", desc)
     check(btn.property("text") != "Tornar padrão", "the button no longer asks to make it default", btn.property("text"))
     # the portable folder moved: "Abrir com" points at an exe that is gone, and gets repaired
     with winreg.CreateKey(winreg.HKEY_CURRENT_USER, root + rf"Software\Classes\{assoc.PROGID}\shell\open\command") as k:
-        winreg.SetValueEx(k, "", 0, winreg.REG_SZ, '"C:\\pasta-que-sumiu\\Refrata.exe" "%1"')
+        winreg.SetValueEx(k, "", 0, winreg.REG_SZ, '"C:\\pasta-que-sumiu\\Cine60.exe" "%1"')
     wa.refresh()
     check(not wa.registered, "a registration pointing at a missing exe does not count")
     wa.repair()
     check(rd(rf"Software\Classes\{assoc.PROGID}\shell\open\command") == f'"{exe}" "%1"' and wa.registered,
           "repair points it at this copy again")
     assoc.clear_test_keys()
-    check(assoc._read(winreg.HKEY_CURRENT_USER, assoc.TEST_ROOT + r"\Software\RegisteredApplications", "Refrata") is None,
+    check(assoc._read(winreg.HKEY_CURRENT_USER, assoc.TEST_ROOT + r"\Software\RegisteredApplications", "Cine60") is None,
           "test keys removed")
 
 
@@ -3831,7 +3831,7 @@ def _ui_stall(fn, seconds):
 
 @scenario(timeout=90, solo=True)
 def feature_quick_preview_over_the_open_app():
-    """Space on a file in Explorer while Refrata is open with a video: the preview takes the keys
+    """Space on a file in Explorer while Cine60 is open with a video: the preview takes the keys
     (← → browse, Space closes) and the player behind is left alone; Enter opens the file in the
     player at the same point, with its picture, without the UI stalling."""
     from PySide6.QtCore import QMetaObject, Qt
@@ -3981,7 +3981,7 @@ def _foreground_now() -> str:
 
 @scenario(timeout=120, solo=True)
 def feature_open_from_the_tray_is_quick():
-    """Refrata in the tray, another file opened from Explorer, right after closing the window or a
+    """Cine60 in the tray, another file opened from Explorer, right after closing the window or a
     moment later: the window is up at once, the interface keeps answering and the new file's first
     picture follows shortly. (libVLC lets go of an item only a full second after it was paused:
     a file opened right after closing the window froze the interface for that second, with the
@@ -4003,7 +4003,7 @@ def feature_open_from_the_tray_is_quick():
         nxt = b if i % 2 == 0 else a
         gen = e._media_gen
         t0 = time.perf_counter()
-        H.parts.ctl.handOver([nxt])     # what a second Refrata.exe hands over
+        H.parts.ctl.handOver([nxt])     # what a second Cine60.exe hands over
         taken = time.perf_counter() - t0
         check(w.isVisible(), f"{gap} s after closing: the window is back as soon as the file arrives")
         longest = 0.0                   # the longest single turn of the event loop meanwhile
@@ -4205,7 +4205,7 @@ def feature_queue_edits_never_change_what_is_playing():
 
 @scenario(timeout=60, solo=True)
 def feature_second_launch_and_tray_bring_the_window_back_as_it_was():
-    """A file opened from Explorer while Refrata sits minimised (maximised before), and the tray's
+    """A file opened from Explorer while Cine60 sits minimised (maximised before), and the tray's
     "show": the window comes back in front, maximised as it was, playing the file with its picture."""
     from PySide6.QtGui import QGuiApplication, QWindow
     e, w = eng(), win()
@@ -4219,7 +4219,7 @@ def feature_second_launch_and_tray_bring_the_window_back_as_it_was():
     pump(0.4)
     w.showMinimized()
     pump(0.6)
-    # what a second Refrata.exe hands over (refrata/single.py → main.build)
+    # what a second Cine60.exe hands over (refrata/single.py → main.build)
     H.parts.ctl.handOver([b])
     wait(lambda: Path(e.currentPath).name == Path(b).name, 4, "the file handed over plays")
     wait(lambda: w.visibility() == QWindow.Visibility.Maximized, 4, "the window comes back maximised", )
@@ -4382,7 +4382,7 @@ def Qt_arg_bool(v):
 
 @scenario(timeout=60)
 def feature_start_with_the_system_entry():
-    """"Iniciar com o Windows" writes the entry that starts Refrata in the tray, and removes it again.
+    """"Iniciar com o Windows" writes the entry that starts Cine60 in the tray, and removes it again.
     In its own throwaway registry key: the person's real Run entry is read before and after and
     must not change."""
     if sys.platform != "win32":
@@ -4404,13 +4404,13 @@ def feature_start_with_the_system_entry():
         except OSError:
             return None
     before = real()
-    check(T._run_key() != T.RUN_KEY and "RefrataTest" in T._run_key(), "the tests write to their own key", T._run_key())
+    check(T._run_key() != T.RUN_KEY and "Cine60Test" in T._run_key(), "the tests write to their own key", T._run_key())
     tray = H.parts.tray
     check(tray.canAutostart and tray.autostart is False, "off to begin with")
     tray.autostart = True
     value = mine()
     check(value is not None and value.endswith(" --background") and value.startswith('"'),
-          "on: the entry starts this Refrata in the tray", str(value))
+          "on: the entry starts this Cine60 in the tray", str(value))
     check(os.path.isfile(value.split('"')[1]), "and points at a program that exists", str(value))
     check(tray.autostart is True and tray.background is True, "the switch shows on, and staying in the tray comes with it")
     tray.background = False                     # leaving the tray takes the entry away too
@@ -5408,7 +5408,7 @@ def run_one(sc: Scenario, fixtures: dict, exe: str | None, work: Path, extra_env
         out_text = proc.stdout.decode("utf8", "replace")
     except subprocess.TimeoutExpired as exc:
         # subprocess.run has already killed this scenario's own process (never kill by image
-        # name: the person's own Refrata.exe may be running)
+        # name: the person's own Cine60.exe may be running)
         code, out_text = "timeout", (exc.stdout or b"").decode("utf8", "replace")
     took = time.time() - t0
     res = {"name": sc.name, "took": round(took, 1), "code": code, "problems": [], "notes": []}

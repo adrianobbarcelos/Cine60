@@ -1,4 +1,4 @@
-"""Authenticode signing for the Refrata build (signtool from the Windows SDK).
+"""Authenticode signing for the Cine60 build (signtool from the Windows SDK).
 
 The certificate comes from the environment, first match wins:
 
@@ -25,7 +25,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 DEV_SUBJECT = "CN=LucsLabs Studios (desenvolvimento), O=LucsLabs Studios, C=BR"
 TIMESTAMP = os.environ.get("REFRATA_SIGN_TIMESTAMP", "http://timestamp.digicert.com")
-DESCRIPTION = "Refrata"
+DESCRIPTION = "Cine60"
 DESCRIPTION_URL = "mailto:lucslabs.studios@gmail.com"
 
 

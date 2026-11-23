@@ -1,7 +1,7 @@
 """Linux media controls: MPRIS2 over D-Bus.
 
 GNOME's and KDE's media widgets, the keyboard's play/pause/next keys, the lock screen and tools
-like playerctl talk to players through MPRIS2 (org.mpris.MediaPlayer2.*). This publishes Refrata
+like playerctl talk to players through MPRIS2 (org.mpris.MediaPlayer2.*). This publishes Cine60
 there: what is playing (title, artist, album, cover, length, position) and the commands
 (play, pause, next, previous, seek, volume). Windows has refrata/mediakeys.py for the same job.
 
@@ -37,7 +37,7 @@ if AVAILABLE:
 
         @Property(str)
         def Identity(self):
-            return "Refrata"
+            return "Cine60"
 
         @Property(str)
         def DesktopEntry(self):

@@ -1,12 +1,12 @@
 r"""The app the way a person starts it: real processes, real files, with time and resource budgets.
 
     python tests/launch.py                                  # source tree
-    python tests/launch.py --exe dist\Refrata\Refrata.exe   # the packaged build (the release gate)
+    python tests/launch.py --exe dist\Cine60\Cine60.exe   # the packaged build (the release gate)
 
 The other batteries drive one app from the inside. This one stays outside: it double-clicks.
   1. cold start with a video: one window, playing it, the first picture within the budget
-  2. a second file while Refrata is open: handed over within the budget, no second Refrata
-  3. a second file while the first Refrata is still starting, and three launches at once: one Refrata
+  2. a second file while Cine60 is open: handed over within the budget, no second Cine60
+  3. a second file while the first Cine60 is still starting, and three launches at once: one Cine60
   4. sitting idle: almost no CPU, memory within the budget
   5. playing 1080p30 and 4K60: CPU within the budget, (almost) no dropped pictures
 Every run has its own temporary data folder; only the processes started here are ever closed.
@@ -154,17 +154,17 @@ def cold_start_and_handover(exe, fx):
         seen = wait(lambda: next((t for t in titles(first.pid) if Path(v1).stem[:10].lower() in t.lower() or "refrata" in t.lower()), ""), 8)
         report(bool(seen), "one window is on screen", repr(seen))
 
-        # a second file, Refrata open: handed over, the second process leaves at once
+        # a second file, Cine60 open: handed over, the second process leaves at once
         t0 = time.perf_counter()
         second = r.start(v2)
         left = wait(lambda: second.poll() is not None, 10, 0.01)
         took = time.perf_counter() - t0
         NUMBERS["second file: hand-over (s)"] = round(took, 2)
         report(bool(left) and second.returncode == 0 and took <= BUDGET["handover_s"],
-               "a second file is handed to the open Refrata in time",
+               "a second file is handed to the open Cine60 in time",
                f"{took:.2f} s, exit {second.returncode} (budget {BUDGET['handover_s']} s)")
         playing = wait(lambda: any("segundo video" in t.lower() for t in titles(first.pid)), 12, 0.25)
-        report(bool(playing) and len(r.alive()) == 1, "the open Refrata plays the second file; still one Refrata",
+        report(bool(playing) and len(r.alive()) == 1, "the open Cine60 plays the second file; still one Cine60",
                f"{len(r.alive())} running, windows {titles(first.pid)}")
     finally:
         r.close()
@@ -173,7 +173,7 @@ def cold_start_and_handover(exe, fx):
 def races(exe, fx):
     v1, v2 = fx["video"], str(Path(fx["video"]).with_name("Segundo Video.mkv"))
     for name, launches, gaps, expect in (
-            ("a second file while the first Refrata is still starting", [[v1], [v2]], [0.6, 0], "segundo video"),
+            ("a second file while the first Cine60 is still starting", [[v1], [v2]], [0.6, 0], "segundo video"),
             ("three launches at once", [[v1], [v2], [v1]], [0.05, 0.05, 0], "refrata")):
         r = Run(exe)
         try:
@@ -184,7 +184,7 @@ def races(exe, fx):
             alive = r.alive()
             others = [p.returncode for p in r.procs if p not in alive]
             seen = wait(lambda: next((t for t in titles(alive[0].pid) if expect in t.lower()), ""), 20, 0.5) if alive else ""
-            report(len(alive) == 1 and all(c == 0 for c in others) and bool(seen), name + ": one Refrata, playing the right file",
+            report(len(alive) == 1 and all(c == 0 for c in others) and bool(seen), name + ": one Cine60, playing the right file",
                    f"{len(alive)} running, others exited {others}, window {seen!r}")
         finally:
             r.close()

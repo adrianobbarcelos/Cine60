@@ -220,13 +220,13 @@ def update_signature_accepts_only_the_real_one():
     from refrata import ed25519, updater as U
     secret = hashlib.sha256(b"unit test key").digest()
     public = ed25519.public_key(secret)
-    msg = U.update_message("Refrata-Setup-9.9.9.exe", "ab" * 32, "9.9.9")
-    check(msg == b"refrata-update-v1\nRefrata-Setup-9.9.9.exe\n" + b"ab" * 32 + b"\n9.9.9\n", "the signed message names file, hash and version", repr(msg))
+    msg = U.update_message("Cine60-Setup-9.9.9.exe", "ab" * 32, "9.9.9")
+    check(msg == b"refrata-update-v1\nCine60-Setup-9.9.9.exe\n" + b"ab" * 32 + b"\n9.9.9\n", "the signed message names file, hash and version", repr(msg))
     sig = ed25519.sign(secret, msg)
     check(ed25519.verify(public, msg, sig), "a good signature verifies")
-    for what, m, s, k in (("another version", U.update_message("Refrata-Setup-9.9.9.exe", "ab" * 32, "9.9.8"), sig, public),
-                          ("another file", U.update_message("Refrata-9.9.9-portable.zip", "ab" * 32, "9.9.9"), sig, public),
-                          ("another hash", U.update_message("Refrata-Setup-9.9.9.exe", "ac" * 32, "9.9.9"), sig, public),
+    for what, m, s, k in (("another version", U.update_message("Cine60-Setup-9.9.9.exe", "ab" * 32, "9.9.8"), sig, public),
+                          ("another file", U.update_message("Cine60-9.9.9-portable.zip", "ab" * 32, "9.9.9"), sig, public),
+                          ("another hash", U.update_message("Cine60-Setup-9.9.9.exe", "ac" * 32, "9.9.9"), sig, public),
                           ("a flipped bit", msg, bytes([sig[0] ^ 1]) + sig[1:], public),
                           ("another key", msg, sig, ed25519.public_key(hashlib.sha256(b"other").digest())),
                           ("a short signature", msg, sig[:40], public), ("an empty one", msg, b"", public)):
@@ -277,14 +277,14 @@ def both_launch_paths_agree_on_the_instance_name():
         other = F.server_name()
     finally:
         os.environ["REFRATA_DATA"] = saved
-    check(other != F.server_name(), "another data folder is another instance (tests never reach the person's Refrata)")
+    check(other != F.server_name(), "another data folder is another instance (tests never reach the person's Cine60)")
     for flag in ("--selftest", "--scenario", "--new-window", "--background", "--screenshot"):
-        check(F.try_hand_over(["Refrata", flag, "x"]) == "", f"{flag} never hands over to a running Refrata")
+        check(F.try_hand_over(["Cine60", flag, "x"]) == "", f"{flag} never hands over to a running Cine60")
     here = str(Path(__file__).resolve())
-    check(F._files(["Refrata", "--flag", here, "https://x.example/v.mp4"]) == [here, "https://x.example/v.mp4"],
+    check(F._files(["Cine60", "--flag", here, "https://x.example/v.mp4"]) == [here, "https://x.example/v.mp4"],
           "files become absolute, links stay as they are, flags are skipped")
     for flag in F.VALUE_FLAGS:
-        check(F._files(["Refrata", flag, "value", here]) == [here],
+        check(F._files(["Cine60", flag, "value", here]) == [here],
               f"{flag}'s value is never forwarded as media")
 
 
@@ -392,7 +392,7 @@ def settings_survive_garbage_and_keep_types():
     check(h == [{"path": "a", "title": "", "time": 0, "pos": 1, "len": 0}], "history fields of the wrong type are reset", str(h))
 
 
-# ---------------------------------------------------------------- one Refrata per user
+# ---------------------------------------------------------------- one Cine60 per user
 def _qt():
     from PySide6.QtCore import QCoreApplication
     return QCoreApplication.instance() or QCoreApplication(["unit"])
@@ -443,7 +443,7 @@ print(json.dumps(out))
 
 
 def _launches(name, *steps):
-    """Other launches of Refrata, in a process of their own, while this one keeps answering."""
+    """Other launches of Cine60, in a process of their own, while this one keeps answering."""
     def run():
         r = subprocess.run([sys.executable, "-c", _LAUNCH, str(ROOT / "src"), name, json.dumps(steps)],
                            capture_output=True, text=True, timeout=60)
@@ -492,7 +492,7 @@ def fast_path_talks_to_the_instance_server():
     """refrata/fastlaunch.py (no Qt, start of __main__.py) against the real QLocalServer."""
     _qt()
     from refrata import fastlaunch as F, single as S
-    check(F._roundtrip(b'{"open": [], "id": "0"}\n', 0.5) == b"", "no Refrata running: no answer, quickly")
+    check(F._roundtrip(b'{"open": [], "id": "0"}\n', 0.5) == b"", "no Cine60 running: no answer, quickly")
     srv = S.InstanceServer()          # the default name: this test's own data folder
     _KEPT.append(srv)
     check(srv.listen(), "listening")
@@ -523,13 +523,13 @@ def fast_path_talks_to_the_instance_server():
 def fast_path_reads_the_command_line_like_the_app():
     from refrata import fastlaunch as F
     here = str(Path(__file__).resolve())
-    check(F._files(["Refrata", here]) == [here], "a file")
-    check(F._files(["Refrata", "--page", "settings", "--theme", "dark", "--size", "800x600", "--delay", "50", here]) == [here],
-          "the value of an option is not a file to open", str(F._files(["Refrata", "--page", "settings", here])))
-    check(F._files(["Refrata", "--panel", "eq", "-k", "x", "--report", "r.json", "--log", "l.txt"]) == [], "every option with a value")
-    check(F._files(["Refrata", "--page"]) == [], "an option at the very end")
+    check(F._files(["Cine60", here]) == [here], "a file")
+    check(F._files(["Cine60", "--page", "settings", "--theme", "dark", "--size", "800x600", "--delay", "50", here]) == [here],
+          "the value of an option is not a file to open", str(F._files(["Cine60", "--page", "settings", here])))
+    check(F._files(["Cine60", "--panel", "eq", "-k", "x", "--report", "r.json", "--log", "l.txt"]) == [], "every option with a value")
+    check(F._files(["Cine60", "--page"]) == [], "an option at the very end")
     rel = os.path.relpath(here)
-    check(F._files(["Refrata", rel]) == [os.path.abspath(rel)], "relative paths become absolute (the running app has another folder)")
+    check(F._files(["Cine60", rel]) == [os.path.abspath(rel)], "relative paths become absolute (the running app has another folder)")
 
 
 # ---------------------------------------------------------------- startup helpers
@@ -757,7 +757,7 @@ def update_refuses_what_it_cannot_verify():
     os.environ["REFRATA_UPDATE_KIND"] = "installer"
     dry = TMP / "unit_dryrun.json"
     os.environ["REFRATA_UPDATE_DRYRUN"] = str(dry)
-    name = "Refrata-Setup-9.9.9.exe"
+    name = "Cine60-Setup-9.9.9.exe"
     blob = os.urandom(150_000)
     sha = hashlib.sha256(blob).hexdigest()
     F = _Release.files
@@ -784,7 +784,7 @@ def update_refuses_what_it_cannot_verify():
         up = Updater(_Store())
         check(up.kind == "installer" and up.canSelfUpdate and up.current, "an installed copy updates itself")
         # a release without a Windows installer
-        up.apply_release({"tag_name": "v9.9.9", "assets": [{"name": "refrata_9.9.9_amd64.deb"}, {"name": "Refrata-9.9.9-portable.zip"}]})
+        up.apply_release({"tag_name": "v9.9.9", "assets": [{"name": "refrata_9.9.9_amd64.deb"}, {"name": "Cine60-9.9.9-portable.zip"}]})
         check(up.state == "available" and up.latest == "9.9.9" and up.bannerVisible, "newer version seen")
         up.update()
         check(up.state == "available", "the button has nothing to download")
@@ -900,13 +900,13 @@ def default_app_is_asked_of_windows_itself():
         if saved is not None:
             os.environ["REFRATA_E2E_TMP"] = saved
     check(A._is_ours(A.PROGID) and A._is_ours("Applications\\refrata.exe") and not A._is_ours("txtfile") and not A._is_ours(""),
-          "Refrata's own ProgIds, in any case")
+          "Cine60's own ProgIds, in any case")
     check(set(A.MAIN_EXTS) <= set(A.exts()), "the common types are among the ones offered")
 
 
 @test
 def linux_default_app_counts_each_type_off_the_ui_thread():
-    """Linux: which types open in Refrata is asked of xdg-mime, one call per MIME type on a worker
+    """Linux: which types open in Cine60 is asked of xdg-mime, one call per MIME type on a worker
     thread; the answer arrives by signal. Here xdg-mime is a stand-in and the apps folder a temp one."""
     app = _qt()
     from refrata import assoc as A

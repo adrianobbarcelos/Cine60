@@ -1,10 +1,10 @@
-"""Hand files to the running Refrata before anything heavy loads.
+"""Hand files to the running Cine60 before anything heavy loads.
 
-Opening a second video while Refrata runs used to start a whole second process (Python, Qt, libVLC:
+Opening a second video while Cine60 runs used to start a whole second process (Python, Qt, libVLC:
 half a second or more) only to pass a path along and quit. This talks to the running instance's
 QLocalServer directly - a named pipe on Windows, a Unix socket elsewhere - with the standard library
 alone, at the very top of __main__.py. When it gets the "ok", the launch ends right there. Anything else
-(no Refrata running, or one still starting) falls through to the full path in refrata/single.py,
+(no Cine60 running, or one still starting) falls through to the full path in refrata/single.py,
 with the same request id, so a file sent twice is still opened once.
 
 Keep this module free of Qt and of other refrata imports: its speed is the point.
@@ -24,7 +24,7 @@ SKIP_FLAGS = ("--selftest", "--scenario", "--screenshot", "--new-window", "--bac
 def server_name(tag: str = "") -> str:
     """Same name as refrata.single.server_name (QLocalServer's name for this user and data folder)."""
     who = f"{getpass.getuser()}|{os.environ.get('REFRATA_DATA', '')}|{tag}"
-    return "Refrata-" + hashlib.sha1(who.encode("utf8")).hexdigest()[:16]
+    return "Cine60-" + hashlib.sha1(who.encode("utf8")).hexdigest()[:16]
 
 
 # __main__.py's options that take a value: the value is not a file to open
@@ -46,10 +46,10 @@ def _files(argv) -> list[str]:
 
 
 def grant_foreground():
-    """Let the running Refrata bring its window to the front for this request.
+    """Let the running Cine60 bring its window to the front for this request.
 
     Windows lets only the process the person just started (this one, from Explorer) set the
-    foreground window; the Refrata already running, sitting in the tray, is a background process and
+    foreground window; the Cine60 already running, sitting in the tray, is a background process and
     its window opened behind the others with the taskbar button flashing, whenever its own
     workaround could not attach to the window in front. This passes the right on, which is what
     Windows provides AllowSetForegroundWindow for. ASFW_ANY: the pid of the other one is not known."""
@@ -92,7 +92,7 @@ def _roundtrip(payload: bytes, timeout: float) -> bytes:
 
 
 def try_hand_over(argv=None, timeout: float = 1.5) -> str:
-    """Exit the process if the running Refrata took the request; else return the request id for
+    """Exit the process if the running Cine60 took the request; else return the request id for
     the full path to reuse (or "" when this launch must not hand over at all)."""
     argv = list(sys.argv if argv is None else argv)
     if any(f in argv for f in SKIP_FLAGS):

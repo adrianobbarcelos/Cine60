@@ -23,7 +23,7 @@ def run(name, cmd, env=None):
 
 def main():
     job = json.loads((OUT / "job.json").read_text("utf8"))
-    exe = [] if job["source"] else ["--exe", str(ROOT / "dist" / "Refrata" / "Refrata.exe")]
+    exe = [] if job["source"] else ["--exe", str(ROOT / "dist" / "Cine60" / "Cine60.exe")]
     # the sandbox's GPU is a virtual one: time budgets measured for the host get twice the room
     env = dict(os.environ, REFRATA_NO_MEDIAKEYS="1", REFRATA_TIME_SCALE="2")
     results = {}

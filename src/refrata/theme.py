@@ -51,7 +51,7 @@ def _reduce_motion() -> bool:
 def _bundled_icon_font() -> str:
     """Fluent UI System Icons (MIT), cut down to the app's icons: Segoe Fluent Icons is Windows-only."""
     from .vlcpath import resources_dir
-    fid = QFontDatabase.addApplicationFont(str(resources_dir() / "fonts" / "FluentSystemIcons-Refrata.ttf"))
+    fid = QFontDatabase.addApplicationFont(str(resources_dir() / "fonts" / "FluentSystemIcons-Cine60.ttf"))
     fams = QFontDatabase.applicationFontFamilies(fid) if fid >= 0 else []
     return fams[0] if fams else "Sans Serif"
 

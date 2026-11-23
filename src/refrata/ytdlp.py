@@ -1,4 +1,4 @@
-"""yt-dlp kept current without waiting for a new Refrata release.
+"""yt-dlp kept current without waiting for a new Cine60 release.
 
 Sites like YouTube change often and an old yt-dlp stops opening their links within weeks. So the
 app can fetch the newest yt-dlp from PyPI (its official home) on its own:
@@ -36,7 +36,7 @@ ROOT = DATA_DIR / "yt-dlp"
 CHECK_EVERY = 24 * 3600        # a routine look, when links are used
 RETRY_EVERY = 3600             # after a failed link (private videos fail too: don't ask PyPI every time)
 MAX_WHEEL = 40 * 1024 * 1024
-UA = f"Refrata/{__version__} (+https://github.com/LucsLabsStudios/refrata)"
+UA = f"Cine60/{__version__} (+https://github.com/LucsLabsStudios/refrata)"
 
 allowed = lambda: True         # noqa: E731  — __main__.py ties it to the auto-update setting
 _lock = threading.RLock()

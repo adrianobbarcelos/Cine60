@@ -1,7 +1,7 @@
 """The E2E battery split across several app processes at once.
 
     python tests/e2e_parallel.py                       # source tree
-    python tests/e2e_parallel.py --exe dist/Refrata/Refrata.exe --report build/e2e.json
+    python tests/e2e_parallel.py --exe dist/Cine60/Cine60.exe --report build/e2e.json
 
 Each process is a whole app with its own temporary data (src/refrata/__main__.py --selftest makes one), running a
 share of the tests; the shares are balanced by the last run's times. Tests that type on the keyboard

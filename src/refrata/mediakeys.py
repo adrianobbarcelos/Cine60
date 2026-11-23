@@ -1,8 +1,8 @@
 """Windows media controls: the keyboard's play/pause/next/previous keys and the media overlay
-(volume flyout, lock screen) show and control what Refrata plays.
+(volume flyout, lock screen) show and control what Cine60 plays.
 
 Windows routes media keys to the "System Media Transport Controls" session of the app that
-played last, so Refrata never steals the keys from another player the person is using.
+played last, so Cine60 never steals the keys from another player the person is using.
 
 The SMTC of a Windows.Media.Playback.MediaPlayer whose command manager is switched off is the
 documented way for a desktop app to own a session without playing through that MediaPlayer:

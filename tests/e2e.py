@@ -1,4 +1,4 @@
-"""End-to-end test battery for Refrata.
+"""End-to-end test battery for Cine60.
 
 Boots the real application (QML UI + libVLC engine) in-process with an isolated
 data directory and synthetic media, then exercises every feature: library,
@@ -28,7 +28,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 ENTRY = ROOT / "src" / "refrata" / "__main__.py"
-# `Refrata.exe --selftest` creates the temp dir before the app modules load
+# `Cine60.exe --selftest` creates the temp dir before the app modules load
 TMP = Path(os.environ.get("REFRATA_E2E_TMP") or tempfile.mkdtemp(prefix="refrata_e2e_"))
 os.environ["REFRATA_E2E_TMP"] = str(TMP)
 os.environ["REFRATA_DATA"] = str(TMP / "data")
@@ -1835,7 +1835,7 @@ def t43_brand_logo_and_about_card():
 @test
 def t44_legacy_best_vlc_data_is_migrated():
     import refrata.settings as rs
-    legacy, new = TMP / "legacy" / "BestVLC", TMP / "legacy" / "Refrata"
+    legacy, new = TMP / "legacy" / "BestVLC", TMP / "legacy" / "Cine60"
     legacy.mkdir(parents=True)
     (legacy / "settings.json").write_text(json.dumps({"theme": "light", "history": [{"path": "C:/x.mkv"}]}), "utf8")
     (legacy / "crash.log").write_text("old", "utf8")
@@ -1992,14 +1992,14 @@ def t47_in_app_update_check_download_verify_install():
     check(U.parse_version("v1.10.2") > U.parse_version("1.9.9") and U.parse_version("1.1") == (1, 1, 0),
           "version comparison is numeric")
     trusted = U.Updater._trusted_url
-    check(trusted("https://github.com/LucsLabsStudios/refrata/releases/download/v1/Refrata-Setup-1.exe")
+    check(trusted("https://github.com/LucsLabsStudios/refrata/releases/download/v1/Cine60-Setup-1.exe")
           and trusted("https://objects.githubusercontent.com/x") and not trusted("http://github.com/x")
           and not trusted("https://github.com.evil.example/x") and not trusted("https://evil.example/x"),
           "installers only come over https from GitHub")
     rel = TMP / "release"
     rel.mkdir(exist_ok=True)
     blob = os.urandom(400_000)
-    (rel / "Refrata-Setup-9.9.9.exe").write_bytes(blob)
+    (rel / "Cine60-Setup-9.9.9.exe").write_bytes(blob)
     sha = hashlib.sha256(blob).hexdigest()
     port = start_http(rel)
     base = f"http://127.0.0.1:{port}"
@@ -2010,7 +2010,7 @@ def t47_in_app_update_check_download_verify_install():
     os.environ["REFRATA_UPDATE_PUBKEY"] = ed25519.public_key(test_key).hex()
 
     def publish(tag, digest, signer=test_key, signed=True):
-        name = "Refrata-Setup-9.9.9.exe"
+        name = "Cine60-Setup-9.9.9.exe"
         assets = [{"name": name, "size": len(blob), "digest": "sha256:" + digest,
                    "browser_download_url": base + "/download/" + name}]
         if signed:
@@ -2117,7 +2117,7 @@ def t47_in_app_update_check_download_verify_install():
 
 
 class main_hidden:
-    """The main window off screen (as when Refrata was started for a file from Explorer); the
+    """The main window off screen (as when Cine60 was started for a file from Explorer); the
     tray mode keeps the app alive meanwhile so closing the quick player does not quit the run."""
     def __enter__(self):
         self.bg = C.parts.tray.background
@@ -2186,12 +2186,12 @@ def t48_quick_player_preview_compact_and_background():
     sib = Q.media_siblings(video)
     check(video in sib and video2 in sib, "folder siblings for ← →", str(len(sib)))
 
-    # previewing while Refrata plays music: the music waits, then resumes
+    # previewing while Cine60 plays music: the music waits, then resumes
     e.openFiles([str(C.fx["tone_long"])], 0)
     wait(lambda: e.state == "playing", 8)
     QMetaObject.invokeMethod(quick, "open", Q_ARG("QVariant", video), Q_ARG("QVariant", sib))
     wait(lambda: quick.isVisible(), 3)
-    wait(lambda: e.state == "paused", 3, "Refrata's music pauses during a preview")
+    wait(lambda: e.state == "paused", 3, "Cine60's music pauses during a preview")
     QMetaObject.invokeMethod(quick, "close")
     wait(lambda: not quick.isVisible() and e.state == "playing", 4, "and resumes when the preview closes")
     stop_playback()
@@ -2240,7 +2240,7 @@ def t48_quick_player_preview_compact_and_background():
     wkey(quick, Qt.Key.Key_Escape)
     wait(lambda: not quick.isVisible(), 2, "Esc closes")
 
-    # a double-clicked file from Explorer goes straight to the full app, even with Refrata hidden in
+    # a double-clicked file from Explorer goes straight to the full app, even with Cine60 hidden in
     # the tray; the floating window is only the Space preview (the option to open files there is gone)
     check(C.parts.settings.value("quickOpen") is None, "no 'open files in the quick player' setting")
     tray.background = True       # keeps the app alive while its window is hidden
@@ -2257,15 +2257,15 @@ def t48_quick_player_preview_compact_and_background():
     C.parts.win.hide()
     pump(0.2)
 
-    # from the Space preview, "open in Refrata" hands over to the app at the same point
+    # from the Space preview, "open in Cine60" hands over to the app at the same point
     QMetaObject.invokeMethod(quick, "open", Q_ARG("QVariant", video), Q_ARG("QVariant", sib))
     wait(lambda: quick.isVisible(), 3, "the preview again, the app in the tray")
     wait(lambda: quick.findChild(QObject, "quickSeek").property("value") > 1200, 8, "the preview plays")
     at = quick.findChild(QObject, "quickSeek").property("value")
     wclick(quick, C.parts.find("quickExpand"))
-    wait(lambda: e.state == "playing" and e.currentPath == video, 8, "opened in Refrata")
+    wait(lambda: e.state == "playing" and e.currentPath == video, 8, "opened in Cine60")
     wait(lambda: e.time > 0, 5)
-    check(e.time >= at - 1500, "Refrata continues where the preview was", f"{e.time} vs {at}")
+    check(e.time >= at - 1500, "Cine60 continues where the preview was", f"{e.time} vs {at}")
     wait(lambda: not quick.isVisible(), 2, "the preview leaves")
     check(win().property("playerOpen") is True and C.parts.win.isVisible(), "full player is shown")
     tray.background = False
@@ -2453,7 +2453,7 @@ def t51_linux_media_keys_over_dbus():
         names = bus("org.freedesktop.DBus.ListNames", dest="org.freedesktop.DBus")["out"]
         check(m.service in names, "the player is on the bus under an MPRIS name", m.service)
         root = props(M.ROOT_IFACE)
-        check(value(root, "Identity") == "Refrata" and value(root, "DesktopEntry") == "refrata", "it says who it is", root[:300])
+        check(value(root, "Identity") == "Cine60" and value(root, "DesktopEntry") == "refrata", "it says who it is", root[:300])
         check('"video/mp4"' in root and '"audio/mpeg"' in root and '"file"' in root, "and what it opens")
 
         # nothing loaded
@@ -2589,7 +2589,7 @@ def t99_shutdown_persists_state():
 
 # ====================================================================== run
 def run(filter_text="", report=None):
-    print(f"Refrata E2E — temp dir: {TMP} — {'frozen build' if FROZEN else 'source tree'} — libVLC: {main.VLC_DIR}")
+    print(f"Cine60 E2E — temp dir: {TMP} — {'frozen build' if FROZEN else 'source tree'} — libVLC: {main.VLC_DIR}")
     from PySide6.QtWidgets import QApplication
     app = QGuiApplication.instance() or QApplication(sys.argv)
     t = time.time()

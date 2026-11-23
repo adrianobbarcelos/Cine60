@@ -3,7 +3,7 @@
 How it works
 - A foreground-window event (SetWinEventHook) tells when an Explorer window or the desktop comes to
   the front; only then is a low-level keyboard hook installed, and it is removed when another app
-  takes the front. Typing anywhere else never passes through Refrata (or waits on Python).
+  takes the front. Typing anywhere else never passes through Cine60 (or waits on Python).
 - The keyboard hook (WH_KEYBOARD_LL) sees the Space key. It never swallows
   keys and never does slow work inside the hook: it only checks, cheaply, that the foreground
   window is an Explorer folder view (or the desktop) with the file list focused, and that the
@@ -11,9 +11,9 @@ How it works
 - The selected item is read through Explorer's own automation (Shell.Application ›
   Windows › Document.SelectedItems, or the desktop's view) via ActiveQt.
 - If it is one media file, `previewRequested(path, siblings)` is emitted; the QML preview window
-  plays it with its own lightweight player, so whatever Refrata is playing is left alone.
+  plays it with its own lightweight player, so whatever Cine60 is playing is left alone.
 
-The hook only lives while Refrata runs; "Manter em segundo plano" keeps it in the tray.
+The hook only lives while Cine60 runs; "Manter em segundo plano" keeps it in the tray.
 """
 import ctypes
 import os

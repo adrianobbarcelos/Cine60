@@ -241,10 +241,10 @@ Flickable {
                         return settings.hdrOutput === "off"
                             ? qsTr("O HDR do Windows está ligado nesta tela (até %1 nits). Ligue esta opção para ver vídeos HDR com o brilho real.").arg(nits)
                             : hdrout.needsReopen
-                            ? qsTr("O HDR do Windows foi ligado depois que o Refrata abriu (até %1 nits): reabra o Refrata para usar o HDR real.").arg(nits)
+                            ? qsTr("O HDR do Windows foi ligado depois que o Cine60 abriu (até %1 nits): reabra o Cine60 para usar o HDR real.").arg(nits)
                             : qsTr("O HDR do Windows está ligado nesta tela (até %1 nits), mas o Windows não deixou a janela usar HDR. Atualize o driver de vídeo.").arg(nits)
                     if (nits > 0)
-                        return qsTr("Sua tela aceita HDR (até %1 nits): ligue \"Usar HDR\" nas configurações de vídeo do Windows, sem fechar o Refrata. Sem isso, o HDR é convertido para a tela comum com as cores certas.").arg(nits)
+                        return qsTr("Sua tela aceita HDR (até %1 nits): ligue \"Usar HDR\" nas configurações de vídeo do Windows, sem fechar o Cine60. Sem isso, o HDR é convertido para a tela comum com as cores certas.").arg(nits)
                     return qsTr("Em telas comuns, vídeos HDR são convertidos com as cores e o brilho certos. Resoluções até 8K e acima.")
                 }
                 Toggle { objectName: "hdrOutputToggle"; checked: settings.hdrOutput !== "off"; onToggled: (on) => settings.hdrOutput = on ? "auto" : "off" }
@@ -373,18 +373,18 @@ Flickable {
                 objectName: "defaultAppRow"
                 visible: winassoc.available && updater.kind !== "store"
                 title: appctl.platform === "windows" ? qsTr("Player padrão do Windows") : qsTr("Player padrão do sistema")
-                // how many types open in Refrata, and which of the common ones still do not: Windows
+                // how many types open in Cine60, and which of the common ones still do not: Windows
                 // lets no app make itself the default, so the person picks each type in Settings
                 readonly property string counted: winassoc.registered && winassoc.typeCount > 0
                     ? qsTr("Padrão para %1 de %2 tipos de arquivo.").replace("%1", winassoc.defaultCount).replace("%2", winassoc.typeCount) : ""
                 readonly property string missing: winassoc.missingMain.length
                     ? qsTr("Ainda abrem em outro app: %1.").replace("%1", winassoc.missingMain.join(", ")) : ""
                 desc: appctl.platform === "windows" ? (winassoc.isDefault
-                        ? qsTr("O duplo clique num vídeo no Explorer já abre o Refrata.") + (winassoc.defaultCount < winassoc.typeCount ? " " + counted : "")
-                    : winassoc.registered ? [counted, missing, qsTr("Nas configurações do Windows, clique em cada um e escolha o Refrata.")].filter(function (s) { return s }).join(" ")
-                    : qsTr("Esta cópia portátil ainda não aparece no “Abrir com” do Windows. O botão a registra para o seu usuário e abre as configurações para você escolher o Refrata como padrão."))
-                    : winassoc.isDefault ? qsTr("O Refrata já abre seus vídeos e músicas com dois cliques.")
-                    : [qsTr("Faz o Refrata aparecer em “Abrir com” e abrir vídeos e músicas com dois cliques no gerenciador de arquivos."), counted, missing].filter(function (s) { return s }).join(" ")
+                        ? qsTr("O duplo clique num vídeo no Explorer já abre o Cine60.") + (winassoc.defaultCount < winassoc.typeCount ? " " + counted : "")
+                    : winassoc.registered ? [counted, missing, qsTr("Nas configurações do Windows, clique em cada um e escolha o Cine60.")].filter(function (s) { return s }).join(" ")
+                    : qsTr("Esta cópia portátil ainda não aparece no “Abrir com” do Windows. O botão a registra para o seu usuário e abre as configurações para você escolher o Cine60 como padrão."))
+                    : winassoc.isDefault ? qsTr("O Cine60 já abre seus vídeos e músicas com dois cliques.")
+                    : [qsTr("Faz o Cine60 aparecer em “Abrir com” e abrir vídeos e músicas com dois cliques no gerenciador de arquivos."), counted, missing].filter(function (s) { return s }).join(" ")
                 PillButton {
                     objectName: "defaultAppBtn"
                     visible: appctl.platform === "windows" || !winassoc.isDefault
@@ -401,8 +401,8 @@ Flickable {
             }
             SettingRow {
                 title: qsTr("Manter em segundo plano")
-                desc: appctl.platform === "windows" ? qsTr("Ao fechar a janela, o Refrata fica na bandeja do Windows, e a prévia e os arquivos abrem na hora.")
-                    : qsTr("Ao fechar a janela, o Refrata fica na bandeja do sistema, e os arquivos abrem na hora.")
+                desc: appctl.platform === "windows" ? qsTr("Ao fechar a janela, o Cine60 fica na bandeja do Windows, e a prévia e os arquivos abrem na hora.")
+                    : qsTr("Ao fechar a janela, o Cine60 fica na bandeja do sistema, e os arquivos abrem na hora.")
                 Toggle { objectName: "toggleBackground"; checked: tray.background; onToggled: (on) => tray.background = on }
             }
             SettingRow {
@@ -518,7 +518,7 @@ Flickable {
                                 if (!seq) return   // a lone Ctrl/Shift/Alt: wait for the key
                                 var took = keys.assign(modelData, seq)
                                 keysCard.capturing = ""
-                                if (took === "reserved") page.notify(qsTr("Essa tecla é fixa no Refrata"))
+                                if (took === "reserved") page.notify(qsTr("Essa tecla é fixa no Cine60"))
                                 else if (took) page.notify(qsTr("A tecla saiu de “%1”").arg(keysCard.names[took]))
                             }
                             onActiveFocusChanged: if (!activeFocus && listening) keysCard.capturing = ""
@@ -578,7 +578,7 @@ Flickable {
                     }
                 }
                 Text {
-                    text: "Refrata"
+                    text: "Cine60"
                     color: "white"
                     font.family: theme.displayFont; font.pixelSize: 64; font.weight: Font.Light
                     font.letterSpacing: -1.5

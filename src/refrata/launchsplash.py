@@ -1,7 +1,7 @@
-"""The launch splash of the packaged app on Windows: only when this launch really starts Refrata.
+"""The launch splash of the packaged app on Windows: only when this launch really starts Cine60.
 
 It used to be PyInstaller's bootloader splash, shown before Python runs, so it showed on *every*
-launch, including the ones that only hand a file to the Refrata already running (fastlaunch.py)
+launch, including the ones that only hand a file to the Cine60 already running (fastlaunch.py)
 and quit a moment later: a splash flashed before every video opened from Explorer. Here it is
 shown after that hand-over failed, i.e. on a cold start only, and never for a start that stays
 hidden (the tray) or a test run.
@@ -93,7 +93,7 @@ def _run(png, ready):
         wc.lpfnWndProc = ctypes.cast(u.DefWindowProcW, ctypes.c_void_p).value
         wc.hInstance = hinst
         wc.hCursor = u.LoadCursorW(None, ctypes.c_void_p(32514))     # IDC_APPSTARTING
-        wc.lpszClassName = "RefrataLaunchSplash"
+        wc.lpszClassName = "Cine60LaunchSplash"
         u.RegisterClassExW(ctypes.byref(wc))
         area = wt.RECT()
         u.SystemParametersInfoW(0x0030, 0, ctypes.byref(area), 0)    # SPI_GETWORKAREA
@@ -101,7 +101,7 @@ def _run(png, ready):
         y = area.top + (area.bottom - area.top - h.value) // 2
         u.CreateWindowExW.restype = wt.HWND
         hwnd = u.CreateWindowExW(0x00080000 | 0x00000080,            # WS_EX_LAYERED | WS_EX_TOOLWINDOW
-                                 wc.lpszClassName, "Refrata", 0x80000000,  # WS_POPUP
+                                 wc.lpszClassName, "Cine60", 0x80000000,  # WS_POPUP
                                  x, y, w.value, h.value, None, None, hinst, None)
         if not hwnd:
             return

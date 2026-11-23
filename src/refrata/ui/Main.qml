@@ -12,7 +12,7 @@ Window {
     // hidden when started in the tray (--background)
     visible: !startHidden
     color: theme.bg
-    title: player.title ? player.title + "  —  Refrata" : "Refrata"
+    title: player.title ? player.title + "  —  Cine60" : "Cine60"
 
     // HDR screen (hdroutput.py): a scRGB swapchain, read by Qt when it creates it; when the screen
     // changes (Windows HDR on or off, another monitor) hdroutput rebuilds the native window
@@ -454,7 +454,7 @@ Window {
 
     MediaMenu { id: menu; objectName: "mediaMenu"; onTriggered: (k, p) => win.handleMenu(k, p) }
 
-    // closing the window in background mode keeps Refrata in the tray (music keeps playing)
+    // closing the window in background mode keeps Cine60 in the tray (music keeps playing)
     onClosing: (close) => {
         if (tray.background) {
             close.accepted = false
@@ -462,7 +462,7 @@ Window {
             win.hide()
             return
         }
-        // closing the main window closes Refrata, quick player included (no window left behind
+        // closing the main window closes Cine60, quick player included (no window left behind
         // holding the app open)
         if (quickVisible()) quick.close()
         if (pip && pip.visible) pip.hide()
@@ -555,13 +555,13 @@ Window {
         function onRenderersChanged() { if (player.castingTo !== "") win.leavePip(true) }
     }
     Shortcut { sequence: keys.map.pip; onActivated: win.togglePip() }
-    // back from Windows' Apps padrão: show whether Refrata is now the default player
+    // back from Windows' Apps padrão: show whether Cine60 is now the default player
     Connections {
         target: Qt.application
         function onStateChanged() { if (Qt.application.state === Qt.ApplicationActive) winassoc.refresh() }
     }
 
-    // over everything, the player too: Windows HDR came on after Refrata opened (hdroutput.py)
+    // over everything, the player too: Windows HDR came on after Cine60 opened (hdroutput.py)
     HdrBanner {
         anchors.horizontalCenter: parent.horizontalCenter
         y: 18

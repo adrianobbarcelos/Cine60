@@ -5,8 +5,8 @@ import QtMultimedia
 import "Utils.js" as U
 
 // The Space preview: Space on a file in Explorer or on the desktop (QuickLook-style).
-// Space / Esc closes, ← → browse the folder, Enter opens it in Refrata at the same point.
-// It plays with its own QtMultimedia player, so whatever Refrata is playing is left untouched.
+// Space / Esc closes, ← → browse the folder, Enter opens it in Cine60 at the same point.
+// It plays with its own QtMultimedia player, so whatever Cine60 is playing is left untouched.
 Window {
     id: qw
     objectName: "quickPlayer"
@@ -16,7 +16,7 @@ Window {
     // drove the player behind it
     transientParent: null
     color: "transparent"
-    title: name ? name + "  —  Refrata" : "Refrata"
+    title: name ? name + "  —  Cine60" : "Cine60"
 
     signal expandRequested(var files, int index, real ms)
     signal closed()
@@ -62,7 +62,7 @@ Window {
         var i = files.indexOf(path)
         index = i < 0 ? 0 : i
         dir = 0
-        // two soundtracks at once is never wanted: hold Refrata's own playback while previewing
+        // two soundtracks at once is never wanted: hold Cine60's own playback while previewing
         if (!shown && player.playing) { player.pause(); pausedMain = true }
         load()
         placeCentered(fitSize())
@@ -189,7 +189,7 @@ Window {
                 id: content
                 anchors.fill: parent
                 transform: Translate { id: slide; x: 0 }
-                // a click on the picture plays / pauses; a double click expands to Refrata
+                // a click on the picture plays / pauses; a double click expands to Cine60
                 TapHandler {
                     onTapped: if (!qw.failed) qw.togglePlay()
                     onDoubleTapped: qw.expand()
@@ -240,7 +240,7 @@ Window {
                     spacing: 14
                     Icon { anchors.horizontalCenter: parent.horizontalCenter; name: "film"; size: 40; color: Qt.rgba(1, 1, 1, 0.5) }
                     Text { anchors.horizontalCenter: parent.horizontalCenter; text: qsTr("A prévia não abre este formato"); color: "white"; font.pixelSize: 16; font.weight: Font.DemiBold }
-                    PillButton { anchors.horizontalCenter: parent.horizontalCenter; text: qsTr("Abrir no Refrata"); icon: "fullscreen"; variant: "accent"; onClicked: qw.expand() }
+                    PillButton { anchors.horizontalCenter: parent.horizontalCenter; text: qsTr("Abrir no Cine60"); icon: "fullscreen"; variant: "accent"; onClicked: qw.expand() }
                 }
             }
 
@@ -299,7 +299,7 @@ Window {
                         anchors.right: parent.right; anchors.rightMargin: 12
                         anchors.verticalCenter: parent.verticalCenter
                         spacing: 2
-                        IconButton { objectName: "quickExpand"; icon: "fullscreen"; onMedia: true; size: 36; iconSize: 13; tip: qsTr("Abrir no Refrata (Enter)"); onClicked: qw.expand() }
+                        IconButton { objectName: "quickExpand"; icon: "fullscreen"; onMedia: true; size: 36; iconSize: 13; tip: qsTr("Abrir no Cine60 (Enter)"); onClicked: qw.expand() }
                         IconButton { objectName: "quickClose"; icon: "close"; onMedia: true; size: 36; iconSize: 12; tip: qsTr("Fechar (Esc)"); onClicked: qw.close() }
                     }
                 }

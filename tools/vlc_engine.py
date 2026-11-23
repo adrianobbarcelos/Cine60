@@ -1,4 +1,4 @@
-"""The VLC engine (libVLC) that Refrata bundles: which version, where to get it, is there a newer one.
+"""The VLC engine (libVLC) that Cine60 bundles: which version, where to get it, is there a newer one.
 
 The version lives in tools/vlc-version.txt. The build downloads that exact release from VideoLAN
 (the official win64 zip), checks its SHA-256 and copies libVLC out of it, so every build (on this
@@ -22,7 +22,7 @@ ROOT = Path(__file__).resolve().parents[1]
 PIN_FILE = ROOT / "tools" / "vlc-version.txt"
 CACHE = ROOT / "build" / "cache"
 BASE = "https://download.videolan.org/pub/videolan/vlc"
-UA = "Refrata-build (+https://github.com/LucsLabsStudios/refrata)"
+UA = "Cine60-build (+https://github.com/LucsLabsStudios/refrata)"
 
 
 def pinned() -> str:

@@ -1,6 +1,6 @@
 """Ed25519 signatures (RFC 8032), pure Python.
 
-Used to sign Refrata's updates (tools/release.py) and to check them before installing
+Used to sign Cine60's updates (tools/release.py) and to check them before installing
 (refrata/updater.py). Follows the reference code of RFC 8032, section 6; it is not constant-time,
 which is fine here: signing happens on the maintainer's machine, and the app only verifies.
 Checked against the RFC's test vectors (tests: tests/test_ed25519.py).

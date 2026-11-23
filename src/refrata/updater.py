@@ -3,9 +3,9 @@
 check()    → GET the latest release (JSON), compare its tag with __version__
 download() → check the release's Ed25519 signature of the installer's name, SHA-256 and version
              (the key is UPDATE_PUBLIC_KEY; tools/update_key.py, tools/release.py), then stream
-             the installer to %LOCALAPPDATA%\\Refrata\\updates and verify its SHA-256
+             the installer to %LOCALAPPDATA%\\Cine60\\updates and verify its SHA-256
 install()  → start the installer silently (/VERYSILENT … /relaunch=1) and quit; Inno closes
-             what is left of the app, updates in place and starts Refrata again
+             what is left of the app, updates in place and starts Cine60 again
 
 Only installed copies (Inno setup) update themselves. The portable zip opens the download
 page instead, and the Microsoft Store package is updated by the Store.
@@ -28,11 +28,11 @@ from . import __version__
 from .settings import DATA_DIR
 from .i18n import tr
 
-REPO = "LucsLabsStudios/refrata"
+REPO = "adrianobbarcelos/Cine60"
 API_LATEST = f"https://api.github.com/repos/{REPO}/releases/latest"
 SITE = "https://refrata.vercel.app"
 CHECK_EVERY_S = 12 * 3600
-ASSET_RE = re.compile(r"^Refrata-Setup-[\d.]+\.exe$", re.I)
+ASSET_RE = re.compile(r"^Cine60-Setup-[\d.]+\.exe$", re.I)
 # Ed25519 public key of the update signing key (tools/update_key.py). An installer is downloaded
 # only when the release carries its signature by this key: a compromised GitHub account alone
 # cannot push an update. Releases up to 1.4.4 predate it and are not signed.
@@ -186,7 +186,7 @@ class Updater(QObject):
         self._set("checking")
         req = QNetworkRequest(QUrl(self._url))
         req.setRawHeader(b"Accept", b"application/vnd.github+json")
-        req.setRawHeader(b"User-Agent", f"Refrata/{__version__}".encode())
+        req.setRawHeader(b"User-Agent", f"Cine60/{__version__}".encode())
         req.setTransferTimeout(15000)
         reply = self._net.get(req)
         reply.finished.connect(lambda: self._on_checked(reply))
@@ -260,7 +260,7 @@ class Updater(QObject):
 
     def _request(self, url):
         req = QNetworkRequest(QUrl(url))
-        req.setRawHeader(b"User-Agent", f"Refrata/{__version__}".encode())
+        req.setRawHeader(b"User-Agent", f"Cine60/{__version__}".encode())
         return req
 
     @staticmethod
@@ -300,7 +300,7 @@ class Updater(QObject):
             return
         folder = DATA_DIR / "updates"
         folder.mkdir(parents=True, exist_ok=True)
-        for old in folder.glob("Refrata-Setup-*.exe*"):
+        for old in folder.glob("Cine60-Setup-*.exe*"):
             try:
                 old.unlink()
             except OSError:

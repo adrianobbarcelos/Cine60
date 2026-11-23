@@ -1,6 +1,6 @@
 """Background mode: tray icon, close-to-tray and start with Windows (per user, no admin).
 
-With background mode on, closing the window keeps Refrata running in the tray, so the Space
+With background mode on, closing the window keeps Cine60 running in the tray, so the Space
 preview (refrata/quicklook.py) and files opened from Explorer appear instantly.
 """
 import sys
@@ -12,7 +12,7 @@ from PySide6.QtWidgets import QApplication, QMenu, QSystemTrayIcon
 from .i18n import tr
 
 RUN_KEY = r"Software\Microsoft\Windows\CurrentVersion\Run"
-RUN_NAME = "Refrata"
+RUN_NAME = "Cine60"
 
 
 def _exe() -> str | None:
@@ -24,7 +24,7 @@ def _run_key() -> str:
     """Where "start with Windows" is written. The test batteries get a throwaway key of their own
     (per process: they run side by side), never the user's real Run entry."""
     import os
-    return rf"Software\RefrataTest\Run-{os.getpid()}" if _testing() else RUN_KEY
+    return rf"Software\Cine60Test\Run-{os.getpid()}" if _testing() else RUN_KEY
 
 
 def _autostart_file() -> Path:
@@ -35,9 +35,9 @@ def _autostart_file() -> Path:
 
 
 def _desktop_entry(exe: str, args: str = "%F", autostart: bool = False) -> str:
-    """A freedesktop .desktop entry for this copy of Refrata."""
+    """A freedesktop .desktop entry for this copy of Cine60."""
     from .assoc import mime_types
-    lines = ["[Desktop Entry]", "Type=Application", "Name=Refrata",
+    lines = ["[Desktop Entry]", "Type=Application", "Name=Cine60",
              "Comment=Video and music player built on the VLC engine",
              f'Exec="{exe}" {args}', "Icon=refrata", "Terminal=false", "Categories=AudioVideo;Player;Video;Audio;"]
     if autostart:
@@ -63,7 +63,7 @@ class Tray(QObject):
         self._settings = settings
         self._ql = quicklook
         self._icon = QSystemTrayIcon(QIcon(str(icon_path)), self)
-        self._icon.setToolTip("Refrata")
+        self._icon.setToolTip("Cine60")
         self._icon.activated.connect(self._activated)
         menu = QMenu()
         a_open = self._a_open = QAction(menu)
@@ -85,7 +85,7 @@ class Tray(QObject):
 
     def retranslate(self):
         """Menu text in the current language (called again when the language changes)."""
-        self._a_open.setText(tr("Abrir o Refrata"))
+        self._a_open.setText(tr("Abrir o Cine60"))
         self._a_preview.setText(tr("Prévia com Espaço no Explorer"))
         self._a_auto.setText(tr("Iniciar com o Windows") if sys.platform == "win32" else tr("Iniciar com o sistema"))
         self._a_quit.setText(tr("Sair"))

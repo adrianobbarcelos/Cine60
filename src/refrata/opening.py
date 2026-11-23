@@ -1,6 +1,6 @@
 """How long each file took to open, step by step, in <data>/opening.log (the last 200 opens).
 
-A double-click in Explorer starts a new Refrata.exe, which hands the file to the running one; that
+A double-click in Explorer starts a new Cine60.exe, which hands the file to the running one; that
 one shows its window, libVLC opens the file, the sound starts, the first picture is drawn. Each
 step is stamped here, in milliseconds from the moment the request started (the launcher process's
 creation when the file came from Explorer), so a slow open says where its time went:

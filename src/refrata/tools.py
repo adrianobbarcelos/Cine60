@@ -248,7 +248,7 @@ class PlayerTools(QObject):
     def _out_path(self, ext):
         folder = self._s.value("snapshotDir", "") or os.path.join(os.path.expanduser("~"), "Pictures")
         os.makedirs(folder, exist_ok=True)
-        stem = os.path.splitext(os.path.basename(self._path))[0][:80] or "Refrata"
+        stem = os.path.splitext(os.path.basename(self._path))[0][:80] or "Cine60"
         return os.path.join(folder, f"{stem} {time.strftime('%Y-%m-%d %H-%M-%S')}.{ext}")
 
     @Slot()

@@ -42,7 +42,7 @@ def frame_png(path: Path, w=640, h=360):
     f.setPixelSize(64)
     f.setBold(True)
     p.setFont(f)
-    p.drawText(QRectF(0, 0, w, h), Qt.AlignmentFlag.AlignCenter, "Refrata")
+    p.drawText(QRectF(0, 0, w, h), Qt.AlignmentFlag.AlignCenter, "Cine60")
     p.end()
     img.save(str(path))
 
@@ -117,7 +117,7 @@ def make_all(root: Path) -> dict:
 
     out["srt"] = root / "extras" / "legenda.srt"
     out["srt"].write_text(
-        "1\n00:00:00,500 --> 00:00:25,000\nLegenda de teste do Refrata\n\n", encoding="utf8")
+        "1\n00:00:00,500 --> 00:00:25,000\nLegenda de teste do Cine60\n\n", encoding="utf8")
 
     out["corrupt"] = films / "corrompido.mp4"
     out["corrupt"].write_bytes(os.urandom(64 * 1024))
@@ -241,7 +241,7 @@ def make_pipeline(root: Path) -> dict:
     if sys.platform == "win32" and not (root / "speech.mp4").exists():
         wav = root / "speech.wav"
         ps = ("Add-Type -AssemblyName System.Speech; $s = New-Object System.Speech.Synthesis.SpeechSynthesizer; "
-              f"$s.Rate = -1; $s.SetOutputToWaveFile('{wav}'); $s.Speak('Welcome to Refrata. This video player can "
+              f"$s.Rate = -1; $s.SetOutputToWaveFile('{wav}'); $s.Speak('Welcome to Cine60. This video player can "
               "now write subtitles from the sound. The quick brown fox jumps over the lazy dog. Every morning the "
               "city wakes up slowly. Thank you for watching this test.'); $s.Dispose()")
         subprocess.run(["powershell", "-NoProfile", "-Command", ps], capture_output=True, timeout=120)

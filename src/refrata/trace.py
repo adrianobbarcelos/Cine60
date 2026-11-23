@@ -1,6 +1,6 @@
 """Startup timeline: REFRATA_TRACE=<file> writes how long each step took since the process started.
 
-    REFRATA_TRACE=trace.txt Refrata.exe video.mp4
+    REFRATA_TRACE=trace.txt Cine60.exe video.mp4
 
 Off (and free) without the variable. Times are from the process's creation, so they include the
 executable's own start (bootloader, Python) before any of our code runs.

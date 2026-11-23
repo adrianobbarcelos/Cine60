@@ -1,4 +1,4 @@
-"""The key that signs Refrata's updates (Ed25519).
+"""The key that signs Cine60's updates (Ed25519).
 
     python tools/update_key.py generate    # once: secret key into .env, public key into the app
     python tools/update_key.py public      # print the public key of the key in .env
@@ -56,7 +56,7 @@ def main():
         secret = os.urandom(32)
         public = ed25519.public_key(secret).hex()
         with open(ENV, "a", encoding="utf8") as f:
-            f.write(f"\n# Ed25519 key that signs Refrata's updates (tools/update_key.py). Keep a backup.\n"
+            f.write(f"\n# Ed25519 key that signs Cine60's updates (tools/update_key.py). Keep a backup.\n"
                     f"{NAME}={secret.hex()}\n")
         src = UPDATER.read_text(encoding="utf8")
         src, n = re.subn(r'^UPDATE_PUBLIC_KEY = "[0-9a-f]*"', f'UPDATE_PUBLIC_KEY = "{public}"', src, flags=re.M)

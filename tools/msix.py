@@ -1,12 +1,12 @@
-"""MSIX package of Refrata (Microsoft Store and local testing).
+"""MSIX package of Cine60 (Microsoft Store and local testing).
 
-    python tools/msix.py            # packs dist/Refrata (run tools/build.py first)
+    python tools/msix.py            # packs dist/Cine60 (run tools/build.py first)
 
 Outputs in dist/:
-    Refrata-<v>-x64-store.msix   for Partner Center; the Store signs it. Needs installer/store.json
+    Cine60-<v>-x64-store.msix   for Partner Center; the Store signs it. Needs installer/store.json
                                  with the identity Partner Center shows under Product identity
                                  (copy installer/store.example.json).
-    Refrata-<v>-x64-dev.msix     signed with the development certificate, for testing on this PC.
+    Cine60-<v>-x64-dev.msix     signed with the development certificate, for testing on this PC.
                                  Windows installs it only once build\\lucslabs-dev.cer is trusted
                                  (Cert:\\LocalMachine\\TrustedPeople, admin, done by tests/test_msix.py
                                  --trust). Unsigned packages are not an option: Windows refuses them
@@ -28,11 +28,11 @@ from refrata import __version__  # noqa: E402
 from refrata.media import AUDIO_EXT, PLAYLIST_EXT, VIDEO_EXT  # noqa: E402
 from sign import DEV_SUBJECT, TIMESTAMP, create_dev_cert, dev_thumbprint, find_signtool  # noqa: E402
 
-APP = ROOT / "dist" / "Refrata"
+APP = ROOT / "dist" / "Cine60"
 BUILD = ROOT / "build" / "msix"
 ASSETS = ROOT / "packaging" / "windows" / "msix" / "assets"
 VERSION = ".".join((__version__.split(".") + ["0"] * 4)[:3]) + ".0"  # the Store wants revision 0
-NAME = "LucsLabsStudios.Refrata"
+NAME = "LucsLabsStudios.Cine60"
 STUDIO = "LucsLabs Studios"
 DESCRIPTION = "Player de vídeo e música da LucsLabs Studios, com todo o motor do VLC numa interface nova."
 GROUPS = [("video", "Vídeo", VIDEO_EXT), ("audio", "Música", AUDIO_EXT), ("playlist", "Playlist", PLAYLIST_EXT)]
@@ -51,7 +51,7 @@ def sdk_tool(name: str) -> Path:
 
 
 ALIAS = """
-        <uap3:Extension Category="windows.appExecutionAlias" Executable="Refrata.exe" EntryPoint="Windows.FullTrustApplication">
+        <uap3:Extension Category="windows.appExecutionAlias" Executable="Cine60.exe" EntryPoint="Windows.FullTrustApplication">
           <uap3:AppExecutionAlias>
             <desktop:ExecutionAlias Alias="refrata.exe"/>
           </uap3:AppExecutionAlias>
@@ -65,7 +65,7 @@ def manifest(name: str, publisher: str, publisher_display: str, alias: bool = Tr
         assoc.append(f"""
         <uap:Extension Category="windows.fileTypeAssociation">
           <uap:FileTypeAssociation Name="refrata-{key}">
-            <uap:DisplayName>{escape(label)} (Refrata)</uap:DisplayName>
+            <uap:DisplayName>{escape(label)} (Cine60)</uap:DisplayName>
             <uap:Logo>Assets\\Square44x44Logo.png</uap:Logo>
             <uap:SupportedFileTypes>{types}</uap:SupportedFileTypes>
           </uap:FileTypeAssociation>
@@ -79,7 +79,7 @@ def manifest(name: str, publisher: str, publisher_display: str, alias: bool = Tr
          IgnorableNamespaces="uap uap3 desktop rescap">
   <Identity Name="{escape(name)}" Publisher="{escape(publisher)}" Version="{VERSION}" ProcessorArchitecture="x64"/>
   <Properties>
-    <DisplayName>Refrata</DisplayName>
+    <DisplayName>Cine60</DisplayName>
     <PublisherDisplayName>{escape(publisher_display)}</PublisherDisplayName>
     <Logo>Assets\\StoreLogo.png</Logo>
     <Description>{escape(DESCRIPTION)}</Description>
@@ -91,11 +91,11 @@ def manifest(name: str, publisher: str, publisher_display: str, alias: bool = Tr
     <Resource Language="pt-BR"/>
   </Resources>
   <Applications>
-    <Application Id="Refrata" Executable="Refrata.exe" EntryPoint="Windows.FullTrustApplication">
-      <uap:VisualElements DisplayName="Refrata" Description="{escape(DESCRIPTION)}" BackgroundColor="transparent"
+    <Application Id="Cine60" Executable="Cine60.exe" EntryPoint="Windows.FullTrustApplication">
+      <uap:VisualElements DisplayName="Cine60" Description="{escape(DESCRIPTION)}" BackgroundColor="transparent"
                           Square150x150Logo="Assets\\Square150x150Logo.png" Square44x44Logo="Assets\\Square44x44Logo.png">
         <uap:DefaultTile Wide310x150Logo="Assets\\Wide310x150Logo.png" Square71x71Logo="Assets\\SmallTile.png"
-                         Square310x310Logo="Assets\\LargeTile.png" ShortName="Refrata"/>
+                         Square310x310Logo="Assets\\LargeTile.png" ShortName="Cine60"/>
       </uap:VisualElements>
       <Extensions>{"".join(assoc)}
       </Extensions>
@@ -131,7 +131,7 @@ def pack(kind: str, name: str, publisher: str, publisher_display: str) -> Path:
     mapping = proj.parent / f"mapping-{kind}.txt"
     mapping.write_text("\n".join(lines) + "\n", encoding="utf-8")
 
-    out = ROOT / "dist" / f"Refrata-{VERSION}-x64-{kind}.msix"
+    out = ROOT / "dist" / f"Cine60-{VERSION}-x64-{kind}.msix"
     out.unlink(missing_ok=True)
     r = subprocess.run([str(sdk_tool("makeappx.exe")), "pack", "/f", str(mapping), "/p", str(out), "/o"],
                        capture_output=True, text=True)
@@ -156,8 +156,8 @@ def store_identity() -> dict | None:
 
 
 def main():
-    if not (APP / "Refrata.exe").exists():
-        raise SystemExit("dist/Refrata not found — run python tools/build.py first")
+    if not (APP / "Cine60.exe").exists():
+        raise SystemExit("dist/Cine60 not found — run python tools/build.py first")
     out = [pack("dev", NAME, DEV_SUBJECT, STUDIO)]
     ident = store_identity()
     if ident:

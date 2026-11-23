@@ -1,4 +1,4 @@
-"""Is anything Refrata bundles out of date?
+"""Is anything Cine60 bundles out of date?
 
     python tools/check_updates.py              # table; exit code 10 when something is behind
     python tools/check_updates.py --markdown   # the same as a Markdown report (GitHub issue body)
@@ -54,7 +54,7 @@ def report() -> list[dict]:
 
 
 def markdown(rows) -> str:
-    out = ["O Refrata está com componentes desatualizados:", "",
+    out = ["O Cine60 está com componentes desatualizados:", "",
            "| Componente | No app | Mais recente | Para que serve |", "|---|---|---|---|"]
     for r in rows:
         if r["behind"]:

@@ -1,7 +1,7 @@
 import QtQuick
 import QtQuick.Effects
 
-// Windows HDR switched on after Refrata opened (hdroutput.needsReopen): HDR video can show in
+// Windows HDR switched on after Cine60 opened (hdroutput.needsReopen): HDR video can show in
 // HDR only in a new process. One click reopens in place: same video, same point, same window.
 Item {
     id: root
@@ -63,7 +63,7 @@ Item {
             anchors.verticalCenter: parent.verticalCenter
             variant: "accent"; h: 38; fontSize: 13
             text: qsTr("Reabrir em HDR")
-            onClicked: if (!hdrout.reopen()) toast.show(qsTr("Não deu para reabrir. Feche e abra o Refrata."))
+            onClicked: if (!hdrout.reopen()) toast.show(qsTr("Não deu para reabrir. Feche e abra o Cine60."))
         }
         IconButton {
             objectName: "hdrReopenDismiss"

@@ -1,11 +1,11 @@
-"""Refrata – a modern player built on the VLC engine (libVLC), by LucsLabs Studios.
+"""Cine60 – a modern player built on the VLC engine (libVLC), by LucsLabs Studios.
 
 Usage:
-    Refrata [files, folders, playlists or URLs...]
-    Refrata --screenshot out.png [--page home|videos|music|queue|network|settings|player]
+    Cine60 [files, folders, playlists or URLs...]
+    Cine60 --screenshot out.png [--page home|videos|music|queue|network|settings|player]
             [--panel tracks|speed|eq|adjust|sleep|queue] [--delay ms] [--size WxH] [--theme dark|light]
-    Refrata --selftest [-k filter] [--report results.json]   (runs the E2E battery inside the app)
-    Refrata --new-window ...                                  (skip the single-instance hand-off)
+    Cine60 --selftest [-k filter] [--report results.json]   (runs the E2E battery inside the app)
+    Cine60 --new-window ...                                  (skip the single-instance hand-off)
 """
 import argparse
 import os
@@ -24,12 +24,12 @@ if __name__ == "__main__" and not __package__ and not getattr(sys, "frozen", Fal
 from refrata import trace  # noqa: E402  (REFRATA_TRACE: startup timeline)
 
 trace.mark("python ready")
-# Opening a file while Refrata runs: hand it over before Qt and libVLC load (refrata/fastlaunch.py)
+# Opening a file while Cine60 runs: hand it over before Qt and libVLC load (refrata/fastlaunch.py)
 if __name__ == "__main__":
     from refrata.fastlaunch import try_hand_over
-    FAST_ID = try_hand_over()   # exits here when the running Refrata took the file
+    FAST_ID = try_hand_over()   # exits here when the running Cine60 took the file
     # a cold start, then: the splash covers Qt and libVLC loading (refrata/launchsplash.py). Only now,
-    # so opening a video while Refrata runs never flashes it. From source only when asked (tests).
+    # so opening a video while Cine60 runs never flashes it. From source only when asked (tests).
     if getattr(sys, "frozen", False) or os.environ.get("REFRATA_SPLASH") == "1":
         from refrata import launchsplash
         if launchsplash.wanted(sys.argv):
@@ -50,7 +50,7 @@ if __name__ == "__main__":
 sys.setswitchinterval(float(os.environ.get("REFRATA_SWITCH_INTERVAL", "0.001")))
 
 # Tests (REFRATA_E2E_TMP) keep out of the person's own files: Qt's shader pipeline cache lives in
-# the user's AppData/Refrata/cache, and parallel test apps fought over its lock file there
+# the user's AppData/Cine60/cache, and parallel test apps fought over its lock file there
 if os.environ.get("REFRATA_E2E_TMP") or "--selftest" in sys.argv or "--scenario" in sys.argv:
     os.environ.setdefault("QSG_RHI_DISABLE_DISK_CACHE", "1")
 
@@ -211,7 +211,7 @@ def build(argv=None, page="", panel="", theme_name="", instance_name: str | None
           instance=None, preopen=None) -> AppParts:
     """instance_name: "" = default per-user name, None = no single-instance server."""
     redirect_native_stderr(DATA_DIR / "native.log")
-    QGuiApplication.setApplicationName("Refrata")
+    QGuiApplication.setApplicationName("Cine60")
     QGuiApplication.setOrganizationName("LucsLabs Studios")
     QGuiApplication.setApplicationVersion(__version__)
     app = QGuiApplication.instance() or QApplication(argv or sys.argv)
@@ -468,7 +468,7 @@ def main():
         from refrata.reopen import wait_for  # noqa: PLC0415
         wait_for(args.reopen)
     if single:
-        # one Refrata per user: hand the files to the running one and leave, or become it and start
+        # one Cine60 per user: hand the files to the running one and leave, or become it and start
         # listening right away (requests wait until the window is ready; the QApplication is reused)
         QApplication(sys.argv)
         from refrata.single import claim_or_hand_over  # noqa: PLC0415

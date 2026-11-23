@@ -25,7 +25,7 @@ def _api() -> str:
     return os.environ.get("REFRATA_OPENSUBTITLES_URL", "https://api.opensubtitles.com/api/v1")
 
 
-UA = f"Refrata v{__version__}"
+UA = f"Cine60 v{__version__}"
 MAX_SUBTITLE = 8 * 1024 * 1024
 
 

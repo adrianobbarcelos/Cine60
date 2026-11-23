@@ -13,7 +13,7 @@ Window {
     // and Windows hides owned windows when their owner is minimised (the PiP flashed and vanished)
     transientParent: null
     color: "black"
-    title: player.title ? player.title + "  —  Refrata" : "Refrata"
+    title: player.title ? player.title + "  —  Cine60" : "Cine60"
     minimumWidth: 240; minimumHeight: 135
 
     signal backRequested()      // ⤡ / double-click / Esc: show the app again

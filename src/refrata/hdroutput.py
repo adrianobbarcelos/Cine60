@@ -21,7 +21,7 @@ another monitor, the setting changed):
     (QWindow.destroy + show). Qt keeps its QRhi (the GPU device) across that, so video textures,
     the shader pipelines and RTX Video stay; only the swapchain and the HWND are new.
   - HDR switched OFF in Windows: that rebuild gives an SDR swapchain (measured with real switches).
-  - HDR switched ON after Refrata started: Qt 6.8 asks whether the screen is in HDR through the
+  - HDR switched ON after Cine60 started: Qt 6.8 asks whether the screen is in HDR through the
     DXGI adapter of its device, and an adapter from before the switch keeps reporting the old
     state, so a rebuilt swapchain still comes out SDR. A new device would see it, but Qt drops a
     window's device only through hide() with persistence off, and repeating that while video plays
@@ -147,13 +147,13 @@ class _Watcher(threading.Thread):
         u.DispatchMessageW.argtypes = [ctypes.POINTER(wt.MSG)]
         u.DispatchMessageW.restype = LRESULT
         hinst = k.GetModuleHandleW(None)
-        self._wc = wc = WNDCLASSW(lpfnWndProc=self._proc, hInstance=hinst, lpszClassName="RefrataHdrWatch")
+        self._wc = wc = WNDCLASSW(lpfnWndProc=self._proc, hInstance=hinst, lpszClassName="Cine60HdrWatch")
         u.RegisterClassW(ctypes.byref(wc))
         u.CreateWindowExW.restype = wt.HWND
         u.CreateWindowExW.argtypes = [wt.DWORD, wt.LPCWSTR, wt.LPCWSTR, wt.DWORD, ctypes.c_int, ctypes.c_int,
                                       ctypes.c_int, ctypes.c_int, wt.HWND, wt.HMENU, wt.HINSTANCE, wt.LPVOID]
         # a real top-level window (never shown): message-only windows get no broadcasts
-        self.own = u.CreateWindowExW(0x00000080, "RefrataHdrWatch", "", 0x80000000, 0, 0, 0, 0,   # TOOLWINDOW, POPUP
+        self.own = u.CreateWindowExW(0x00000080, "Cine60HdrWatch", "", 0x80000000, 0, 0, 0, 0,   # TOOLWINDOW, POPUP
                                      None, None, hinst, None) or 0
         msg = wt.MSG()
         next_poll = time.monotonic()
@@ -431,7 +431,7 @@ class HdrOutput(QObject):
 
     @Property(bool, notify=changed)
     def needsReopen(self):
-        """Windows HDR came on after Refrata started: HDR video can show in HDR only after a reopen."""
+        """Windows HDR came on after Cine60 started: HDR video can show in HDR only after a reopen."""
         return self._reopen
 
     @Property(int, notify=rebuilt)

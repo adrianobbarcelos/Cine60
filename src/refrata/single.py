@@ -9,7 +9,7 @@ claim_or_hand_over() decides which one a launch is, before anything heavy loads:
 - the primary listens at once, while its window is still being built; what arrives meanwhile
   waits in the server (hold) and is handed to the app when it is ready (release);
 - a later launch keeps trying to reach the primary for as long as the primary is alive and starting:
-  it never opens a second Refrata next to it (1.4.3 did, with two icons in the tray).
+  it never opens a second Cine60 next to it (1.4.3 did, with two icons in the tray).
 """
 from __future__ import annotations
 
@@ -35,7 +35,7 @@ def send_to_running(args: list[str], name: str | None = None, timeout_ms: int = 
 
     Connecting is quick or nothing is listening (timeout_ms). Once connected, the running app may
     be busy for a moment (loading a library, a slow disk): its answer gets ack_ms. A short wait there
-    made a second, full Refrata open while the first one was about to play the file too."""
+    made a second, full Cine60 open while the first one was about to play the file too."""
     sock = QLocalSocket()
     sock.connectToServer(name or server_name())
     if not sock.waitForConnected(timeout_ms):

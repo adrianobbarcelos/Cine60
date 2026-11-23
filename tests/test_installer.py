@@ -1,10 +1,10 @@
-"""End-to-end test of the Windows installer (dist/Refrata-Setup-<version>.exe).
+"""End-to-end test of the Windows installer (dist/Cine60-Setup-<version>.exe).
 
     python tests/test_installer.py [--skip-selftest]
 
 1. silent per-user install into a temp folder (file associations on, no desktop icon)
 2. files, Start-menu shortcut, uninstaller and registry entries (ProgID, Abrir com, Apps padrão)
-3. the full E2E battery, run by the *installed* Refrata.exe --selftest
+3. the full E2E battery, run by the *installed* Cine60.exe --selftest
 4. "double-click in Explorer": the ProgID's registered command opens a file in a new window
 5. silent uninstall removes the app folder, shortcut and every registry entry
 """
@@ -29,9 +29,9 @@ sys.path.insert(0, str(ROOT / "tools"))
 from refrata import __version__  # noqa: E402
 from refrata.media import AUDIO_EXT, PLAYLIST_EXT, VIDEO_EXT  # noqa: E402
 
-SETUP = ROOT / "dist" / f"Refrata-Setup-{__version__}.exe"
-PROGID = "Refrata.Media"
-CAP = r"Software\LucsLabs Studios\Refrata\Capabilities"
+SETUP = ROOT / "dist" / f"Cine60-Setup-{__version__}.exe"
+PROGID = "Cine60.Media"
+CAP = r"Software\Cine60\Capabilities"
 FAILS: list[str] = []
 
 
@@ -59,7 +59,7 @@ def reg_exists(path):
 
 
 def start_menu_link() -> Path:
-    return Path(os.environ["APPDATA"]) / "Microsoft" / "Windows" / "Start Menu" / "Programs" / "Refrata.lnk"
+    return Path(os.environ["APPDATA"]) / "Microsoft" / "Windows" / "Start Menu" / "Programs" / "Cine60.lnk"
 
 
 def windows_of(pid):
@@ -87,10 +87,10 @@ def main():
     if not SETUP.exists():
         raise SystemExit(f"{SETUP} not found — run python tools/build.py")
     if reg_exists(rf"Software\Classes\{PROGID}"):
-        raise SystemExit("Refrata is already installed for this user; uninstall it before running this test.")
+        raise SystemExit("Cine60 is already installed for this user; uninstall it before running this test.")
 
     work = Path(tempfile.mkdtemp(prefix="refrata_setup_"))
-    target = work / "Refrata"
+    target = work / "Cine60"
     print(f"Installer test — {SETUP.name} → {target}")
 
     # 1. install
@@ -98,15 +98,15 @@ def main():
     r = subprocess.run([str(SETUP), "/VERYSILENT", "/SUPPRESSMSGBOXES", "/NORESTART", "/CURRENTUSER",
                         f"/DIR={target}", "/TASKS=assoc", f"/LOG={work / 'setup.log'}"], timeout=600)
     ok(r.returncode == 0, f"silent install exit code 0 ({time.time() - t:.0f}s)", str(r.returncode))
-    exe = target / "Refrata.exe"
+    exe = target / "Cine60.exe"
 
     # 2. files + registry
-    ok(exe.exists(), "Refrata.exe installed")
+    ok(exe.exists(), "Cine60.exe installed")
     ok((target / "unins000.exe").exists(), "uninstaller installed")
     ok((target / "_internal" / "vlc" / "libvlc.dll").exists(), "bundled libVLC installed")
     ok((target / "LICENSES" / "VLC-COPYING.txt").exists(), "licences installed")
     ok(start_menu_link().exists(), "Start-menu shortcut created")
-    desktop = Path(os.environ["USERPROFILE"]) / "Desktop" / "Refrata.lnk"
+    desktop = Path(os.environ["USERPROFILE"]) / "Desktop" / "Cine60.lnk"
     ok(not desktop.exists(), "no desktop icon when the task is off")
     cmd = reg(rf"Software\Classes\{PROGID}\shell\open\command")
     ok(cmd == f'"{exe}" "%1"', "ProgID open command points at the installed exe", str(cmd))
@@ -114,9 +114,9 @@ def main():
     exts = sorted(set(VIDEO_EXT) | set(AUDIO_EXT) | set(PLAYLIST_EXT))
     missing = [e for e in exts if reg(rf"Software\Classes\{e}\OpenWithProgids", PROGID) is None]
     ok(not missing, f"'Abrir com' registered for all {len(exts)} types", str(missing))
-    ok(reg(r"Software\RegisteredApplications", "Refrata") == CAP, "listed in Apps padrão")
+    ok(reg(r"Software\RegisteredApplications", "Cine60") == CAP, "listed in Apps padrão")
     ok(reg(CAP + r"\FileAssociations", ".mkv") == PROGID, "capabilities map .mkv to the ProgID")
-    ok(reg(r"Software\Classes\Applications\Refrata.exe\SupportedTypes", ".mp4") == "", "SupportedTypes lists .mp4")
+    ok(reg(r"Software\Classes\Applications\Cine60.exe\SupportedTypes", ".mp4") == "", "SupportedTypes lists .mp4")
     ok(reg(rf"Software\Classes\.srt\OpenWithProgids", PROGID) is None, "subtitles are not claimed")
 
     # 2b. Authenticode: setup, app and the uninstaller Inno generated carry the same intact signature
@@ -158,7 +158,7 @@ def main():
     while time.time() < end and "Abrir Com Teste" not in title:
         time.sleep(0.3)
         title = " | ".join(t for _, t in windows_of(p.pid))
-    ok("Abrir Com Teste" in title and "Refrata" in title, "registered command opens and plays the file", title)
+    ok("Abrir Com Teste" in title and "Cine60" in title, "registered command opens and plays the file", title)
     for h, _ in windows_of(p.pid):
         ctypes.windll.user32.PostMessageW(h, 0x0010, 0, 0)  # WM_CLOSE
     try:
@@ -183,9 +183,9 @@ def main():
     ok(not reg_exists(rf"Software\Classes\{PROGID}"), "ProgID removed")
     left = [e for e in exts if reg(rf"Software\Classes\{e}\OpenWithProgids", PROGID) is not None]
     ok(not left, "'Abrir com' entries removed", str(left))
-    ok(reg(r"Software\RegisteredApplications", "Refrata") is None, "removed from Apps padrão")
+    ok(reg(r"Software\RegisteredApplications", "Cine60") is None, "removed from Apps padrão")
     ok(not reg_exists(r"Software\LucsLabs Studios"), "company key cleaned up")
-    ok(not reg_exists(r"Software\Classes\Applications\Refrata.exe"), "Applications entry removed")
+    ok(not reg_exists(r"Software\Classes\Applications\Cine60.exe"), "Applications entry removed")
 
     shutil.rmtree(work, ignore_errors=True)
     print(f"\n{'ALL INSTALLER CHECKS PASSED' if not FAILS else f'{len(FAILS)} installer check(s) FAILED'}")

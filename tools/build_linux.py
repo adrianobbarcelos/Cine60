@@ -144,7 +144,7 @@ def pyinstaller() -> Path:
 
 def desktop_entry() -> str:
     return "\n".join([
-        "[Desktop Entry]", "Type=Application", "Name=Refrata", "GenericName=Media Player",
+        "[Desktop Entry]", "Type=Application", "Name=Cine60", "GenericName=Media Player",
         "GenericName[pt_BR]=Player de mídia", "Comment=Video and music player built on the VLC engine",
         "Comment[pt_BR]=Player de vídeo e música sobre o motor do VLC", "Exec=refrata %F", "Icon=refrata",
         "Terminal=false", "Categories=AudioVideo;Player;Video;Audio;", "StartupWMClass=refrata",
@@ -169,7 +169,7 @@ def deb(app: Path) -> Path:
     doc = root / "usr" / "share" / "doc" / "refrata"
     doc.mkdir(parents=True)
     (doc / "copyright").write_text(
-        "Refrata - LucsLabs Studios\nLicense: GPL-3.0-or-later\nSource: https://github.com/LucsLabsStudios/refrata\n"
+        "Cine60 - LucsLabs Studios\nLicense: GPL-3.0-or-later\nSource: https://github.com/LucsLabsStudios/refrata\n"
         "Bundles Qt for Python (PySide6), LGPL-3.0. Uses the system's libVLC (LGPL-2.1+).\n", encoding="utf8")
     installed_kb = sum(p.stat().st_size for p in root.rglob("*") if p.is_file() and not p.is_symlink()) // 1024
     ctl = root / "DEBIAN"
@@ -179,7 +179,7 @@ def deb(app: Path) -> Path:
         "Maintainer: LucsLabs Studios <lucslabs.studios@gmail.com>", "Homepage: https://refrata.vercel.app",
         f"Installed-Size: {installed_kb}", "Depends: " + ", ".join(DEPENDS), "Recommends: " + ", ".join(RECOMMENDS),
         "Description: video and music player built on the VLC engine",
-        " Refrata plays almost any video, song or stream through libVLC, with a modern interface,",
+        " Cine60 plays almost any video, song or stream through libVLC, with a modern interface,",
         " a media library, equalizer, subtitles, picture-in-picture and media keys (MPRIS).", ""]), encoding="utf8")
     (ctl / "postinst").write_text("#!/bin/sh\nset -e\ncommand -v update-desktop-database >/dev/null && "
                                   "update-desktop-database -q /usr/share/applications || true\n"
@@ -200,7 +200,7 @@ def deb(app: Path) -> Path:
 
 def targz(app: Path) -> Path:
     OUT.mkdir(parents=True, exist_ok=True)
-    out = OUT / f"Refrata-{__version__}-linux-x86_64.tar.gz"
+    out = OUT / f"Cine60-{__version__}-linux-x86_64.tar.gz"
     with tarfile.open(out, "w:gz", compresslevel=6) as t:
         t.add(app, arcname=f"refrata-{__version__}")
     log(f"tar.gz: {out} ({out.stat().st_size / 1e6:.0f} MB)")

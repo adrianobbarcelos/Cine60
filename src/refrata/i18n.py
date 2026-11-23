@@ -87,7 +87,7 @@ class JsonTranslator(QTranslator):
 
 def tr(text: str, n: int = -1) -> str:
     """Python-side qsTr (the context is ignored by our translator)."""
-    return QCoreApplication.translate("Refrata", text, None, n)
+    return QCoreApplication.translate("Cine60", text, None, n)
 
 
 def N_(text: str) -> str:

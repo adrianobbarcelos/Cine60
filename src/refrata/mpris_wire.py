@@ -257,7 +257,7 @@ class WireMpris(QObject):
         e = self.engine
         if iface == ROOT_IFACE:
             from .assoc import mime_types
-            return {"Identity": ("s", "Refrata"), "DesktopEntry": ("s", "refrata"), "CanQuit": ("b", True),
+            return {"Identity": ("s", "Cine60"), "DesktopEntry": ("s", "refrata"), "CanQuit": ("b", True),
                     "CanRaise": ("b", True), "HasTrackList": ("b", False),
                     "SupportedUriSchemes": ("as", URI_SCHEMES), "SupportedMimeTypes": ("as", mime_types())}
         if iface == PLAYER_IFACE:

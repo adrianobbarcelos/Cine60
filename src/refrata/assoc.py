@@ -1,12 +1,12 @@
-"""Refrata in Explorer's "Abrir com" list and in Windows' Apps padrão, per user (no admin).
+"""Cine60 in Explorer's "Abrir com" list and in Windows' Apps padrão, per user (no admin).
 
-The installer registers these keys (installer/Refrata.iss). The portable zip registered nothing,
+The installer registers these keys (installer/Cine60.iss). The portable zip registered nothing,
 so a copy run from a folder never showed up in "Abrir com", Windows kept opening videos in its
 own player. `register()` writes the
 installer's keys under HKCU for the running exe. Since Windows 8 an app can't make itself the
 default; `openDefaults()` opens the Windows page where the user picks it.
 
-The test batteries (REFRATA_E2E_TMP) write under a throwaway HKCU\\Software\\RefrataTest key,
+The test batteries (REFRATA_E2E_TMP) write under a throwaway HKCU\\Software\\Cine60Test key,
 never the real ones, and skip the Explorer refresh and the Settings page.
 """
 import os
@@ -19,10 +19,10 @@ from PySide6.QtGui import QDesktopServices
 from .i18n import tr
 from .media import AUDIO_EXT, PLAYLIST_EXT, VIDEO_EXT
 
-PROGID = "Refrata.Media"
-APP_EXE = "Refrata.exe"
-CAP_KEY = r"Software\LucsLabs Studios\Refrata\Capabilities"
-TEST_ROOT = r"Software\RefrataTest"
+PROGID = "Cine60.Media"
+APP_EXE = "Cine60.exe"
+CAP_KEY = r"Software\Cine60\Capabilities"
+TEST_ROOT = r"Software\Cine60Test"
 _FILEEXTS = r"Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts"
 
 
@@ -40,7 +40,7 @@ def exts() -> list[str]:
 
 
 # The types nearly every video and music file is. "Player padrão" counts as done when Windows opens
-# all of these with Refrata; the rest are counted and shown, but do not hold the switch back.
+# all of these with Cine60; the rest are counted and shown, but do not hold the switch back.
 MAIN_EXTS = (".mp4", ".mkv", ".avi", ".mov", ".webm", ".mp3", ".flac", ".m4a", ".wav")
 
 
@@ -49,7 +49,7 @@ def _effective_progid(ext: str) -> str:
 
     Not the registry's UserChoice: Windows 11 26H2 keeps the person's choice under UserChoiceLatest
     and left the old key behind (here .mkv read "Reprodutor Multimídia" there while it opened in
-    Refrata). AssocQueryString answers with what a double-click really does."""
+    Cine60). AssocQueryString answers with what a double-click really does."""
     if _testing():   # the battery's sandbox: what a choice in Settings would leave there
         base = _key(_FILEEXTS + "\\" + ext)
         import winreg
@@ -107,7 +107,7 @@ def _read(hive, sub: str, name: str = ""):
 
 
 def _command_exe(cmd) -> str:
-    """The exe path in a `"C:\\…\\Refrata.exe" "%1"` command."""
+    """The exe path in a `"C:\\…\\Cine60.exe" "%1"` command."""
     if not isinstance(cmd, str):
         return ""
     cmd = cmd.strip()
@@ -123,7 +123,7 @@ class Associations(QObject):
     def __init__(self, parent=None):
         super().__init__(parent)
         self._registered = False
-        self._ours: dict[str, bool] = {}   # each file type: does a double-click open Refrata?
+        self._ours: dict[str, bool] = {}   # each file type: does a double-click open Cine60?
         self._linux_busy = False
         self._platform = sys.platform   # (an attribute: the Linux path is tested on any system)
         self._linuxRead.connect(self._apply_linux)
@@ -149,7 +149,7 @@ class Associations(QObject):
         hives = [winreg.HKEY_CURRENT_USER] if _testing() else [winreg.HKEY_CURRENT_USER, winreg.HKEY_LOCAL_MACHINE]
         registered = False
         for hive in hives:
-            cap = _read(hive, _key(r"Software\RegisteredApplications"), "Refrata")
+            cap = _read(hive, _key(r"Software\RegisteredApplications"), "Cine60")
             cmd = _read(hive, _key(rf"Software\Classes\{PROGID}\shell\open\command"))
             if cap and Path(_command_exe(cmd)).is_file():
                 registered = True
@@ -192,12 +192,12 @@ class Associations(QObject):
 
     @Property(int, notify=changed)
     def typeCount(self):
-        """File types Refrata offers to open."""
+        """File types Cine60 offers to open."""
         return len(self._ours)
 
     @Property(int, notify=changed)
     def defaultCount(self):
-        """Of those, the ones a double-click opens in Refrata now."""
+        """Of those, the ones a double-click opens in Cine60 now."""
         return sum(1 for v in self._ours.values() if v)
 
     @Property("QStringList", notify=changed)
@@ -207,7 +207,7 @@ class Associations(QObject):
 
     @Property(bool, notify=changed)
     def available(self):
-        """Only a real Refrata.exe can be registered (not python.exe running the source tree)."""
+        """Only a real Cine60.exe can be registered (not python.exe running the source tree)."""
         return sys.platform in ("win32", "linux") and _exe() is not None
 
     @Property(bool, notify=changed)
@@ -216,7 +216,7 @@ class Associations(QObject):
 
     @Property(bool, notify=changed)
     def isDefault(self):
-        """Every common type opens in Refrata (one .mp4 was the whole test before)."""
+        """Every common type opens in Cine60 (one .mp4 was the whole test before)."""
         main = [e for e in MAIN_EXTS if e in self._ours]
         return self._registered and bool(main) and all(self._ours[e] for e in main)
 
@@ -231,16 +231,16 @@ class Associations(QObject):
         import winreg
         icon, cmd = f'"{exe}",0', f'"{exe}" "%1"'
         values = [
-            (rf"Software\Classes\{PROGID}", "", tr("Mídia do Refrata")),
+            (rf"Software\Classes\{PROGID}", "", tr("Mídia do Cine60")),
             (rf"Software\Classes\{PROGID}\DefaultIcon", "", icon),
-            (rf"Software\Classes\{PROGID}\shell\open", "FriendlyAppName", "Refrata"),
+            (rf"Software\Classes\{PROGID}\shell\open", "FriendlyAppName", "Cine60"),
             (rf"Software\Classes\{PROGID}\shell\open\command", "", cmd),
-            (rf"Software\Classes\Applications\{APP_EXE}", "FriendlyAppName", "Refrata"),
+            (rf"Software\Classes\Applications\{APP_EXE}", "FriendlyAppName", "Cine60"),
             (rf"Software\Classes\Applications\{APP_EXE}\shell\open\command", "", cmd),
-            (CAP_KEY, "ApplicationName", "Refrata"),
+            (CAP_KEY, "ApplicationName", "Cine60"),
             (CAP_KEY, "ApplicationDescription", tr("Player de vídeo e música sobre o motor do VLC")),
             (CAP_KEY, "ApplicationIcon", icon),
-            (r"Software\RegisteredApplications", "Refrata", CAP_KEY),
+            (r"Software\RegisteredApplications", "Cine60", CAP_KEY),
         ]
         for e in exts():
             values += [(rf"Software\Classes\{e}\OpenWithProgids", PROGID, ""),
@@ -288,7 +288,7 @@ class Associations(QObject):
     @Slot()
     def openDefaults(self):
         """Register if needed, then let the user choose: Windows' Apps padrão page; on Linux,
-        xdg-mime makes Refrata the default for its video and audio types right away."""
+        xdg-mime makes Cine60 the default for its video and audio types right away."""
         if not self._registered:
             self.register()
         if sys.platform == "linux":
@@ -298,7 +298,7 @@ class Associations(QObject):
             self.refresh()
             return
         if not _testing():
-            QDesktopServices.openUrl(QUrl("ms-settings:defaultapps?registeredAppUser=Refrata"))
+            QDesktopServices.openUrl(QUrl("ms-settings:defaultapps?registeredAppUser=Cine60"))
 
     def repair(self):
         """A portable folder that moved leaves "Abrir com" pointing at an exe that is gone: point

@@ -87,7 +87,7 @@ Item {
             Text {
                 text: {
                     if (root.st === "error") return updater.error
-                    if (root.st === "installing") return qsTr("O Refrata vai fechar e abrir sozinho")
+                    if (root.st === "installing") return qsTr("O Cine60 vai fechar e abrir sozinho")
                     if (root.st === "ready") return qsTr("Leva poucos segundos, e o app reabre sozinho")
                     if (!root.selfUpdate) return qsTr("Baixe o instalador no site")
                     return qsTr("Você está na %1").arg(updater.current)

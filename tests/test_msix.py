@@ -1,4 +1,4 @@
-"""End-to-end test of the MSIX package (dist/Refrata-<v>-x64-dev.msix).
+"""End-to-end test of the MSIX package (dist/Cine60-<v>-x64-dev.msix).
 
     python tests/test_msix.py --trust     one UAC prompt: trusts build\\lucslabs-dev.cer for package
                                           installs (LocalMachine\\TrustedPeople) and runs the Windows App
@@ -27,7 +27,7 @@ from msix import NAME, VERSION  # noqa: E402
 from refrata.media import AUDIO_EXT, PLAYLIST_EXT, VIDEO_EXT  # noqa: E402
 from sign import dev_thumbprint  # noqa: E402
 
-PKG = ROOT / "dist" / f"Refrata-{VERSION}-x64-dev.msix"
+PKG = ROOT / "dist" / f"Cine60-{VERSION}-x64-dev.msix"
 CER = ROOT / "build" / "lucslabs-dev.cer"
 WORK = ROOT / "build" / "msix-test"
 WACK = Path(os.environ.get("ProgramFiles(x86)", "")) / "Windows Kits" / "10" / "App Certification Kit" / "appcert.exe"
@@ -199,15 +199,15 @@ def test(skip_selftest: bool):
     if not p:
         return
     loc, pfn = Path(p["InstallLocation"]), p["PackageFamilyName"]
-    aumid = f"{pfn}!Refrata"
+    aumid = f"{pfn}!Cine60"
     ok(p["SignatureKind"] == "Developer", "installed as a signed developer package", p["SignatureKind"])
-    ok((loc / "Refrata.exe").exists() and (loc / "_internal" / "vlc" / "libvlc.dll").exists(),
+    ok((loc / "Cine60.exe").exists() and (loc / "_internal" / "vlc" / "libvlc.dll").exists(),
        "app and bundled libVLC inside the package")
     ok((loc / "resources.pri").exists(), "resource index (tile and taskbar icons) packaged")
     alias = Path(os.environ["LOCALAPPDATA"]) / "Microsoft" / "WindowsApps" / "refrata.exe"
     ok(alias.exists(), "command-line alias refrata.exe registered")
     start = ps(f"(Get-StartApps | Where-Object AppID -eq '{aumid}').Name")
-    ok(start == "Refrata", "listed in the Start menu", start)
+    ok(start == "Cine60", "listed in the Start menu", start)
     exts = sorted(set(VIDEO_EXT) | set(AUDIO_EXT) | set(PLAYLIST_EXT))
     missing = [e for e in exts if not appx_progid(e, aumid)]
     ok(not missing, f"'Abrir com' registered for all {len(exts)} types", str(missing))
@@ -226,11 +226,11 @@ def test(skip_selftest: bool):
         ok(str(loc).lower() in data.get("vlc", "").lower(), "packaged app uses its own libVLC", data.get("vlc", ""))
         ok(data.get("about", {}).get("installed") is True, "About card offers the default-apps button")
 
-    # file activation through the package's ProgID (= double-click when Refrata is the default app).
+    # file activation through the package's ProgID (= double-click when Cine60 is the default app).
     # Activation does not inherit our environment, so the app uses the user's real data folder:
     # snapshot it and put it back afterwards.
     import shutil
-    real = Path(os.environ["LOCALAPPDATA"]) / "Refrata"
+    real = Path(os.environ["LOCALAPPDATA"]) / "Cine60"
     snap = WORK / "real-data-backup"
     shutil.rmtree(snap, ignore_errors=True)
     had_real = real.exists()
@@ -254,14 +254,14 @@ def test(skip_selftest: bool):
     while time.time() < end and not hits:
         time.sleep(0.3)
         hits = find_window("Abrir Com Teste")
-    ok(bool(hits) and "Refrata" in hits[0][1], "packaged app opens and plays the file",
+    ok(bool(hits) and "Cine60" in hits[0][1], "packaged app opens and plays the file",
        hits[0][1] if hits else "no window")
     for h, _, pid in hits:
         ctypes.windll.user32.PostMessageW(h, 0x0010, 0, 0)  # WM_CLOSE
         ok(wait_exit(pid, 15) in (0, "gone"), "closing the window exits cleanly")
     # Windows may keep AppData writes in the package's private folder or let them through
     cache = Path(os.environ["LOCALAPPDATA"]) / "Packages" / pfn
-    places = (list(cache.rglob("Refrata/settings.json")) if cache.exists() else []) + [real / "settings.json"]
+    places = (list(cache.rglob("Cine60/settings.json")) if cache.exists() else []) + [real / "settings.json"]
     found = [s for s in places if s.exists() and any(
         Path(x["path"]) == media for x in json.loads(s.read_text(encoding="utf8")).get("history", []))]
     ok(bool(found), "file recorded in the history on exit", ", ".join(map(str, places)))
