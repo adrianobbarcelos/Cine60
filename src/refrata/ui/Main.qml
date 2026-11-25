@@ -150,6 +150,15 @@ Window {
     function restyle() { appctl.styleWindow(win, theme.dark, theme.bg) }
 
     Component.onCompleted: {
+        // 1440 x 900 is taller than the work area of a 4K screen at 250 % (about 1536 x 830): the
+        // window opened behind the taskbar. Never more than 90 % of it, centred.
+        var aw = Screen.desktopAvailableWidth, ah = Screen.desktopAvailableHeight
+        if (aw > 0 && ah > 0 && (width > aw * 0.9 || height > ah * 0.9)) {
+            width = Math.max(minimumWidth, Math.min(width, Math.round(aw * 0.9)))
+            height = Math.max(minimumHeight, Math.min(height, Math.round(ah * 0.9)))
+            x = Screen.virtualX + Math.round((aw - width) / 2)
+            y = Screen.virtualY + Math.round((ah - height) / 2)
+        }
         restyle()
         var pages = { home: 0, videos: 1, music: 2, queue: 3, network: 4, settings: 5 }
         if (startPanel === "queue") pv.queueOpen = true
