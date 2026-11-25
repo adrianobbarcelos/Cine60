@@ -184,7 +184,7 @@ def main():
     left = [e for e in exts if reg(rf"Software\Classes\{e}\OpenWithProgids", PROGID) is not None]
     ok(not left, "'Abrir com' entries removed", str(left))
     ok(reg(r"Software\RegisteredApplications", "Cine60") is None, "removed from Apps padrão")
-    ok(not reg_exists(r"Software\LucsLabs Studios"), "company key cleaned up")
+    ok(not reg_exists(r"Software\Cine60"), "app key cleaned up")
     ok(not reg_exists(r"Software\Classes\Applications\Cine60.exe"), "Applications entry removed")
 
     shutil.rmtree(work, ignore_errors=True)
