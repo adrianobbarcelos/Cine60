@@ -105,7 +105,16 @@ Item {
     readonly property bool interpolating: smoothMotion && playing && interval > 0
                                           && 1000 / interval < Math.min(displayHz, maxFps > 0 ? maxFps : 1e9) * 0.92
     readonly property real dpr: Screen.devicePixelRatio > 0 ? Screen.devicePixelRatio : 1
-    readonly property size srcPx: Qt.size(Math.max(2, Math.round(width * dpr)), Math.max(2, Math.round(height * dpr)))
+    // the passes work at the video's own resolution when the screen shows it larger: a 1080p film
+    // full screen on a 4K monitor did all of them on 4x the pixels, and in-betweens were late
+    // (36 new pictures a second instead of ~60). Not under RTX Video, whose upscale is the point.
+    readonly property real capScale: {
+        if (rtxOn) return 1
+        var cw = Math.max(voA.contentRect.width, voA.contentRect.height) * dpr
+        var sw = Math.max(voA.sourceRect.width, voA.sourceRect.height)
+        return sw > 0 && cw > sw ? Math.max(0.25, sw / cw) : 1
+    }
+    readonly property size srcPx: Qt.size(Math.max(2, Math.round(width * dpr * capScale)), Math.max(2, Math.round(height * dpr * capScale)))
 
     // ---------------------------------------------------------------- timing
     property bool bNewer: false        // the newest frame is in voB
@@ -241,7 +250,7 @@ Item {
                 property size srcPx: vp.srcPx
                 property real amount: vp.detail
                 // screen pixels per video pixel: the sharpening works on the video's own detail
-                property real radius: Math.max(1.0, Math.min(4.0, voA.contentRect.width * vp.dpr
+                property real radius: Math.max(1.0, Math.min(4.0, voA.contentRect.width * vp.dpr * vp.capScale
                                                                     / Math.max(1, voA.sourceRect.width)))
                 width: vp.width; height: vp.height
                 visible: vp.detail > 0.001
