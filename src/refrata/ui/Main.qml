@@ -151,11 +151,12 @@ Window {
 
     Component.onCompleted: {
         // 1440 x 900 is taller than the work area of a 4K screen at 250 % (about 1536 x 830): the
-        // window opened behind the taskbar. Never more than 90 % of it, centred.
+        // window opened behind the taskbar. At most 75 % of it, centred, like VLC: a double click on the
+        // picture goes full screen
         var aw = Screen.desktopAvailableWidth, ah = Screen.desktopAvailableHeight
-        if (aw > 0 && ah > 0 && (width > aw * 0.9 || height > ah * 0.9)) {
-            width = Math.max(minimumWidth, Math.min(width, Math.round(aw * 0.9)))
-            height = Math.max(minimumHeight, Math.min(height, Math.round(ah * 0.9)))
+        if (aw > 0 && ah > 0 && (width > aw * 0.75 || height > ah * 0.75)) {
+            width = Math.max(minimumWidth, Math.min(width, Math.round(aw * 0.75)))
+            height = Math.max(minimumHeight, Math.min(height, Math.round(ah * 0.75)))
             x = Screen.virtualX + Math.round((aw - width) / 2)
             y = Screen.virtualY + Math.round((ah - height) / 2)
         }
