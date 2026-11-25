@@ -538,21 +538,35 @@ Item {
                 wrapMode: Text.WordWrap
                 lineHeight: 0.95
             }
-            Text {
-                text: {
-                    var parts = []
-                    if (player.artist) parts.push(player.artist)
-                    if (player.album) parts.push(player.album)
-                    var p = player.currentPath
-                    if (p && p.indexOf("://") < 0) parts.push(p.split(".").pop().toUpperCase())
-                    if (player.videoWidth > 0 && !player.isAudio) parts.push(player.videoWidth + " × " + player.videoHeight)
-                    if (player.queueCount > 1) parts.push(qsTr("%1 de %2").arg(player.currentIndex + 1).arg(player.queueCount))
-                    return parts.join("   ·   ")
+            Row {
+                spacing: 12
+                Text {
+                    text: {
+                        var parts = []
+                        if (player.artist) parts.push(player.artist)
+                        if (player.album) parts.push(player.album)
+                        var p = player.currentPath
+                        if (p && p.indexOf("://") < 0) parts.push(p.split(".").pop().toUpperCase())
+                        if (player.videoWidth > 0 && !player.isAudio) parts.push(player.videoWidth + " × " + player.videoHeight)
+                        if (player.queueCount > 1) parts.push(qsTr("%1 de %2").arg(player.currentIndex + 1).arg(player.queueCount))
+                        return parts.join("   ·   ")
+                    }
+                    color: Qt.rgba(1, 1, 1, 0.7)
+                    font.pixelSize: 15
+                    opacity: pv.panel === "" ? 1 : 0
+                    Behavior on opacity { NumberAnimation { duration: 160; easing.type: Easing.OutCubic } }
                 }
-                color: Qt.rgba(1, 1, 1, 0.7)
-                font.pixelSize: 15
-                opacity: pv.panel === "" ? 1 : 0
-                Behavior on opacity { NumberAnimation { duration: 160; easing.type: Easing.OutCubic } }
+                // an HDR video: green when it is shown in real HDR, grey when converted to SDR
+                Rectangle {
+                    objectName: "pvHdrBadge"
+                    readonly property bool real: pv.pictureStatus.hdrOut
+                    visible: pv.pictureStatus.video && pv.pictureStatus.hdr > 0
+                    anchors.verticalCenter: parent.verticalCenter
+                    width: hdrText.implicitWidth + 16; height: 22; radius: 11
+                    opacity: pv.panel === "" ? 1 : 0
+                    color: real ? "#3ecf7a" : Qt.rgba(1, 1, 1, 0.18)
+                    Text { id: hdrText; anchors.centerIn: parent; text: parent.real ? "HDR" : "HDR → SDR"; color: parent.real ? "#08150d" : "white"; font.pixelSize: 11; font.weight: Font.Bold }
+                }
             }
             Item { width: 1; height: 2 }
 
@@ -1256,6 +1270,13 @@ Item {
                 }
                 Divider {}
                 Caption { text: qsTr("Processamento neste vídeo") }
+                // real HDR, where the screen is in HDR now (the same switch as Settings › Imagem)
+                Item {
+                    width: parent.width; height: 36
+                    visible: typeof hdrout !== "undefined" && hdrout.screenInfo.hdr === true
+                    Text { anchors.verticalCenter: parent.verticalCenter; width: parent.width - 64; elide: Text.ElideRight; text: qsTr("HDR real em telas HDR"); color: "white"; font.pixelSize: 14 }
+                    Toggle { objectName: "adjHdrToggle"; anchors.right: parent.right; anchors.verticalCenter: parent.verticalCenter; checked: settings.hdrOutput !== "off"; onToggled: (on) => settings.hdrOutput = on ? "auto" : "off" }
+                }
                 // the same words as Settings › Imagem: what is on, what is paused and why
                 StatusLine {
                     text: pv.pictureStatus.hdr > 0 ? (pv.pictureStatus.hdrOut
