@@ -36,7 +36,7 @@ ASSET_RE = re.compile(r"^Cine60-Setup-[\d.]+\.exe$", re.I)
 # Ed25519 public key of the update signing key (tools/update_key.py). An installer is downloaded
 # only when the release carries its signature by this key: a compromised GitHub account alone
 # cannot push an update. Releases up to 1.4.4 predate it and are not signed.
-UPDATE_PUBLIC_KEY = "396cbdf4ef2e43824091777e80065e216a421f84c8a94acbd3e5494e6f990e3b"
+UPDATE_PUBLIC_KEY = "bda37b4e3137e2b1be725567bbb23b8300a135e69ec6f438cebf17581ffa8921"
 
 
 def update_message(asset: str, sha256: str, version: str) -> bytes:
