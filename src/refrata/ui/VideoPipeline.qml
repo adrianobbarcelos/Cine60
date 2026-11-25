@@ -93,7 +93,7 @@ Item {
     readonly property alias output: voA
     readonly property alias videoSink: voA.videoSink
     // shows the processed picture (vs. the plain VideoOutput)
-    readonly property bool active: smoothMotion || hdrIn > 0 || light > 0.001 || detail > 0.001
+    readonly property bool active: smoothMotion || hdrIn > 0 || light > 0.001 || detail > 0.001 || linearOut
     readonly property bool pairing: smoothMotion
     // in-betweens are worth drawing only when the display is clearly faster than the source
     // the refresh rate of the screen the window is on, from Python (QML's Screen has no refresh
@@ -174,36 +174,21 @@ Item {
     }
 
     // ---------------------------------------------------------------- the two sinks
-    // each in an item of its own: capturing an item leaves its own layer effect out
-    Item {
-        id: boxA
+    VideoOutput {
+        id: voA
+        objectName: vp.outputName
         anchors.fill: parent
         visible: !vp.rtxOn          // the RTX item draws the picture instead
-        VideoOutput {
-            id: voA
-            objectName: vp.outputName
-            anchors.fill: parent
-            fillMode: vp.fillMode
-            orientation: vp.orientation
-            layer.enabled: vp.linearOut
-            layer.format: ShaderEffectSource.RGBA16F
-            layer.effect: ShaderEffect { fragmentShader: "shaders/srgbencode.frag.qsb" }
-        }
+        fillMode: vp.fillMode
+        orientation: vp.orientation
     }
-    Item {
-        id: boxB
+    VideoOutput {
+        id: voB
+        objectName: vp.outputName + "B"
         anchors.fill: parent
+        fillMode: vp.fillMode
+        orientation: vp.orientation
         visible: vp.pairing
-        VideoOutput {
-            id: voB
-            objectName: vp.outputName + "B"
-            anchors.fill: parent
-            fillMode: vp.fillMode
-            orientation: vp.orientation
-            layer.enabled: vp.linearOut
-            layer.format: ShaderEffectSource.RGBA16F
-            layer.effect: ShaderEffect { fragmentShader: "shaders/srgbencode.frag.qsb" }
-        }
     }
     readonly property alias videoSinkB: voB.videoSink
 
@@ -213,24 +198,42 @@ Item {
         active: vp.active && vp.visible
         sourceComponent: Item {
             id: g
+            readonly property bool linear: vp.linearOut && !vp.rtxOn
             readonly property int fmt: vp.hdrIn > 0 ? ShaderEffectSource.RGBA16F : ShaderEffectSource.RGBA8
 
             ShaderEffectSource {
                 id: capA
-                sourceItem: vp.rtxOn ? vp.rtxItem : boxA
+                sourceItem: vp.rtxOn ? vp.rtxItem : voA
                 hideSource: true
-                mipmap: true
-                format: g.fmt
+                mipmap: !g.linear           // encoded first: the passes read that copy's levels
+                format: g.linear ? ShaderEffectSource.RGBA16F : g.fmt
                 textureSize: vp.srcPx
             }
             ShaderEffectSource {
                 id: capB
-                sourceItem: vp.pairing ? boxB : null
+                sourceItem: vp.pairing ? voB : null
                 hideSource: true
-                mipmap: true
-                format: g.fmt
+                mipmap: !g.linear           // encoded first: the passes read that copy's levels
+                format: g.linear ? ShaderEffectSource.RGBA16F : g.fmt
                 textureSize: vp.srcPx
             }
+
+            // a scRGB window: the video's encoded values back, once per decoded frame (srgbencode.frag).
+            // The VideoOutputs stay direct children of this item: the engine finds the pipeline as
+            // their parent (Engine.setPairSinks)
+            component Encode: ShaderEffect {
+                property variant source
+                width: vp.width; height: vp.height
+                visible: g.linear
+                blending: false
+                fragmentShader: "shaders/srgbencode.frag.qsb"
+            }
+            Encode { id: encA; source: capA }
+            Encode { id: encB; source: capB; visible: g.linear && vp.pairing }
+            ShaderEffectSource { id: encAs; sourceItem: g.linear ? encA : null; hideSource: true; mipmap: true; format: g.fmt; textureSize: vp.srcPx }
+            ShaderEffectSource { id: encBs; sourceItem: g.linear && vp.pairing ? encB : null; hideSource: true; mipmap: true; format: g.fmt; textureSize: vp.srcPx }
+            readonly property var baseA: linear ? encAs : capA
+            readonly property var baseB: linear ? encBs : capB
 
             // detail boost, once per decoded frame
             component Detail: ShaderEffect {
@@ -244,12 +247,12 @@ Item {
                 visible: vp.detail > 0.001
                 fragmentShader: "shaders/detail.frag.qsb"
             }
-            Detail { id: detA; objectName: "detailA"; source: capA }
-            Detail { id: detB; source: capB; visible: vp.detail > 0.001 && vp.pairing }
+            Detail { id: detA; objectName: "detailA"; source: g.baseA }
+            Detail { id: detB; source: g.baseB; visible: vp.detail > 0.001 && vp.pairing }
             ShaderEffectSource { id: sharpA; sourceItem: vp.detail > 0.001 ? detA : null; hideSource: true; mipmap: true; format: g.fmt; textureSize: vp.srcPx }
             ShaderEffectSource { id: sharpB; sourceItem: vp.detail > 0.001 && vp.pairing ? detB : null; hideSource: true; mipmap: true; format: g.fmt; textureSize: vp.srcPx }
-            readonly property var srcA: vp.detail > 0.001 ? sharpA : capA
-            readonly property var srcB: vp.detail > 0.001 ? sharpB : capB
+            readonly property var srcA: vp.detail > 0.001 ? sharpA : baseA
+            readonly property var srcB: vp.detail > 0.001 ? sharpB : baseB
             readonly property var newer: vp.pairing && vp.bNewer ? srcB : srcA
             readonly property var older: vp.pairing ? (vp.bNewer ? srcA : srcB) : srcA
 

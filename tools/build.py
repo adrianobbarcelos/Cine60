@@ -410,6 +410,7 @@ def main():
     ap.add_argument("--system-vlc", action="store_true", help="take libVLC from the installed VLC")
     ap.add_argument("--no-installer", action="store_true")
     ap.add_argument("--no-msix", action="store_true")
+    ap.add_argument("--no-portable", action="store_true", help="skip the portable zip")
     ap.add_argument("--skip-vendor", action="store_true")
     ap.add_argument("--skip-build", action="store_true", help="reuse dist/Cine60 (sign + zip + installer only)")
     a = ap.parse_args()
@@ -424,14 +425,14 @@ def main():
     # lets go of the GIL while it compresses, Inno Setup is its own process): ~30 s less per build
     import threading
     zipped: list = []
-    zt = threading.Thread(target=lambda: zipped.append(portable_zip(app)), name="portable-zip")
+    zt = threading.Thread(target=lambda: None if a.no_portable else zipped.append(portable_zip(app)), name="portable-zip")
     zt.start()
     try:
         if not a.no_installer:
             installer()
     finally:
         zt.join()
-    if not zipped:
+    if not zipped and not a.no_portable:
         raise SystemExit("portable zip failed (see above)")
     if not a.no_msix:
         import msix

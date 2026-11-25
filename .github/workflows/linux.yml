@@ -1,10 +1,11 @@
 # Linux: the e2e battery on Ubuntu (system libVLC, virtual display, private D-Bus session).
 # Same setup as the local test bed in WSL; Windows-only checks skip themselves there.
-name: linux
+name: Testes
 
 on:
   push:
     branches: [main]
+    paths-ignore: ["**.md", "docs/**", "site/**", ".github/ISSUE_TEMPLATE/**", "LICENSE"]
   pull_request:
   workflow_dispatch:
 
