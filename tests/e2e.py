@@ -2083,7 +2083,7 @@ def t47_in_app_update_check_download_verify_install():
             wait(lambda: up.state == "available", 5)
             up.download()
             wait(lambda: up.state == "error", 10, f"{label} release is refused")
-            check("assinado" in up.error and not any((TMP / "data" / "updates").glob("*.exe*")),
+            check("assinatura" in up.error and not any((TMP / "data" / "updates").glob("*.exe*")),
                   f"{label}: nothing is downloaded", up.error)
 
         # a broken download is reported as such (never as a checksum problem)
