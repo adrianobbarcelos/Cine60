@@ -275,10 +275,11 @@ void main() {
         // 60 fps clip halved to 15: the worst 1% of pixels off by 80 levels, against 120 for the
         // nearest real frame; a hard switch to it also jumped at mid-phase)
         vec4 blend = mix(texture(older, uv), texture(newer, uv), phase);
-        // scene cut: the whole field matches badly (mean error), or most blocks found no match
-        // at all (share of changed blocks, MVTools' thscd2): the real frame, never a blend
+        // scene cut: the whole field matches badly (mean error), or badly for its contrast
+        // (vecmedian.frag; measured on three films: cuts 0.9 to 2.0, a fast pan 0.53, the rest
+        // below 0.3): the real frame, never a blend
         vec4 whole = textureLod(field, vec2(0.5), 16.0);
-        float scene = max(smoothstep(0.10, 0.16, whole.z), smoothstep(0.45, 0.65, whole.w));
+        float scene = max(smoothstep(0.10, 0.16, whole.z), smoothstep(0.64, 0.80, whole.w));
         c = mix(mix(mc, blend, local), near, scene);
     } else {
         c = texture(newer, uv);

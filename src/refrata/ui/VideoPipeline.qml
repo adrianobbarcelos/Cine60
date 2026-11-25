@@ -280,7 +280,10 @@ Item {
                 id: med
                 property variant field: fq
                 property size fieldPx: fq.textureSize
-                property real badErr: 0.06
+                property real cutAt: 0.7
+                property size srcPx: vp.srcPx
+                property variant older: g.older
+                property variant newer: g.newer
                 width: vp.width; height: vp.height
                 visible: vp.interpolating
                 fragmentShader: "shaders/vecmedian.frag.qsb"
