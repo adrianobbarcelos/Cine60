@@ -8,14 +8,14 @@ users as soon as it is published.
 | Version | Supported |
 |---|---|
 | Latest release | Yes |
-| Anything older | No, update from inside the app or from [refrata.vercel.app](https://refrata.vercel.app) |
+| Anything older | No, update from inside the app or from [the releases page](https://github.com/adrianobbarcelos/Cine60/releases/latest) |
 
 ## Reporting a vulnerability
 
 Please do not open a public issue for a security problem.
 
-Report it privately through **[Security › Report a vulnerability](https://github.com/LucsLabsStudios/refrata/security/advisories/new)**
-on this repository. Include the Refrata version (**Settings › About**), your operating system, the
+Report it privately through **[Security › Report a vulnerability](https://github.com/adrianobbarcelos/Cine60/security/advisories/new)**
+on this repository. Include the Cine60 version (**Settings › About**), your operating system, the
 steps to reproduce, and what an attacker could achieve.
 
 You will get an acknowledgement within a few days. Once a fix ships, the advisory is published
@@ -33,8 +33,8 @@ and the report is credited unless you prefer otherwise.
 
 ## Scope
 
-In scope: the Refrata application, its installer and packages, the update mechanism, and the
+In scope: the Cine60 application, its installer and packages, the update mechanism, and the
 build and release tooling in this repository.
 
-Out of scope: vulnerabilities in libVLC, Qt or yt-dlp themselves (report those upstream; Refrata
+Out of scope: vulnerabilities in libVLC, Qt or yt-dlp themselves (report those upstream; Cine60
 picks up their fixes in the next release), and the website's hosting platform.

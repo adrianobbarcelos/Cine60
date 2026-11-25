@@ -324,7 +324,7 @@ class Updater(QObject):
             self._set("error", tr("Não foi possível conferir o download"))
             return
         if not url or not self._trusted_url(url):
-            self._set("error", tr("Este lançamento não está assinado pela LucsLabs. Nada foi baixado."))
+            self._set("error", tr("Este lançamento não tem a assinatura do Cine60. Nada foi baixado."))
             return
         r = self._net.get(self._request(url))
         self._set("downloading")
@@ -339,7 +339,7 @@ class Updater(QObject):
                 sig = b""
             msg = update_message(self._asset["name"], self._asset["sha256"], self._latest)
             if not self._http_ok(r) or not verify(key, msg, sig):
-                self._set("error", tr("Este lançamento não está assinado pela LucsLabs. Nada foi baixado."))
+                self._set("error", tr("Este lançamento não tem a assinatura do Cine60. Nada foi baixado."))
                 return
             self._asset["sigChecked"] = True
             self._start_download()

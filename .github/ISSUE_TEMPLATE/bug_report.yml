@@ -1,5 +1,5 @@
 name: Bug report
-description: Something in Refrata does not work as it should.
+description: Something in Cine60 does not work as it should.
 labels: ["bug"]
 body:
   - type: markdown
@@ -10,7 +10,7 @@ body:
   - type: input
     id: version
     attributes:
-      label: Refrata version
+      label: Cine60 version
       description: Settings › About
       placeholder: "2.1.0"
     validations:
@@ -31,9 +31,9 @@ body:
   - type: dropdown
     id: package
     attributes:
-      label: How Refrata is installed
+      label: How Cine60 is installed
       options:
-        - Installer (Refrata-Setup)
+        - Installer (Cine60-Setup)
         - Portable zip
         - Microsoft Store
         - .deb package
@@ -67,5 +67,5 @@ body:
     id: logs
     attributes:
       label: Logs
-      description: Contents of crash.log or native.log from %LOCALAPPDATA%\Refrata (Windows) or ~/Refrata (Linux), if any.
+      description: Contents of crash.log or native.log from %LOCALAPPDATA%\Cine60 (Windows) or ~/Cine60 (Linux), if any.
       render: text

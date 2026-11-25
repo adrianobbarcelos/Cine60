@@ -393,7 +393,7 @@
   "Ao fechar a janela, o Cine60 fica na bandeja do sistema, e os arquivos abrem na hora.": "关闭窗口后，Cine60 会留在系统托盘中，文件可以立即打开。",
   "Iniciar com o sistema": "随系统启动",
   "Padrão do sistema": "系统默认",
-  "Este lançamento não está assinado pela LucsLabs. Nada foi baixado.": "此版本未经 LucsLabs 签名，未下载任何内容。",
+  "Este lançamento não tem a assinatura do Cine60. Nada foi baixado.": "此版本没有 Cine60 的签名。未下载任何内容。",
   "Geral": "常规",
   "Som": "声音",
   "Sistema": "系统",

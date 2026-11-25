@@ -7,6 +7,11 @@ All notable changes to Refrata are listed here, newest first. Each version links
 The project follows [Semantic Versioning](https://semver.org/). Patch releases (`1.4.x`) can also
 ship updated components only (libVLC, yt-dlp, python-vlc) after passing the full test suite.
 
+## Cine60 2.1.0 (2026-11-25)
+
+First Cine60 release, a fork of Refrata 2.0.2. See the [release notes](https://github.com/adrianobbarcelos/Cine60/releases/tag/v2.1.0).
+The entries below are Refrata's.
+
 ## [2.0.2] - 2026-11-20
 ### Removed
 - Settings › "Open files in the quick player" (off by default since 1.3.1). It did what the Space

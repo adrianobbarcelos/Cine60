@@ -169,14 +169,14 @@ def deb(app: Path) -> Path:
     doc = root / "usr" / "share" / "doc" / "refrata"
     doc.mkdir(parents=True)
     (doc / "copyright").write_text(
-        "Cine60 - LucsLabs Studios\nLicense: GPL-3.0-or-later\nSource: https://github.com/LucsLabsStudios/refrata\n"
+        "Cine60, a fork of Refrata (c) LucsLabs Studios\nLicense: GPL-3.0-or-later\nSource: https://github.com/adrianobbarcelos/Cine60\n"
         "Bundles Qt for Python (PySide6), LGPL-3.0. Uses the system's libVLC (LGPL-2.1+).\n", encoding="utf8")
     installed_kb = sum(p.stat().st_size for p in root.rglob("*") if p.is_file() and not p.is_symlink()) // 1024
     ctl = root / "DEBIAN"
     ctl.mkdir()
     (ctl / "control").write_text("\n".join([
         "Package: refrata", f"Version: {__version__}", "Architecture: amd64", "Section: video", "Priority: optional",
-        "Maintainer: LucsLabs Studios <lucslabs.studios@gmail.com>", "Homepage: https://refrata.vercel.app",
+        "Maintainer: Cine60 <229638533+adrianobbarcelos@users.noreply.github.com>", "Homepage: https://github.com/adrianobbarcelos/Cine60",
         f"Installed-Size: {installed_kb}", "Depends: " + ", ".join(DEPENDS), "Recommends: " + ", ".join(RECOMMENDS),
         "Description: video and music player built on the VLC engine",
         " Cine60 plays almost any video, song or stream through libVLC, with a modern interface,",

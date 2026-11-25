@@ -1,6 +1,6 @@
 # Code of conduct
 
-Refrata's issues and discussions are a place to report problems, suggest ideas and help each
+Cine60's issues and discussions are a place to report problems, suggest ideas and help each
 other. Everyone taking part is expected to keep it welcoming.
 
 ## Expected
@@ -19,7 +19,7 @@ other. Everyone taking part is expected to keep it welcoming.
 
 The maintainer may edit, hide or delete comments, lock threads, and block accounts that break
 these rules. To report a problem with someone's conduct, use GitHub's **Report content** option on
-the comment, or contact [@LucsLabsStudios](https://github.com/LucsLabsStudios).
+the comment, or contact [@adrianobbarcelos](https://github.com/adrianobbarcelos).
 
 This code is adapted from the [Contributor Covenant](https://www.contributor-covenant.org/),
 version 2.1.

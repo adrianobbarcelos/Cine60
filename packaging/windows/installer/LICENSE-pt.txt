@@ -22,6 +22,6 @@ Componentes de terceiros incluídos neste instalador, redistribuídos sem modifi
 
   • Python — © Python Software Foundation, sob a PSF License.
 
-"VLC" é marca registrada da VideoLAN. O Refrata não é afiliado à VideoLAN nem endossado por ela.
+"VLC" é marca registrada da VideoLAN. O Cine60 não é afiliado à VideoLAN nem endossado por ela.
 
 O SOFTWARE É FORNECIDO "NO ESTADO EM QUE SE ENCONTRA", SEM GARANTIAS DE QUALQUER TIPO.

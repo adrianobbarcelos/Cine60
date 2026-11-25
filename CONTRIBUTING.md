@@ -1,19 +1,19 @@
-# Contributing to Refrata
+# Contributing to Cine60
 
-*[Português abaixo](#contribuindo-com-o-refrata).*
+*[Português abaixo](#contribuindo-com-o-cine60).*
 
-Refrata is **open source, but closed to code contributions** in this repository.
+Cine60 is **open source, but closed to code contributions** in this repository.
 
 ## Welcome
 
-- **Bug reports.** Use the [bug report form](https://github.com/LucsLabsStudios/refrata/issues/new?template=bug_report.yml).
-  The Refrata version (**Settings › About**), your operating system and the steps that lead to the
+- **Bug reports.** Use the [bug report form](https://github.com/adrianobbarcelos/Cine60/issues/new?template=bug_report.yml).
+  The Cine60 version (**Settings › About**), your operating system and the steps that lead to the
   problem make it much faster to fix.
-- **Ideas and suggestions.** Use the [feature request form](https://github.com/LucsLabsStudios/refrata/issues/new?template=feature_request.yml).
+- **Ideas and suggestions.** Use the [feature request form](https://github.com/adrianobbarcelos/Cine60/issues/new?template=feature_request.yml).
   Every one is read, and the ones that fit make it into a future release.
 - **Forks.** Under the [GPL 3.0](LICENSE) you may download, study, build, modify and redistribute
   the code, including your own version. Forks must stay GPL 3.0 and must not present themselves as
-  the official Refrata.
+  the official Cine60.
 
 ## Not accepted
 
@@ -29,20 +29,20 @@ follows the [code of conduct](CODE_OF_CONDUCT.md).
 
 ---
 
-# Contribuindo com o Refrata
+# Contribuindo com o Cine60
 
-O Refrata é **código aberto, mas não aceita contribuições de código** neste repositório.
+O Cine60 é **código aberto, mas não aceita contribuições de código** neste repositório.
 
 ## O que é bem-vindo
 
-- **Relatos de bug.** Use o [formulário de bug](https://github.com/LucsLabsStudios/refrata/issues/new?template=bug_report.yml).
-  A versão do Refrata (**Ajustes › Sobre**), o sistema e os passos até o problema ajudam muito a
+- **Relatos de bug.** Use o [formulário de bug](https://github.com/adrianobbarcelos/Cine60/issues/new?template=bug_report.yml).
+  A versão do Cine60 (**Ajustes › Sobre**), o sistema e os passos até o problema ajudam muito a
   corrigir mais rápido.
-- **Ideias e sugestões.** Use o [formulário de sugestão](https://github.com/LucsLabsStudios/refrata/issues/new?template=feature_request.yml).
+- **Ideias e sugestões.** Use o [formulário de sugestão](https://github.com/adrianobbarcelos/Cine60/issues/new?template=feature_request.yml).
   Todas são lidas, e as que fizerem sentido entram numa próxima versão.
 - **Forks.** Pela licença [GPL 3.0](LICENSE), você pode baixar, estudar, compilar, modificar e
   redistribuir o código, inclusive criar a sua própria versão. Os forks também precisam seguir a
-  GPL 3.0 e não podem se apresentar como o Refrata oficial.
+  GPL 3.0 e não podem se apresentar como o Cine60 oficial.
 
 ## O que não é aceito
 

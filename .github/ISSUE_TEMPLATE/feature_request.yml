@@ -1,5 +1,5 @@
 name: Feature request
-description: An idea or suggestion for Refrata.
+description: An idea or suggestion for Cine60.
 labels: ["enhancement"]
 body:
   - type: markdown
@@ -16,7 +16,7 @@ body:
     id: idea
     attributes:
       label: How it could work
-      description: What you imagine Refrata doing. Other players that do it well are useful references.
+      description: What you imagine Cine60 doing. Other players that do it well are useful references.
   - type: textarea
     id: context
     attributes:

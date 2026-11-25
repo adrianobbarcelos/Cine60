@@ -32,9 +32,9 @@ APP = ROOT / "dist" / "Cine60"
 BUILD = ROOT / "build" / "msix"
 ASSETS = ROOT / "packaging" / "windows" / "msix" / "assets"
 VERSION = ".".join((__version__.split(".") + ["0"] * 4)[:3]) + ".0"  # the Store wants revision 0
-NAME = "LucsLabsStudios.Cine60"
-STUDIO = "LucsLabs Studios"
-DESCRIPTION = "Player de vídeo e música da LucsLabs Studios, com todo o motor do VLC numa interface nova."
+NAME = "Cine60.App"
+STUDIO = "Cine60"
+DESCRIPTION = "Player de vídeo e música com todo o motor do VLC numa interface nova."
 GROUPS = [("video", "Vídeo", VIDEO_EXT), ("audio", "Música", AUDIO_EXT), ("playlist", "Playlist", PLAYLIST_EXT)]
 
 

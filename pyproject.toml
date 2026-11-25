@@ -7,7 +7,7 @@ name = "refrata"
 description = "A modern video and music player built on the VLC engine (libVLC)."
 readme = "README.md"
 license = { text = "GPL-3.0-only" }
-authors = [{ name = "LucsLabs Studios" }]
+authors = [{ name = "LucsLabs Studios (Refrata)" }, { name = "Cine60" }]
 requires-python = ">=3.12"
 keywords = ["media player", "video player", "music player", "libvlc", "vlc", "qt", "pyside6"]
 classifiers = [
@@ -27,10 +27,10 @@ classifiers = [
 dynamic = ["version", "dependencies"]
 
 [project.urls]
-Homepage = "https://refrata.vercel.app"
-Source = "https://github.com/LucsLabsStudios/refrata"
-Issues = "https://github.com/LucsLabsStudios/refrata/issues"
-Changelog = "https://github.com/LucsLabsStudios/refrata/blob/main/CHANGELOG.md"
+Homepage = "https://github.com/adrianobbarcelos/Cine60"
+Source = "https://github.com/adrianobbarcelos/Cine60"
+Issues = "https://github.com/adrianobbarcelos/Cine60/issues"
+Changelog = "https://github.com/adrianobbarcelos/Cine60/blob/main/CHANGELOG.md"
 
 [project.gui-scripts]
 refrata = "refrata.__main__:main"
