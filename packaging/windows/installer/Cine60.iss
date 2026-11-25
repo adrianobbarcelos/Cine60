@@ -171,6 +171,13 @@ Filename: "{app}\{#AppExe}"; Description: "{cm:LaunchNow}"; Flags: nowait postin
 Filename: "{app}\{#AppExe}"; Flags: nowait; Check: RelaunchAfterUpdate
 
 [Code]
+procedure InitializeWizard;
+begin
+  // Inno Setup 6.7 cuts the left half of the check boxes on some high-DPI screens (seen at 250 %)
+  WizardForm.TasksList.Offset := ScaleX(8);
+  WizardForm.RunList.Offset := ScaleX(8);
+end;
+
 function RelaunchAfterUpdate: Boolean;
 begin
   Result := WizardSilent and (ExpandConstant('{param:relaunch|0}') = '1');
