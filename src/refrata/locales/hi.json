@@ -531,5 +531,7 @@
   "G abre este painel · V liga/desliga o movimento suave · Shift+V troca a predefinição.": "G यह पैनल खोलता है · V स्मूद मोशन चालू/बंद करता है · Shift+V प्रीसेट बदलता है।",
   "Todo o motor do VLC, agora a <font color='#38BDF8'>60 quadros por segundo</font>.": "पूरा VLC इंजन, अब <font color='#38BDF8'>60 फ़्रेम प्रति सेकंड</font> पर।",
   "Relatar um problema": "समस्या की रिपोर्ट करें",
-  "Software livre (GPL 3.0), um fork do Refrata (LucsLabs Studios), construído sobre o libVLC da VideoLAN (LGPL 2.1+). VLC é marca da VideoLAN; este é um projeto independente.": "मुक्त सॉफ़्टवेयर (GPL 3.0), Refrata (LucsLabs Studios) का फ़ोर्क, VideoLAN के libVLC (LGPL 2.1+) पर बना। VLC, VideoLAN का ट्रेडमार्क है; यह एक स्वतंत्र प्रोजेक्ट है।"
+  "Software livre (GPL 3.0), um fork do Refrata (LucsLabs Studios), construído sobre o libVLC da VideoLAN (LGPL 2.1+). VLC é marca da VideoLAN; este é um projeto independente.": "मुक्त सॉफ़्टवेयर (GPL 3.0), Refrata (LucsLabs Studios) का फ़ोर्क, VideoLAN के libVLC (LGPL 2.1+) पर बना। VLC, VideoLAN का ट्रेडमार्क है; यह एक स्वतंत्र प्रोजेक्ट है।",
+  "Tamanho da interface": "इंटरफ़ेस का आकार",
+  "Textos e botões menores cabem melhor em telas com escala alta. Vale ao abrir o Cine60 de novo.": "छोटे टेक्स्ट और बटन ज़्यादा स्केलिंग वाली स्क्रीन पर बेहतर फ़िट होते हैं। Cine60 दोबारा खोलने पर लागू होगा।"
 }

@@ -531,5 +531,7 @@
   "G abre este painel · V liga/desliga o movimento suave · Shift+V troca a predefinição.": "G でこのパネルを開く · V でスムーズモーションのオン/オフ · Shift+V でプリセットを切り替え。",
   "Todo o motor do VLC, agora a <font color='#38BDF8'>60 quadros por segundo</font>.": "VLC エンジンのすべてを、<font color='#38BDF8'>毎秒 60 フレーム</font>で。",
   "Relatar um problema": "問題を報告",
-  "Software livre (GPL 3.0), um fork do Refrata (LucsLabs Studios), construído sobre o libVLC da VideoLAN (LGPL 2.1+). VLC é marca da VideoLAN; este é um projeto independente.": "フリーソフトウェア (GPL 3.0)。Refrata (LucsLabs Studios) のフォークで、VideoLAN の libVLC (LGPL 2.1+) 上に構築。VLC は VideoLAN の商標です。これは独立したプロジェクトです。"
+  "Software livre (GPL 3.0), um fork do Refrata (LucsLabs Studios), construído sobre o libVLC da VideoLAN (LGPL 2.1+). VLC é marca da VideoLAN; este é um projeto independente.": "フリーソフトウェア (GPL 3.0)。Refrata (LucsLabs Studios) のフォークで、VideoLAN の libVLC (LGPL 2.1+) 上に構築。VLC は VideoLAN の商標です。これは独立したプロジェクトです。",
+  "Tamanho da interface": "インターフェイスのサイズ",
+  "Textos e botões menores cabem melhor em telas com escala alta. Vale ao abrir o Cine60 de novo.": "文字とボタンを小さくすると、拡大率の高い画面に収まりやすくなります。Cine60 を再度開くと適用されます。"
 }

@@ -41,6 +41,7 @@ DEFAULTS = {
     "smoothMotion": "off",    # in-between frames (ui/VideoPipeline.qml): off | 60 | 120 | max (display rate)
     "lightBoost": 0,          # 0..100: local brightening of dark areas, an "HDR look" on SDR video
     "detailBoost": 0,         # 0..100: adaptive sharpening
+    "uiScale": 100,           # 70 | 80 | 90 | 100: the whole interface, applied at start (__main__._ui_scale)
     # the player's Picture panel (ui/PlayerView.qml): the user's own presets, and the strength
     # each switch goes back to when turned on again
     "picturePresets": [],     # [{name, motion, light, detail}]
@@ -85,6 +86,8 @@ def _valid(key, v) -> bool:
         return isinstance(v, dict) and all(isinstance(k, str) and isinstance(x, list) for k, x in v.items())
     if key == "skipMarks":
         return isinstance(v, dict) and all(isinstance(k, str) and isinstance(x, dict) for k, x in v.items())
+    if key == "uiScale":
+        return v in (70, 80, 90, 100)
     if key == "smoothMotionLast":
         return v in ("60", "120", "max")
     if key == "picturePresets":
@@ -249,6 +252,7 @@ class Settings(QObject):
     smoothMotion = _mk("smoothMotion", str)
     lightBoost = _mk("lightBoost", int)
     detailBoost = _mk("detailBoost", int)
+    uiScale = _mk("uiScale", int)
     hdrOutput = _mk("hdrOutput", str)
     hdrDynamic = _mk("hdrDynamic", bool)
     rtxVsr = _mk("rtxVsr", bool)

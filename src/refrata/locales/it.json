@@ -531,5 +531,7 @@
   "G abre este painel · V liga/desliga o movimento suave · Shift+V troca a predefinição.": "G apre questo pannello · V attiva/disattiva il movimento fluido · Maiusc+V cambia preimpostazione.",
   "Todo o motor do VLC, agora a <font color='#38BDF8'>60 quadros por segundo</font>.": "Tutto il motore di VLC, ora a <font color='#38BDF8'>60 fotogrammi al secondo</font>.",
   "Relatar um problema": "Segnala un problema",
-  "Software livre (GPL 3.0), um fork do Refrata (LucsLabs Studios), construído sobre o libVLC da VideoLAN (LGPL 2.1+). VLC é marca da VideoLAN; este é um projeto independente.": "Software libero (GPL 3.0), un fork di Refrata (LucsLabs Studios), basato su libVLC di VideoLAN (LGPL 2.1+). VLC è un marchio di VideoLAN; questo è un progetto indipendente."
+  "Software livre (GPL 3.0), um fork do Refrata (LucsLabs Studios), construído sobre o libVLC da VideoLAN (LGPL 2.1+). VLC é marca da VideoLAN; este é um projeto independente.": "Software libero (GPL 3.0), un fork di Refrata (LucsLabs Studios), basato su libVLC di VideoLAN (LGPL 2.1+). VLC è un marchio di VideoLAN; questo è un progetto indipendente.",
+  "Tamanho da interface": "Dimensione dell’interfaccia",
+  "Textos e botões menores cabem melhor em telas com escala alta. Vale ao abrir o Cine60 de novo.": "Testi e pulsanti più piccoli si adattano meglio agli schermi con scala elevata. Vale alla prossima apertura di Cine60."
 }

@@ -124,6 +124,15 @@ Flickable {
                 }
             }
             SettingRow {
+                title: qsTr("Tamanho da interface"); desc: qsTr("Textos e botões menores cabem melhor em telas com escala alta. Vale ao abrir o Cine60 de novo.")
+                Segmented {
+                    objectName: "uiScaleSeg"
+                    options: [{ text: "70%", value: 70 }, { text: "80%", value: 80 }, { text: "90%", value: 90 }, { text: "100%", value: 100 }]
+                    value: settings.uiScale
+                    onPicked: (v) => settings.uiScale = v
+                }
+            }
+            SettingRow {
                 title: qsTr("Cor de destaque"); desc: qsTr("Usada em botões, progresso e seleção.")
                 Row {
                     spacing: 10
