@@ -6,13 +6,13 @@ body:
     attributes:
       value: |
         Thanks for taking the time to report this. Português é bem-vindo.
-        Security problems go through [SECURITY.md](https://github.com/LucsLabsStudios/refrata/blob/main/SECURITY.md), not here.
+        Security problems go through [SECURITY.md](https://github.com/adrianobbarcelos/Cine60/blob/main/SECURITY.md), not here.
   - type: input
     id: version
     attributes:
       label: Refrata version
       description: Settings › About
-      placeholder: "2.0.2"
+      placeholder: "2.1.0"
     validations:
       required: true
   - type: dropdown

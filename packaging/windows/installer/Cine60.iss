@@ -19,7 +19,7 @@ AppVersion={#AppVersion}
 AppVerName={#AppName} {#AppVersion}
 AppPublisher={#Studio}
 AppPublisherURL=https://github.com/adrianobbarcelos/Cine60
-AppSupportURL=mailto:lucslabs.studios@gmail.com
+AppSupportURL=https://github.com/adrianobbarcelos/Cine60/issues
 AppCopyright=© {#Studio}
 VersionInfoCompany={#Studio}
 VersionInfoDescription={#AppName} — instalador
@@ -47,6 +47,8 @@ SolidCompression=yes
 LZMAUseSeparateProcess=yes
 LZMANumBlockThreads=6
 ChangesAssociations=yes
+; the same file times in every time zone (libVLC checks its plugins against plugins.dat)
+TimeStampsInUTC=yes
 CloseApplications=yes
 ; Only ask Restart Manager about executables: by default it registers every .exe/.dll that will be
 ; replaced (536 files with libVLC's plugins), and RmGetList took ~3.5 s on "Preparando para

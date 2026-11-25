@@ -740,6 +740,9 @@ class Engine(QObject):
             self._stop_cast_discovery()
             self._cast_ptr = None
         self._vlc_args = self._instance_args()
+        if old is None:
+            from .vlcpath import restore_plugin_times
+            restore_plugin_times()
         self._vlc = vlc.Instance(self._vlc_args)
         if self._vlc is None:   # an option this libVLC build does not know: play without extras
             print("libVLC refused", self._vlc_args)

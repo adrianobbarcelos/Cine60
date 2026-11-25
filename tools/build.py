@@ -88,6 +88,7 @@ def vendor_vlc(zip_path: str | None, system: bool = False):
         else:
             shutil.copytree(src / d, VENDOR / d)
     gen = src / "vlc-cache-gen.exe"
+    stamp_plugins(VENDOR / "plugins")
     if gen.exists():
         # plugins.dat must describe exactly the plugins we ship
         subprocess.run([str(gen), str(VENDOR / "plugins")], check=True, cwd=str(src))
@@ -95,6 +96,28 @@ def vendor_vlc(zip_path: str | None, system: bool = False):
     BUILD.mkdir(exist_ok=True)
     stamp_file.write_text(stamp, encoding="utf8")
     log(f"libVLC vendored from {src} ({size:.0f} MB)")
+
+
+def stamp_plugins(folder: Path):
+    """One fixed time for every plugin, so the cache made here holds wherever they are unpacked
+    (refrata/vlcpath.py, restore_plugin_times)."""
+    from refrata.vlcpath import PLUGIN_MTIME
+    for p in folder.rglob("*_plugin.dll"):
+        os.utime(p, (PLUGIN_MTIME, PLUGIN_MTIME))
+
+
+def check_plugin_cache(folder: Path):
+    """Stamp the packaged plugins (PyInstaller's copies carry the build's time) and make sure the
+    cache we ship describes each of them with that time and its size."""
+    import struct
+    from refrata.vlcpath import PLUGIN_MTIME
+    stamp_plugins(folder)
+    data = (folder / "plugins.dat").read_bytes()
+    plugins = list(folder.rglob("*_plugin.dll"))
+    bad = [p.name for p in plugins if struct.pack("<qq", PLUGIN_MTIME, p.stat().st_size) not in data]
+    if bad or not plugins:
+        raise SystemExit(f"plugins.dat does not match {len(bad)} of {len(plugins)} plugins: {bad[:5]}")
+    log(f"VLC plugin cache matches {len(plugins)} plugins")
 
 
 VERSION_INFO = """VSVersionInfo(
@@ -313,6 +336,7 @@ def pyinstaller():
         raise SystemExit("refrata_native is missing from the app folder")
     prune_qml(app)
     prune_qt(app)
+    check_plugin_cache(app / "_internal" / "vlc" / "plugins")
     lic = app / "LICENSES"
     lic.mkdir(exist_ok=True)
     shutil.copy2(VENDOR / "COPYING.txt", lic / "VLC-COPYING.txt")

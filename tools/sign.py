@@ -26,7 +26,7 @@ ROOT = Path(__file__).resolve().parents[1]
 DEV_SUBJECT = "CN=LucsLabs Studios (desenvolvimento), O=LucsLabs Studios, C=BR"
 TIMESTAMP = os.environ.get("REFRATA_SIGN_TIMESTAMP", "http://timestamp.digicert.com")
 DESCRIPTION = "Cine60"
-DESCRIPTION_URL = "mailto:lucslabs.studios@gmail.com"
+DESCRIPTION_URL = "https://github.com/adrianobbarcelos/Cine60"
 
 
 def find_signtool() -> Path | None:

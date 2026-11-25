@@ -271,7 +271,7 @@ def build(argv=None, page="", panel="", theme_name="", instance_name: str | None
         "installed": bool(getattr(sys, "frozen", False) and (Path(sys.executable).parent / "unins000.exe").exists())
         or bool(package_family()),
         "package": package_family(),
-        "contact": "lucslabs.studios@gmail.com",
+        "contact": "https://github.com/adrianobbarcelos/Cine60/issues",
     })
 
     trace.mark("build: updater, preview, tray, associations, shortcuts")

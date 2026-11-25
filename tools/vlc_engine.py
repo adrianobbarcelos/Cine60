@@ -22,7 +22,7 @@ ROOT = Path(__file__).resolve().parents[1]
 PIN_FILE = ROOT / "tools" / "vlc-version.txt"
 CACHE = ROOT / "build" / "cache"
 BASE = "https://download.videolan.org/pub/videolan/vlc"
-UA = "Cine60-build (+https://github.com/LucsLabsStudios/refrata)"
+UA = "Cine60-build (+https://github.com/adrianobbarcelos/Cine60)"
 
 
 def pinned() -> str:
