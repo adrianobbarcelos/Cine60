@@ -230,6 +230,7 @@ Item {
                 scene: player.hdrScene
                 measure: settings.hdrDynamic
                 hdrOut: typeof hdrout !== "undefined" && hdrout.screenHdr
+                linearOut: typeof hdrout !== "undefined" && hdrout.active
                 outWhite: typeof hdrout !== "undefined" ? hdrout.sdrWhite : 80
                 outPeak: typeof hdrout !== "undefined" ? hdrout.peak : 0
                 rtxVsr: settings.rtxVsr && appctl.nvidiaRtx

@@ -47,8 +47,8 @@ DEFAULTS = {
     "smoothMotionLast": "60",
     "lightBoostLast": 30,
     "detailBoostLast": 40,
-    # off by default: with Windows HDR on, Qt picks its *_linear video shaders for the scRGB swapchain
-    # and ui/shaders/hdrlayer.frag decodes sRGB again: SDR video came out dark, crushed blacks
+    # off by default for now: video was decoded twice in the scRGB window (ui/shaders/srgbencode.frag);
+    # fixed and measured on SDR levels, not yet judged on HDR films
     "hdrOutput": "off",       # auto: real HDR on a screen with Windows HDR on (refrata/hdroutput.py) | off
     "hdrDynamic": True,       # HDR10: tone map each scene by its measured brightness (shaders/peak.frag)
     "bookmarks": {},          # path -> [ms, ...]: marked points (refrata/tools.py)

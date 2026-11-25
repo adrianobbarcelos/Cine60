@@ -36,6 +36,7 @@ Item {
     property string outputName: "videoOutput"   // objectName of the plain output (tests find it)
     // HDR screen (hdroutput.py): the picture is written for the window's scRGB layer
     property bool hdrOut: false
+    property bool linearOut: false     // in a scRGB window (hdroutput.py): Qt draws video in linear light
     property real outWhite: 80         // nits of the desktop's SDR white
     property real outPeak: 0           // the screen's peak, nits
     // HDR10+ (hdr10plus.py): the current scene's metadata, {} when the file has none
@@ -173,21 +174,36 @@ Item {
     }
 
     // ---------------------------------------------------------------- the two sinks
-    VideoOutput {
-        id: voA
-        objectName: vp.outputName
+    // each in an item of its own: capturing an item leaves its own layer effect out
+    Item {
+        id: boxA
         anchors.fill: parent
         visible: !vp.rtxOn          // the RTX item draws the picture instead
-        fillMode: vp.fillMode
-        orientation: vp.orientation
+        VideoOutput {
+            id: voA
+            objectName: vp.outputName
+            anchors.fill: parent
+            fillMode: vp.fillMode
+            orientation: vp.orientation
+            layer.enabled: vp.linearOut
+            layer.format: ShaderEffectSource.RGBA16F
+            layer.effect: ShaderEffect { fragmentShader: "shaders/srgbencode.frag.qsb" }
+        }
     }
-    VideoOutput {
-        id: voB
-        objectName: vp.outputName + "B"
+    Item {
+        id: boxB
         anchors.fill: parent
-        fillMode: vp.fillMode
-        orientation: vp.orientation
         visible: vp.pairing
+        VideoOutput {
+            id: voB
+            objectName: vp.outputName + "B"
+            anchors.fill: parent
+            fillMode: vp.fillMode
+            orientation: vp.orientation
+            layer.enabled: vp.linearOut
+            layer.format: ShaderEffectSource.RGBA16F
+            layer.effect: ShaderEffect { fragmentShader: "shaders/srgbencode.frag.qsb" }
+        }
     }
     readonly property alias videoSinkB: voB.videoSink
 
@@ -201,7 +217,7 @@ Item {
 
             ShaderEffectSource {
                 id: capA
-                sourceItem: vp.rtxOn ? vp.rtxItem : voA
+                sourceItem: vp.rtxOn ? vp.rtxItem : boxA
                 hideSource: true
                 mipmap: true
                 format: g.fmt
@@ -209,7 +225,7 @@ Item {
             }
             ShaderEffectSource {
                 id: capB
-                sourceItem: vp.pairing ? voB : null
+                sourceItem: vp.pairing ? boxB : null
                 hideSource: true
                 mipmap: true
                 format: g.fmt
