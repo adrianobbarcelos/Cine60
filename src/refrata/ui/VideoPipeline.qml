@@ -123,6 +123,7 @@ Item {
     property real _measured: 0
     property real _arrival: 0          // smoothed arrival time of the newest frame (ms)
     property real _lastRaw: 0
+    property real _span: 0             // time from the older to the newer frame of the pair (ms; 0 = interval)
     property int _frames: 0            // frames since the pair was (re)started
 
     signal pipelineDelay(real ms)
@@ -144,18 +145,31 @@ Item {
         var gap = t - _lastRaw
         _lastRaw = t
         bNewer = slot === 1
-        if (_frames > 0 && gap > 0 && gap < 1000)
-            _measured = _measured > 0 ? _measured * 0.9 + gap * 0.1 : gap
         var iv = interval
+        if (_frames > 0 && gap > 0 && gap < 1000 && (iv <= 0 || gap < iv * 1.5))
+            _measured = _measured > 0 ? _measured * 0.9 + gap * 0.1 : gap
         // a stall, a seek or the first frame: show it as is and start the clock again
-        if (_frames === 0 || iv <= 0 || gap > iv * 2.5) {
+        if (_frames === 0 || iv <= 0 || gap > iv * 3.5) {
             _arrival = t
+            _span = iv
             phase = 1
         } else {
-            // arrivals jitter with the UI thread; follow the steady beat instead (a slow PLL)
-            var predicted = _arrival + iv
-            var err = t - predicted
-            _arrival = Math.abs(err) < iv * 0.5 ? predicted + err * 0.12 : t
+            var k = Math.max(1, Math.round(gap / iv))
+            if (k >= 2) {
+                // libVLC dropped k-1 late pictures: this pair is k intervals apart. Treated as
+                // neighbours, the in-betweens crossed k frames of motion in the time of one (the
+                // picture ran at 2x, users saw a sudden "run"); spanning the whole gap from where
+                // the lag puts us, it skips one picture and goes on at normal speed (simulation
+                // with 3% dropped: running fast 2.6% of the time -> 0.4%)
+                _span = k * iv
+                _arrival = t - (k - 1) * iv
+            } else {
+                // arrivals jitter with the UI thread; follow the steady beat instead (a slow PLL)
+                var predicted = _arrival + (_span > 0 ? _span : iv)
+                var err = t - predicted
+                _arrival = Math.abs(err) < iv * 0.5 ? predicted + err * 0.12 : t
+                _span = iv
+            }
             phase = 0
         }
         _frames++
@@ -166,13 +180,14 @@ Item {
     function tick() {
         if (phaseOverride >= 0) { phase = phaseOverride; return }
         if (!interpolating) { phase = 1; return }
-        var p = (now() - _arrival) / interval
+        var span = _span > 0 ? _span : interval
+        var p = (now() - _arrival) / span
         // a cap at or above the screen's own rate caps nothing (the screen shows one picture per
         // refresh anyway): quantizing then only made two refreshes land on the same step, the same
         // picture twice (measured: 60 on a 60 Hz screen gave ~34 new pictures a second, "max" ~45)
         if (maxFps > 0 && maxFps < displayHz * 0.95) {
             // cap: whole steps of the chosen rate within each source frame
-            var steps = Math.max(1, Math.round(interval * maxFps / 1000))
+            var steps = Math.max(1, Math.round(span * maxFps / 1000))
             p = Math.floor(p * steps) / steps
         }
         phase = Math.max(0, Math.min(1, p))
