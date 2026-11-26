@@ -192,7 +192,11 @@ Item {
             // 2x (Splash's "Motion 2x"): the real frame, then the one halfway, each for half the
             // frame's time. Half of what is shown is the film itself; the in-between is the
             // easiest one to find, and motion stays closer to cinema than at 60
-            p = Math.floor(p * 2) / 2
+            // Each picture is centred on its own moment: the real frame up to a quarter of the
+            // way, the midpoint to three quarters, then the next real frame. Floored instead, the
+            // midpoint often got a single refresh and any late render lost it (measured on a
+            // 24 fps clip at 60 Hz: 36.8 new pictures/s floored, 41.7 centred; 48 is the most)
+            p = Math.min(1, Math.round(p * 2) / 2)
         } else if (maxFps > 0 && maxFps < displayHz * 0.95) {
             // cap: whole steps of the chosen rate within each source frame
             var steps = Math.max(1, Math.round(span * maxFps / 1000))
