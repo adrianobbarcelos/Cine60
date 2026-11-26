@@ -7,6 +7,17 @@ All notable changes to Refrata are listed here, newest first. Each version links
 The project follows [Semantic Versioning](https://semver.org/). Patch releases (`1.4.x`) can also
 ship updated components only (libVLC, yt-dlp, python-vlc) after passing the full test suite.
 
+## Cine60 2.1.2 (2026-11-26)
+
+- Smooth motion **2x**, like Splash's Motion 2x: the real frames and the pictures halfway between them.
+- Smooth motion no longer runs fast for a moment when libVLC drops a late picture.
+See the [release notes](https://github.com/adrianobbarcelos/Cine60/releases/tag/v2.1.2).
+
+## Cine60 2.1.1 (2026-11-25)
+
+Interface size setting, smaller start window, HDR badge and real-HDR switch, lighter full-screen smooth
+motion. See the [release notes](https://github.com/adrianobbarcelos/Cine60/releases/tag/v2.1.1).
+
 ## Cine60 2.1.0 (2026-11-25)
 
 First Cine60 release, a fork of Refrata 2.0.2. See the [release notes](https://github.com/adrianobbarcelos/Cine60/releases/tag/v2.1.0).
