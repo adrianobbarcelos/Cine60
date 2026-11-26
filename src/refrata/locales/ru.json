@@ -531,7 +531,7 @@
   "G abre este painel · V liga/desliga o movimento suave · Shift+V troca a predefinição.": "G открывает эту панель · V включает/выключает плавное движение · Shift+V меняет набор.",
   "Todo o motor do VLC, agora a <font color='#38BDF8'>60 quadros por segundo</font>.": "Весь движок VLC, теперь с частотой <font color='#38BDF8'>60 кадров в секунду</font>.",
   "Relatar um problema": "Сообщить о проблеме",
-  "Software livre (GPL 3.0), um fork do Refrata (LucsLabs Studios), construído sobre o libVLC da VideoLAN (LGPL 2.1+). VLC é marca da VideoLAN; este é um projeto independente.": "Свободное ПО (GPL 3.0), форк Refrata (LucsLabs Studios), построенный на libVLC от VideoLAN (LGPL 2.1+). VLC — товарный знак VideoLAN; это независимый проект.",
+  "Software livre (GPL 3.0) sobre o libVLC da VideoLAN (LGPL 2.1+). Baseado no Refrata, de LucsLabs Studios. VLC é marca da VideoLAN; o Cine60 é um projeto independente.": "Свободное ПО (GPL 3.0) на основе libVLC от VideoLAN (LGPL 2.1+). Основано на Refrata от LucsLabs Studios. VLC — торговая марка VideoLAN; Cine60 — независимый проект.",
   "Tamanho da interface": "Размер интерфейса",
   "Textos e botões menores cabem melhor em telas com escala alta. Vale ao abrir o Cine60 de novo.": "Текст и кнопки поменьше лучше помещаются на экранах с крупным масштабом. Применится при следующем запуске Cine60."
 }

@@ -531,7 +531,7 @@
   "G abre este painel · V liga/desliga o movimento suave · Shift+V troca a predefinição.": "G 打开此面板 · V 开关平滑运动 · Shift+V 切换预设。",
   "Todo o motor do VLC, agora a <font color='#38BDF8'>60 quadros por segundo</font>.": "完整的 VLC 引擎，现在以<font color='#38BDF8'>每秒 60 帧</font>播放。",
   "Relatar um problema": "报告问题",
-  "Software livre (GPL 3.0), um fork do Refrata (LucsLabs Studios), construído sobre o libVLC da VideoLAN (LGPL 2.1+). VLC é marca da VideoLAN; este é um projeto independente.": "自由软件（GPL 3.0），Refrata（LucsLabs Studios）的分支，基于 VideoLAN 的 libVLC（LGPL 2.1+）构建。VLC 是 VideoLAN 的商标；这是一个独立项目。",
+  "Software livre (GPL 3.0) sobre o libVLC da VideoLAN (LGPL 2.1+). Baseado no Refrata, de LucsLabs Studios. VLC é marca da VideoLAN; o Cine60 é um projeto independente.": "基于 VideoLAN libVLC（LGPL 2.1+）的自由软件（GPL 3.0）。基于 LucsLabs Studios 的 Refrata。VLC 是 VideoLAN 的商标；Cine60 是独立项目。",
   "Tamanho da interface": "界面大小",
   "Textos e botões menores cabem melhor em telas com escala alta. Vale ao abrir o Cine60 de novo.": "较小的文字和按钮更适合高缩放比例的屏幕。重新打开 Cine60 后生效。"
 }

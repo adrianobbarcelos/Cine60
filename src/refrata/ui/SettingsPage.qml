@@ -582,8 +582,8 @@ Flickable {
                     Column {
                         anchors.verticalCenter: parent.verticalCenter
                         spacing: 2
-                        Text { text: "FORK DO REFRATA"; color: "#7DD3FC"; font.pixelSize: 12; font.weight: Font.Bold; font.letterSpacing: 2.4 }
-                        Text { text: "LucsLabs Studios · GPL-3.0"; color: Qt.rgba(1, 1, 1, 0.55); font.pixelSize: 12 }
+                        Text { text: "CINE60"; color: "#7DD3FC"; font.pixelSize: 12; font.weight: Font.Bold; font.letterSpacing: 2.4 }
+                        Text { text: "GPL-3.0 · github.com/adrianobbarcelos/Cine60"; color: Qt.rgba(1, 1, 1, 0.55); font.pixelSize: 12 }
                     }
                 }
                 Text {
@@ -648,7 +648,7 @@ Flickable {
                 anchors.bottom: parent.bottom; anchors.bottomMargin: 26
                 wrapMode: Text.WordWrap
                 color: Qt.rgba(1, 1, 1, 0.5); font.pixelSize: 12
-                text: qsTr("Software livre (GPL 3.0), um fork do Refrata (LucsLabs Studios), construído sobre o libVLC da VideoLAN (LGPL 2.1+). VLC é marca da VideoLAN; este é um projeto independente.")
+                text: qsTr("Software livre (GPL 3.0) sobre o libVLC da VideoLAN (LGPL 2.1+). Baseado no Refrata, de LucsLabs Studios. VLC é marca da VideoLAN; o Cine60 é um projeto independente.")
             }
         }
     }

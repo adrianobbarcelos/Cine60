@@ -531,7 +531,7 @@
   "G abre este painel · V liga/desliga o movimento suave · Shift+V troca a predefinição.": "G: 이 패널 열기 · V: 부드러운 움직임 켜기/끄기 · Shift+V: 프리셋 바꾸기",
   "Todo o motor do VLC, agora a <font color='#38BDF8'>60 quadros por segundo</font>.": "VLC 엔진 전체를 이제 <font color='#38BDF8'>초당 60프레임</font>으로.",
   "Relatar um problema": "문제 신고",
-  "Software livre (GPL 3.0), um fork do Refrata (LucsLabs Studios), construído sobre o libVLC da VideoLAN (LGPL 2.1+). VLC é marca da VideoLAN; este é um projeto independente.": "자유 소프트웨어(GPL 3.0)로, Refrata(LucsLabs Studios)의 포크이며 VideoLAN의 libVLC(LGPL 2.1+) 기반입니다. VLC는 VideoLAN의 상표이며, 이 프로젝트는 독립 프로젝트입니다.",
+  "Software livre (GPL 3.0) sobre o libVLC da VideoLAN (LGPL 2.1+). Baseado no Refrata, de LucsLabs Studios. VLC é marca da VideoLAN; o Cine60 é um projeto independente.": "VideoLAN의 libVLC(LGPL 2.1+) 위에 만든 자유 소프트웨어(GPL 3.0)입니다. LucsLabs Studios의 Refrata를 바탕으로 합니다. VLC는 VideoLAN의 상표이며, Cine60은 독립 프로젝트입니다.",
   "Tamanho da interface": "인터페이스 크기",
   "Textos e botões menores cabem melhor em telas com escala alta. Vale ao abrir o Cine60 de novo.": "글자와 버튼을 작게 하면 배율이 높은 화면에 더 잘 맞습니다. Cine60을 다시 열면 적용됩니다."
 }
