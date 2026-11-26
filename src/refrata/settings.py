@@ -38,7 +38,8 @@ DEFAULTS = {
     "background": False,      # close to the tray
     "language": "auto",       # auto (Windows language) or a code from refrata/i18n.py
     "shortcuts": {},          # action -> key, only the ones changed in Ajustes (refrata/shortcuts.py)
-    "smoothMotion": "off",    # in-between frames (ui/VideoPipeline.qml): off | 60 | 120 | max (display rate)
+    "smoothMotion": "off",    # in-between frames (ui/VideoPipeline.qml): off | 2x | 60 | 120 | max (display rate)
+    "motionFallback": "real", # motion not found, no cut: real (nearest real frame) | blend (frames mixed)
     "lightBoost": 0,          # 0..100: local brightening of dark areas, an "HDR look" on SDR video
     "detailBoost": 0,         # 0..100: adaptive sharpening
     "uiScale": 100,           # 70 | 80 | 90 | 100: the whole interface, applied at start (__main__._ui_scale)
@@ -75,7 +76,7 @@ def _valid(key, v) -> bool:
     if key == "volume":
         return isinstance(v, int) and not isinstance(v, bool) and 0 <= v <= 150
     if key == "smoothMotion":
-        return v in ("off", "60", "120", "max")
+        return v in ("off", "2x", "60", "120", "max")
     if key == "hdrOutput":
         return v in ("auto", "off")
     if key == "passthrough":
@@ -88,8 +89,10 @@ def _valid(key, v) -> bool:
         return isinstance(v, dict) and all(isinstance(k, str) and isinstance(x, dict) for k, x in v.items())
     if key == "uiScale":
         return v in (70, 80, 90, 100)
+    if key == "motionFallback":
+        return v in ("real", "blend")
     if key == "smoothMotionLast":
-        return v in ("60", "120", "max")
+        return v in ("2x", "60", "120", "max")
     if key == "picturePresets":
         return isinstance(v, list) and all(isinstance(x, dict) and isinstance(x.get("name"), str) for x in v)
     if key in ("lightBoost", "detailBoost", "lightBoostLast", "detailBoostLast"):
@@ -250,6 +253,7 @@ class Settings(QObject):
     hwdec = _mk("hwdec", bool)
     folders = _mk("folders", list)
     smoothMotion = _mk("smoothMotion", str)
+    motionFallback = _mk("motionFallback", str)
     lightBoost = _mk("lightBoost", int)
     detailBoost = _mk("detailBoost", int)
     uiScale = _mk("uiScale", int)

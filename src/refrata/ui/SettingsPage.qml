@@ -209,7 +209,7 @@ Flickable {
                 desc: qsTr("Cria quadros intermediários na GPU: filmes de 24 e 30 fps passam a rodar a 60, 120 ou na taxa do seu monitor (%1 Hz).").arg(Math.round(appctl.refreshRate(Screen.name) || 60))
                 Segmented {
                     objectName: "smoothMotionSeg"
-                    options: [{ text: qsTr("Desligado"), value: "off" }, { text: "60 fps", value: "60" },
+                    options: [{ text: qsTr("Desligado"), value: "off" }, { text: "2x", value: "2x" }, { text: "60 fps", value: "60" },
                               { text: "120 fps", value: "120" }, { text: qsTr("Máximo"), value: "max" }]
                     value: settings.smoothMotion
                     onPicked: (v) => settings.smoothMotion = v

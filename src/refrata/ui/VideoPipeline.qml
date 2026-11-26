@@ -27,6 +27,8 @@ Item {
     property int orientation: 0
     property bool smoothMotion: false  // smooth motion wanted
     property real maxFps: 0            // 0 = every display refresh
+    property bool doubleRate: false    // "2x": only the real frames and the midpoints between them
+    property bool softFallback: false  // motion not found (no cut): blend the frames, not the real one
     property int hdr: 0                // 0 SDR, 1 PQ, 2 HLG
     property real srcPeak: 1000
     property real light: 0             // 0..1
@@ -73,7 +75,7 @@ Item {
     }
     // smooth motion: off | on (in-betweens drawn) | idle (the video is already as fast as the screen)
     readonly property string motionState: !smoothMotion ? "off" : interpolating ? "on" : playing ? "idle" : "ready"
-    readonly property real motionTo: Math.min(displayHz, maxFps > 0 ? maxFps : 1e9)
+    readonly property real motionTo: doubleRate && interval > 0 ? Math.min(displayHz, 2000 / interval) : Math.min(displayHz, maxFps > 0 ? maxFps : 1e9)
     Loader {
         id: rtxLoader
         anchors.fill: parent
@@ -104,6 +106,7 @@ Item {
     }
     readonly property bool interpolating: smoothMotion && playing && interval > 0
                                           && 1000 / interval < Math.min(displayHz, maxFps > 0 ? maxFps : 1e9) * 0.92
+                                          && (!doubleRate || 2000 / interval <= displayHz * 1.05)
     readonly property real dpr: Screen.devicePixelRatio > 0 ? Screen.devicePixelRatio : 1
     // the passes work at the video's own resolution when the screen shows it larger: a 1080p film
     // full screen on a 4K monitor did all of them on 4x the pixels, and in-betweens were late
@@ -185,7 +188,12 @@ Item {
         // a cap at or above the screen's own rate caps nothing (the screen shows one picture per
         // refresh anyway): quantizing then only made two refreshes land on the same step, the same
         // picture twice (measured: 60 on a 60 Hz screen gave ~34 new pictures a second, "max" ~45)
-        if (maxFps > 0 && maxFps < displayHz * 0.95) {
+        if (doubleRate) {
+            // 2x (Splash's "Motion 2x"): the real frame, then the one halfway, each for half the
+            // frame's time. Half of what is shown is the film itself; the in-between is the
+            // easiest one to find, and motion stays closer to cinema than at 60
+            p = Math.floor(p * 2) / 2
+        } else if (maxFps > 0 && maxFps < displayHz * 0.95) {
             // cap: whole steps of the chosen rate within each source frame
             var steps = Math.max(1, Math.round(span * maxFps / 1000))
             p = Math.floor(p * steps) / steps
@@ -371,6 +379,7 @@ Item {
                 property size srcPx: vp.srcPx
                 property real phase: vp.phase
                 property real interp: vp.interpolating ? 1 : 0
+                property real soft: vp.softFallback ? 1 : 0
                 property real hdr: vp.hdrIn
                 property real srcPeak: vp.srcPeak
                 property real light: vp.light

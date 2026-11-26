@@ -46,6 +46,7 @@ layout(std140, binding = 0) uniform buf {
     float curveOn;     // 1 = use the HDR10+ Bézier curve below
     float curveSrc;    // nits that map to the curve's input 1.0
     float curveDst;    // nits of the curve's output 1.0 (its targeted display)
+    float soft;        // 1 = where motion is not found but it is no cut, blend the frames (no judder)
     vec4 knee;         // x, y = knee point; z = number of anchors
     vec4 anc0;         // anchors 1..15 (0..1), four per vector
     vec4 anc1;
@@ -279,8 +280,13 @@ void main() {
         // (vecmedian.frag; measured on three films: cuts 0.9 to 2.0, a fast pan 0.53, the rest
         // below 0.3): the real frame, never a blend
         vec4 whole = textureLod(field, vec2(0.5), 16.0);
-        float scene = max(smoothstep(0.10, 0.16, whole.z), smoothstep(0.64, 0.80, whole.w));
-        c = mix(mix(mc, blend, local), near, scene);
+        // soft: only a clear cut (cuts measured 0.9 to 2.0) shows the real frame; a fast pan or a
+        // fight the search cannot follow (0.5 to 0.85) is the two frames blended, as Splash does:
+        // a ghost for a moment instead of the motion dropping to the film's own rate
+        float cutW = soft > 0.5 ? smoothstep(0.85, 1.0, whole.w) : smoothstep(0.64, 0.80, whole.w);
+        float scene = max(smoothstep(0.10, 0.16, whole.z), cutW);
+        float unsure = soft > 0.5 ? smoothstep(0.5, 0.75, whole.w) : 0.0;
+        c = mix(mix(mc, blend, max(local, unsure)), near, scene);
     } else {
         c = texture(newer, uv);
     }

@@ -117,7 +117,7 @@ Item {
     // what the Picture button says: the frame rate going out while smooth motion works
     readonly property string pictureLabel: settings.smoothMotion === "off" ? "Picture"
         : pictureStatus.motion === "on" && pictureStatus.motionTo > 0 ? Math.round(pictureStatus.motionTo) + "p"
-        : settings.smoothMotion === "max" ? qsTr("Máx") : settings.smoothMotion + "p"
+        : settings.smoothMotion === "max" ? qsTr("Máx") : settings.smoothMotion === "2x" ? "2x" : settings.smoothMotion + "p"
 
     readonly property bool shortcutsOn: visible && !warm && !player.isAudio
     Shortcut { sequence: "G"; enabled: pv.shortcutsOn; onActivated: pv.togglePanel("picture") }
@@ -125,7 +125,7 @@ Item {
         sequence: "V"; enabled: pv.shortcutsOn
         onActivated: {
             pv.setMotionOn(settings.smoothMotion === "off")
-            pv.pictureToast(settings.smoothMotion === "off" ? qsTr("Movimento suave desligado") : qsTr("Movimento suave: %1").arg(settings.smoothMotion === "max" ? qsTr("taxa da tela") : settings.smoothMotion + " fps"))
+            pv.pictureToast(settings.smoothMotion === "off" ? qsTr("Movimento suave desligado") : qsTr("Movimento suave: %1").arg(settings.smoothMotion === "max" ? qsTr("taxa da tela") : settings.smoothMotion === "2x" ? "2x" : settings.smoothMotion + " fps"))
             pv.poke()
         }
     }
@@ -225,6 +225,8 @@ Item {
                 }
                 smoothMotion: settings.smoothMotion !== "off" && !player.isAudio && player.castingTo === ""
                 maxFps: settings.smoothMotion === "60" ? 60 : settings.smoothMotion === "120" ? 120 : 0
+                doubleRate: settings.smoothMotion === "2x"
+                softFallback: settings.motionFallback === "blend"
                 hdr: player.videoHdr === "pq" ? 1 : player.videoHdr === "hlg" ? 2 : 0
                 srcPeak: player.videoPeak
                 scene: player.hdrScene
@@ -1191,7 +1193,7 @@ Item {
                     anchors.right: parent.right; anchors.verticalCenter: parent.verticalCenter
                     onMedia: true
                     opacity: settings.smoothMotion !== "off" ? 1 : 0.5
-                    options: [{ text: "60", value: "60" }, { text: "120", value: "120" }, { text: qsTr("Tela"), value: "max" }]
+                    options: [{ text: "2x", value: "2x" }, { text: "60", value: "60" }, { text: "120", value: "120" }, { text: qsTr("Tela"), value: "max" }]
                     value: settings.smoothMotion
                     onPicked: (v) => { settings.smoothMotion = v; settings.setValue("smoothMotionLast", v) }
                 }
